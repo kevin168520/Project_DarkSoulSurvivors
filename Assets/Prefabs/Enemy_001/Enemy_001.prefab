@@ -194,6 +194,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  rgdbd2d: {fileID: 2385243878837099067}
+  rgdbd: {fileID: 2385243878837099067}
   data: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
   speed: 0
