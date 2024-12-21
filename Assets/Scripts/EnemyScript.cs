@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyScript : MonoBehaviour
+public class EnemyScript : MonoBehaviour, IDamageable
 {
   
     [SerializeField] private Transform target; // 移動目標
@@ -58,7 +58,7 @@ public class EnemyScript : MonoBehaviour
     }
 
     // 受到攻擊
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         Debug.Log("Enemy TakeDamage!!!");
     }
