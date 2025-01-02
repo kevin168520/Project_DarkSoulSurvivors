@@ -500,6 +500,7 @@ MonoBehaviour:
   tileHeight: 10
   preloadRange: 2
   itemManager: {fileID: 6921569528381471641}
+  levelType: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
