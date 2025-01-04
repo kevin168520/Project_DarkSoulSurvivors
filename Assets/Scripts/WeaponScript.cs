@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class WeaponScript : MonoBehaviour
 {
+    [SerializeField] private string targetTag; // 目標
     [SerializeField] private float timeToAttack = 1f; // 攻擊間隔
-    [SerializeField] private Vector2 attackSize = new Vector2(1, 1); // 攻擊範圍
     private float timer; // 計時用
+    [SerializeField] private Vector2 attackSize = new Vector2(1, 1); // 攻擊範圍
     
     void Start()
     {
@@ -34,11 +35,11 @@ public class WeaponScript : MonoBehaviour
     {
         foreach(Collider2D collision in colliders)
         {
+            if(collision.gameObject.tag != targetTag) continue;
+
             IDamageable e = collision.gameObject.GetComponent<IDamageable>();
-            if(e != null)
-            {
-              e.TakeDamage(10);
-            }
+            
+            if(e != null) e.TakeDamage(10);
         }
     }
 

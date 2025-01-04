@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-  
+
     public GameObject player; // 玩家目標
     [SerializeField] private GameObject enemy; // 敵人物件
 
     // 內部物件
     [SerializeField] private Vector2 spawnArea; // 生成範圍 通常螢幕範圍
-    [SerializeField, Range(0, 10)] private float spawnTimer; // 波生成時間
-    private float timer; // 計時器
+
+    
+    List<EnemyWave> enemyWaves = new List<EnemyWave>(); // 待生成敵人柱列
 
     void Awake()
     {
@@ -22,34 +23,49 @@ public class EnemyManager : MonoBehaviour
     {
     }
 
-    void Update()
-    {
-        timer -= Time.deltaTime;
-        if(timer < 0f)
-        {
-          SpawnEnemy();
-          timer = spawnTimer;
-        }
+
+    // 每偵生成一個待生成敵人
+    void Update() {
+        ProcessSpawn();
     }
 
-    // 生成敵人
-    private void SpawnEnemy()
+    // 添加敵人群
+    public void AddEnemyWave(EnemyWave enemyWave) {
+        enemyWaves.Add(enemyWave.Clone()); // 複製避免更動到資源檔
+    }
+
+
+    // 判定待生成敵人
+    void ProcessSpawn() {
+        if(enemyWaves.Count == 0) return; // 沒有待生成
+
+        SpawnEnemy(enemyWaves[0].enemyData);
+        enemyWaves[0].enemyCount -= 1;
+
+        if(enemyWaves[0].enemyCount <= 0) // 該敵人群已沒有待生成則移除
+          enemyWaves.RemoveAt(0);
+    }
+
+    // 執行生成敵人
+    void SpawnEnemy(EnemyScriptable enemyData = null)
     {
-      
-        Vector3 position = GenerateRandomPosition();
-        position += player.transform.position;
 
         GameObject newEnemy = Instantiate(enemy);
-        newEnemy.transform.position = position;
-        newEnemy.GetComponent<EnemyScript>().SetTarget(player);
+        newEnemy.transform.position = GenerateRandomPosition(); // 設置座標座標
+        newEnemy.transform.parent = transform; // 除錯用 保持場景層級
 
-        newEnemy.transform.parent = transform; // 非必要 用於保持場景層級
+        EnemyScript newEnemyScript = newEnemy.GetComponent<EnemyScript>();
+        newEnemyScript.SetTarget(player); // 設置目標
+        if(enemyData) newEnemyScript.SetEnemyData(enemyData); // 設置敵人數據
     }
 
     // 計算隨機生成位置
     private Vector3 GenerateRandomPosition()
     {
+        // 定位玩家位置
         Vector3 position = new Vector3();
+        position += player.transform.position;
+
         switch(UnityEngine.Random.value)
         {
           case < 0.25f: // 下方
