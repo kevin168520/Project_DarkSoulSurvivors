@@ -23,7 +23,10 @@ public class GameManager : MonoBehaviour
     }}
     CharacterScript _playerCharacter; // 玩家狀態
     [HideInInspector] public CharacterScript playerCharacter { get{
-      if(_playerCharacter == null) _playerCharacter = player.gameObject.GetComponent<CharacterScript>();
+      if(_playerCharacter == null) {
+        CharacterScript[] cs = player.transform.GetComponentsInChildren<CharacterScript>();
+        if(cs.Length > 0)_playerCharacter = cs[0];
+      }
       return _playerCharacter;
     }}
 

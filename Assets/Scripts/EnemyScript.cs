@@ -8,6 +8,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
   
     [SerializeField] private GameObject target; // 移動目標
     public void SetTarget(GameObject gb) => target = gb;
+    [SerializeField] private string targetAttack; // 攻擊目標
 
     // 內部物件
     [SerializeField] private Rigidbody2D rgdbd; // 剛體
@@ -45,16 +46,16 @@ public class EnemyScript : MonoBehaviour, IDamageable
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player" && GameManager.instance.player != null)
+        if(collision.gameObject.tag == targetAttack)
         {
-            Attack(GameManager.instance.player);
+            Attack(GameManager.instance.playerCharacter);
         }
     }
 
     // 攻擊動作
-    void Attack(GameObject traget)
+    void Attack(GameObject traget) => Attack(target.GetComponent<IDamageable>());
+    void Attack(IDamageable targetDamageable)
     {
-        IDamageable targetDamageable = target.GetComponent<IDamageable>();
         targetDamageable?.TakeDamage(damage);
     }
 
