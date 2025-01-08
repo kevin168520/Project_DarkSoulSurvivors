@@ -58,20 +58,20 @@ public class LoginManagerScript : MonoBehaviour
     }
 
     /// <summary>
-    /// ¹CÀ¸³õ´º¤Á´« BtnCtrlGameStartMenu()
+    /// éŠæˆ²å ´æ™¯åˆ‡æ› BtnCtrlGameStartMenu()
     /// </summary>
     private void BtnCtrlGameStartMenu()
     {
         btnGameState1.onClick.AddListener(delegate ()
         {
-            sGameSceneState = "GameState1"; //GameState1»İ­×§ï¬°¹ïÀ³ªº¹CÀ¸³õ´º1ªº¦WºÙ
+            sGameSceneState = "GameState1"; //GameState1éœ€ä¿®æ”¹ç‚ºå°æ‡‰çš„éŠæˆ²å ´æ™¯1çš„åç¨±
             _startGameScript.StartGame(sGameSceneState);
             Debug.Log(sGameSceneState);
         });
 
         btnGameState2.onClick.AddListener(delegate ()
         {
-            sGameSceneState = "GameState2"; //GameState2»İ­×§ï¬°¹ïÀ³ªº¹CÀ¸³õ´º1ªº¦WºÙ
+            sGameSceneState = "GameState2"; //GameState2éœ€ä¿®æ”¹ç‚ºå°æ‡‰çš„éŠæˆ²å ´æ™¯1çš„åç¨±
             Debug.Log(sGameSceneState);
         });
 

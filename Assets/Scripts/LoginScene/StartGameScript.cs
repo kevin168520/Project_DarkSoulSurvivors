@@ -7,7 +7,7 @@ public class StartGameScript : MonoBehaviour
 {
     public void StartGame(string sGameSceneState)
     {
-        SceneManager.LoadScene(sGameSceneState, LoadSceneMode.Single);  //Ãö¥d¥ÎªºScene
-        SceneManager.LoadScene("PlayerDataScene", LoadSceneMode.Additive);   //DataªºScene
+        SceneManager.LoadScene(sGameSceneState, LoadSceneMode.Single);  //é—œå¡ç”¨çš„Scene
+        SceneManager.LoadScene("PlayerDataScene", LoadSceneMode.Additive);   //Dataçš„Scene
     }
 }
