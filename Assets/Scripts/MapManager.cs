@@ -10,12 +10,21 @@ public class MapManager : MonoBehaviour
     public int tileHeight = 22;         // 單個地塊高度
     public int preloadRange = 2;        // 預加載範圍
 
-    [Header("物品管理器")]
+    [Header("物品管理")]
     public ItemManager itemManager;     // 物品管理器
+
+    [Header("關卡設定")]
+    public LevelType levelType = LevelType.FourDirection; // 預設為四方向生成
 
     private Dictionary<Vector2Int, GameObject> activeTiles = new Dictionary<Vector2Int, GameObject>(); // 地塊記錄
     private Dictionary<Vector2Int, List<GameObject>> tileItems = new Dictionary<Vector2Int, List<GameObject>>(); // 每個地塊上的物品記錄
     private Vector2Int playerGrid;      // 玩家所在地塊的座標
+
+    public enum LevelType
+    {
+        FourDirection, // 四個方向生成（第一關）
+        Horizontal     // 僅水平生成（第二關）
+    }
 
     void Start()
     {
@@ -42,13 +51,17 @@ public class MapManager : MonoBehaviour
         );
     }
 
-    // 更新地圖：管理地塊及物品
+    // 更新地圖：管理地塊與物品
     private void UpdateTiles(Vector2Int centerGrid)
     {
         for (int x = -preloadRange; x <= preloadRange; x++)
         {
             for (int y = -preloadRange; y <= preloadRange; y++)
             {
+                // 判斷是否水平場景，如果是，僅生成水平方向地塊
+                if (levelType == LevelType.Horizontal && y != 0)
+                    continue;
+
                 Vector2Int gridPosition = centerGrid + new Vector2Int(x, y);
 
                 if (!activeTiles.ContainsKey(gridPosition))
@@ -80,18 +93,16 @@ public class MapManager : MonoBehaviour
     private void AddTile(Vector2Int gridPosition)
     {
         Vector3 worldPosition = new Vector3(gridPosition.x * tileWidth, gridPosition.y * tileHeight, 0);
-
         GameObject newTile = Instantiate(
             terrainPrefabs[Random.Range(0, terrainPrefabs.Length)],
             worldPosition,
             Quaternion.identity,
             transform
         );
-
         activeTiles[gridPosition] = newTile;
     }
 
-    // 在地塊上生成物品並記錄
+    // 生成地塊上的物品並記錄
     private void SpawnItems(Vector2Int gridPosition)
     {
         if (itemManager != null)
