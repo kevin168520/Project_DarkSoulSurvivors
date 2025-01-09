@@ -180,11 +180,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -373,6 +373,7 @@ MonoBehaviour:
   tileHeight: 10
   preloadRange: 2
   itemManager: {fileID: 9147829797267005446}
+  levelType: 0
 --- !u!156049354 &7195104568695058075
 Grid:
   m_ObjectHideFlags: 0
