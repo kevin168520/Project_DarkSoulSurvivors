@@ -20,16 +20,16 @@ public class WeaponBehaviour : AttackBehaviourBase
         // 判定對方 tag
         if(collision.tag != targetTag) return;
 
+        Debug.Log($"Weapon ApplyDamage: Tag: {collision.tag}");
         // 判定未被攻擊過
         if(enemiesHit.Contains(collision)) return;
 
         // 判定可受傷
-        IDamageable e = collision.GetComponent<IDamageable>();
-        if(e != null) return;
-        
-        e.TakeDamage(damage); // 申請對象傷害
+        if(collision.GetComponent<IDamageable>() is IDamageable e){
+          e.TakeDamage(damage); // 申請對象傷害
 
-        enemiesHit.Add(collision); // 加入曾被攻擊過
+          enemiesHit.Add(collision); // 加入曾被攻擊過
+        }
     }
 
     public void SetWeaponData(WeaponScriptable weaponData) {
