@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7641820963975669417}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: -0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1077666847, guid: e9d40a9777e11724fbfdb34f573a2366, type: 3}
+  m_Sprite: {fileID: 1489561533, guid: 2de71b63f61271c48adc6aed7f22ab03, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,7 +96,7 @@ Animator:
   m_GameObject: {fileID: 7641820963975669417}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d692ab6d9b4db25439867eedf3e1b67c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 011817103f7411a47b115c0554f7809c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 3969454282707114599}
   - component: {fileID: 7408650113086900405}
   m_Layer: 0
-  m_Name: Weapon_001
+  m_Name: Weapon_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec17a5fd530c676478c6d890cf424692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: e953efef9ae2e8349a71a96239bfa5c6, type: 2}
+  weaponData: {fileID: 11400000, guid: 29d49d07c1a6df6468df96dbf46b345c, type: 2}
   timeToAttack: 1.5
   targetTag: Enemy
   attackEffects:
