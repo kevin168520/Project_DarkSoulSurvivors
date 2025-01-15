@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class WeaponScript : WeaponBase
 {
-    [SerializeField] private string targetTag; // 目標
-    [SerializeField] private List<WeaponBehaviour> attackEffects;
+    [SerializeField] private List<WeaponBehaviourBase> attackEffects;
     
 
     // 執行攻擊 生成攻擊行為
     override protected void Attack()
     {
-        foreach(WeaponBehaviour attackEffect in attackEffects) {
-          attackEffect.transform.position = transform.position + new Vector3(2, -0.5f, 0);
-          attackEffect.SetWeaponData(weaponData);
-
-          attackEffect.gameObject.SetActive(true);
+      
+        if(direction.Normalized.x >= 0){
+          attackEffects[0].SetWeaponData(weaponData);
+          attackEffects[0].gameObject.SetActive(true);
+        } else {
+          attackEffects[1].SetWeaponData(weaponData);
+          attackEffects[1].gameObject.SetActive(true);
         }
     }
 }

@@ -6,11 +6,23 @@ public abstract class WeaponBase : MonoBehaviour
 {
     // 外部
     [SerializeField] protected WeaponScriptable weaponData; // 武器數據
-    // WeaponStats weaponStats; // 武器數值
+    [System.NonSerialized] public DirectionComponent direction; // 方向組件
 
     // 內部
-    [SerializeField] protected float timeToAttack = 1f; // 攻擊間隔
-    private float timer; // 計時用
+    float timer; // 計時用
+
+    void Start()
+    {
+        Transform parent = transform.parent;
+
+        // 父物件中查找 DirectionComponent
+        direction = parent.GetComponent<DirectionComponent>();
+
+        // 如果父物件上沒有 DirectionComponent，則添加一個
+        if (direction == null)
+            direction = parent.gameObject.AddComponent<DirectionComponent>();
+    }
+
     
     // 計時攻擊頻率
     void Update(){

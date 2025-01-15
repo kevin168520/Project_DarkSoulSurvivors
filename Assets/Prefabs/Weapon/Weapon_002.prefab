@@ -11,14 +11,14 @@ GameObject:
   - component: {fileID: 6545842502745722012}
   - component: {fileID: 2901375961802111967}
   - component: {fileID: 5596752467593587058}
-  - component: {fileID: 5823705132313194928}
+  - component: {fileID: 8323581174175904042}
   m_Layer: 0
-  m_Name: Weapon_001_Behaviour
+  m_Name: Weapon_002_Behaviour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6545842502745722012
 Transform:
   m_ObjectHideFlags: 0
@@ -107,7 +107,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &5823705132313194928
+--- !u!114 &8323581174175904042
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,13 +116,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7641820963975669417}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c48dcf15457ea8446b405827f35b9ec2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d1253bed1d33814b8354e2d58253d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToDisable: 0.4
+  timeToDisable: 1
   attackSize: {x: 1, y: 1}
-  targetTag: Enemy
   damage: 10
+  targetTag: Enemy
+  speed: 1
+  direction: {x: 1, y: 1, z: 0}
 --- !u!1 &8804694374959994503
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3969454282707114599}
-  - component: {fileID: 7408650113086900405}
+  - component: {fileID: 7425358095781309691}
   m_Layer: 0
   m_Name: Weapon_002
   m_TagString: Untagged
@@ -156,7 +158,7 @@ Transform:
   - {fileID: 6545842502745722012}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7408650113086900405
+--- !u!114 &7425358095781309691
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,11 +167,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8804694374959994503}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec17a5fd530c676478c6d890cf424692, type: 3}
+  m_Script: {fileID: 11500000, guid: ec1fa36cb60a0db489cf2c19ba00cbfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 29d49d07c1a6df6468df96dbf46b345c, type: 2}
-  timeToAttack: 1.5
+  timeToAttack: 1
   targetTag: Enemy
-  attackEffects:
-  - {fileID: 5823705132313194928}
+  projectile: {fileID: 7641820963975669417}

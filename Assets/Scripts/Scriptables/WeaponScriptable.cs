@@ -8,4 +8,6 @@ public class WeaponScriptable : ScriptableObject
 {
     public int damage;           // 傷害
     public float timeToAttack;   // 攻擊頻率
+    public float timeToDisable;  // 攻擊持續
+    public float projectileSpeed; // 彈丸速度
 }
