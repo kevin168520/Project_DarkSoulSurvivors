@@ -11,6 +11,11 @@ public class LoginManagerScript : MonoBehaviour
     public Button btnGameStart;
     public Button btnShop;
     public Button btnExit;
+    
+    public GameObject objCharacterMenu;
+    public Button btnCharacter1;
+    public Button btnCharacter2;
+    public Button btnBackToState;
 
     public GameObject objGameStartMenu;
     public Button btnGameState1;
@@ -24,6 +29,7 @@ public class LoginManagerScript : MonoBehaviour
     {
         initial();
         BtnCtrlLoginMenu();
+        BtnCharacterMenu();
         BtnCtrlGameStartMenu();
     }
 
@@ -43,7 +49,7 @@ public class LoginManagerScript : MonoBehaviour
     {
         btnGameStart.onClick.AddListener(delegate ()
         {
-            objGameStartMenu.SetActive(true);
+            objCharacterMenu.SetActive(true);
         });
 
         btnShop.onClick.AddListener(delegate ()
@@ -54,6 +60,27 @@ public class LoginManagerScript : MonoBehaviour
         btnExit.onClick.AddListener(delegate ()
         {
             Application.Quit();
+        });
+    }
+
+    /// <summary>
+    /// 遊戲角色選擇 BtnCharacterMenu()
+    /// </summary>
+    private void BtnCharacterMenu()
+    {
+        btnCharacter1.onClick.AddListener(delegate ()
+        {
+            objGameStartMenu.SetActive(true);
+        });
+
+        btnCharacter2.onClick.AddListener(delegate ()
+        {
+            objGameStartMenu.SetActive(true);
+        });
+
+        btnBackToState.onClick.AddListener(delegate ()
+        {
+            objCharacterMenu.SetActive(false);
         });
     }
 
