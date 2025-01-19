@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed;
     private Rigidbody2D rb;
-    private Vector2 moveDir;//²¾°Ê¤è¦V
+    private Vector2 moveDir;//ç§»å‹•æ–¹å‘
     // Start is called before the first frame update
     void Start()
     {
