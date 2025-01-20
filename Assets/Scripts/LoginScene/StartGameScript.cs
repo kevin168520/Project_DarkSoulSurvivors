@@ -13,7 +13,7 @@ public class StartGameScript : MonoBehaviour
           Debug.LogWarning("Lost Character Data!!!");
           return;
         }
-        _dataContainer.character = _characterList[num];
+        _dataContainer.SetCharacter(_characterList[num]);
     }
     public void StartGame(string sGameSceneState)
     {
