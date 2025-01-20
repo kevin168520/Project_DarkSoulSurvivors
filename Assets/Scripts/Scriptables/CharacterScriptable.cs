@@ -7,5 +7,5 @@ public class CharacterScriptable : ScriptableObject
 {
     public string Name; // 顯示名稱
     public GameObject spritePrefab; // 資源欲置物
-    public WeaponScriptable startingWeapon; // 起始武器
+    public GameObject startingWeapon; // 起始武器
 }
