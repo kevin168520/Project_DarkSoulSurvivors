@@ -30,9 +30,31 @@ public class GameManager : MonoBehaviour
       return _playerCharacter;
     }}
 
+    public bool isPause {get => Time.timeScale == 0;} // 玩家
+    
+    [SerializeField] private GameObject gameOverPanel; // 遊戲結束UI
+
     // 設置靜態指向自己
     void Awake() {
 
       instance = this;
     }
+
+    // 暫停
+    public void PauseGame(){
+      Time.timeScale = 0f;
+    }
+
+    // 解除暫停
+    public void UnPauseGame(){
+      Time.timeScale = 1f;
+    }
+
+
+    // 遊戲結束
+    public void GameOver(){
+      PauseGame();
+      gameOverPanel.SetActive(true);
+    }
+
 }

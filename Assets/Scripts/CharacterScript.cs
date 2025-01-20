@@ -10,6 +10,10 @@ public class CharacterScript : MonoBehaviour, IDamageable
   int currentHp; // 當前血量
   bool isDead = false;  // 死亡判定
 
+  // 受攻擊時間
+  [SerializeField] protected float attackedTimerToDisable; // 無敵時間
+  float attackedTimer; // 計時
+
   void Awake()
   {
       currentHp = maxHp;
@@ -21,6 +25,7 @@ public class CharacterScript : MonoBehaviour, IDamageable
 
   void Update()
   {
+    if(attackedTimer > 0f)  attackedTimer -= Time.deltaTime;
   }
 
 
@@ -29,7 +34,13 @@ public class CharacterScript : MonoBehaviour, IDamageable
   {
     // 如果已死亡 則不動作
     if(isDead) {
-      Debug.Log($"Character TakeDamage: {damage}, currentHp: {currentHp}, CharacterIsDead: {isDead}");
+      Debug.Log($"Character isDead: {isDead}");
+      return; 
+    }
+
+    // 如果還在無敵時間 則不動作
+    if(attackedTimer > 0f ) {
+      // Debug.Log($"Character is attackedTimerToDisable: {attackedTimer}");
       return; 
     }
 
@@ -37,7 +48,12 @@ public class CharacterScript : MonoBehaviour, IDamageable
     currentHp -= damage;
     
     // 死亡處理
-    if(currentHp <= 0) isDead = true;
+    if(currentHp <= 0){
+      isDead = true;
+      GameManager.instance.GameOver();
+    } else { // 受攻擊時間處理
+      attackedTimer = attackedTimerToDisable;
+    }
     
     Debug.Log($"Character TakeDamage: {damage}, currentHp: {currentHp}, CharacterIsDead: {isDead}");
   }

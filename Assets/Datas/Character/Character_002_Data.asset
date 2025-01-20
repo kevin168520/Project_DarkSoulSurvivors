@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d19af2e446fec4eaa477359b1a5516, type: 3}
   m_Name: Character_002_Data
   m_EditorClassIdentifier: 
-  Name: Yuki
+  showName: OldMan
   spritePrefab: {fileID: 6676319224844049280, guid: 7b272e877022adb4f82ae15282c8aa41, type: 3}
   startingWeapon: {fileID: 8804694374959994503, guid: bebcfe7670da6344eb911036f53d2505, type: 3}

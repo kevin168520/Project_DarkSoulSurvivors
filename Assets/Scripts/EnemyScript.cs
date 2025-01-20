@@ -46,7 +46,8 @@ public class EnemyScript : MonoBehaviour, IDamageable
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == targetAttack)
+      
+        if(collision.gameObject.CompareTag("Player"))
         {
             Attack(GameManager.instance.playerCharacter);
         }
