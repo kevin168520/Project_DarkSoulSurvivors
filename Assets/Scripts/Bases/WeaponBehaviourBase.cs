@@ -8,6 +8,15 @@ public abstract class WeaponBehaviourBase : AttackBehaviourBase
     protected int damage = 10; // 攻擊傷害
     protected float projectileSpeed; // 彈丸速度
     protected Vector3 projectileDirection; // 移動方向
+    public AudioSource audioSource; // 音效播放
+
+    public void PlaySound()
+    {
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
+    }
 
     public void SetDirection(Vector3 direction) {
       projectileDirection = direction;

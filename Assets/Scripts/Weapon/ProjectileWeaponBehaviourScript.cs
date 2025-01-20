@@ -5,6 +5,13 @@ using UnityEngine;
 public class ProjectileWeaponBehaviour : WeaponBehaviourBase
 {
     // [SerializeField] Vector3 direction; // 移動方向
+    
+
+    // 結束攻擊 彈丸自滅
+    override public void OnEnable() {
+        base.OnEnable();
+        PlaySound();
+    }
 
     // 彈丸移動
     override protected void BeforeUpdate() {

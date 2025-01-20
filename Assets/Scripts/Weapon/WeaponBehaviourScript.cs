@@ -8,8 +8,9 @@ public class WeaponBehaviour : WeaponBehaviourBase
 
     // 開啟攻擊
     override public void OnEnable() {
-      base.OnEnable();
-      enemiesHit.Clear();
+        base.OnEnable();
+        PlaySound();
+        enemiesHit.Clear();
     }
 
     // 執行攻擊
