@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     ///   GameManager.instance.player;
     /// </summary>
     public static GameManager instance; 
+    public static CharacterScriptable character;
 
     public GameObject player; // 玩家
 

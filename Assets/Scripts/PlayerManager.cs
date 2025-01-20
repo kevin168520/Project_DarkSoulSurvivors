@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private DataContainerScriptable dataContainer;
-
     void Start()
     {
-        CharacterScriptable character = dataContainer.character;
+        CharacterScriptable character = GameManager.character;
         
         GameObject spritePrefab = Instantiate(character.spritePrefab);
         spritePrefab.transform.position = transform.position;

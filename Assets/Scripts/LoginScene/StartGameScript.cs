@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class StartGameScript : MonoBehaviour
 {
-    public DataContainerScriptable _dataContainer;
     public List<CharacterScriptable> _characterList;
     public void SetCharacter(int num)
     {
@@ -13,7 +12,7 @@ public class StartGameScript : MonoBehaviour
           Debug.LogWarning("Lost Character Data!!!");
           return;
         }
-        _dataContainer.SetCharacter(_characterList[num]);
+        GameManager.character = _characterList[num];
     }
     public void StartGame(string sGameSceneState)
     {
