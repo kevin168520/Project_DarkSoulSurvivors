@@ -28,9 +28,27 @@ public class StageManager : MonoBehaviour
         // 判定事件達到觸發時間
         if(stageTime > stageEvents.enemyWaves[stageEventIndex].stageTime)
         {
-          enemyManager.AddEnemyWave(stageEvents.enemyWaves[stageEventIndex]); // 關卡生成敵人群添加到敵人管理者
-          Debug.Log(stageEvents.enemyWaves[stageEventIndex].stageMsg);
+          EnemyWave stageEvent = stageEvents.enemyWaves[stageEventIndex];
+          switch(stageEvent.eventType){
+            case StageEventType.SpawnEnemy:
+              SpawnEnemy();
+              break;
+            case StageEventType.WinStage:
+              WinStage();
+              break;
+          }
           stageEventIndex += 1;  // 關卡事件索引 +1
         }
+    }
+    
+    // 生成怪物群
+    void SpawnEnemy(){
+        enemyManager.AddEnemyWave(stageEvents.enemyWaves[stageEventIndex]); // 關卡生成敵人群添加到敵人管理者
+        Debug.Log(stageEvents.enemyWaves[stageEventIndex].stageMsg);
+    }
+    
+    // 關卡通關
+    void WinStage(){
+      GameManager.instance.GameComplete();
     }
 }

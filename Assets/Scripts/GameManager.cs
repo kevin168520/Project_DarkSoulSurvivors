@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public bool isPause {get => Time.timeScale == 0;} // 玩家
     
     [SerializeField] private GameObject gameOverPanel; // 遊戲結束UI
+    [SerializeField] private GameObject gameCompletePanel; // 遊戲通關UI
 
     // 設置靜態指向自己
     void Awake() {
@@ -55,6 +56,13 @@ public class GameManager : MonoBehaviour
     public void GameOver(){
       PauseGame();
       gameOverPanel.SetActive(true);
+    }
+
+
+    // 遊戲通關
+    public void GameComplete(){
+      PauseGame();
+      gameCompletePanel.SetActive(true);
     }
 
 }

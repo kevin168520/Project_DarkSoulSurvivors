@@ -3,6 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum StageEventType{
+
+  SpawnEnemy,
+  WinStage
+}
+
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/StageEvent", order = 1)]
 public class StageEventScriptable : ScriptableObject
 {
@@ -12,6 +18,7 @@ public class StageEventScriptable : ScriptableObject
 [Serializable]
 public class EnemyWave
 {
+    public StageEventType eventType = StageEventType.SpawnEnemy;
     [Range(0, 1800)] public float stageTime;  // 出現時間
     public string stageMsg;                   // 後台訊息
     public EnemyScriptable enemyData;         // 敵人數據
