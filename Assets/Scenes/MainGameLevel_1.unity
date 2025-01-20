@@ -261,8 +261,8 @@ MonoBehaviour:
   - {fileID: 6571956254147485010, guid: 12effb99dd3597b42ab3612626d4dbc7, type: 3}
   - {fileID: 2314024631521982275, guid: 65f98c9f12be4da459ff38f94c9e147d, type: 3}
   player: {fileID: 0}
-  tileWidth: 22
-  tileHeight: 10
+  tileWidth: 26
+  tileHeight: 14
   preloadRange: 2
   itemManager: {fileID: 9147829797267005446}
   levelType: 0
