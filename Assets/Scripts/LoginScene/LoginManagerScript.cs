@@ -71,11 +71,13 @@ public class LoginManagerScript : MonoBehaviour
         btnCharacter1.onClick.AddListener(delegate ()
         {
             objGameStartMenu.SetActive(true);
+            _startGameScript.SetCharacter(0);
         });
 
         btnCharacter2.onClick.AddListener(delegate ()
         {
             objGameStartMenu.SetActive(true);
+            _startGameScript.SetCharacter(1);
         });
 
         btnBackToState.onClick.AddListener(delegate ()

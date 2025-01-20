@@ -28,6 +28,7 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
+        player = GameManager.instance.playerTransform;
         playerGrid = GetPlayerGrid();
         UpdateTiles(playerGrid);
     }

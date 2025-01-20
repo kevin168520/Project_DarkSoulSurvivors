@@ -21,6 +21,7 @@ public class EnemyManager : MonoBehaviour
 
     void Start()
     {
+        player = GameManager.instance.player;
     }
 
 

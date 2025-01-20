@@ -6,4 +6,5 @@ using UnityEngine;
 public class DataContainerScriptable : ScriptableObject
 {
     public CharacterScriptable character;
+    public void SetCharacter(CharacterScriptable character) => this.character = character;
 }
