@@ -499,8 +499,9 @@ MonoBehaviour:
   player: {fileID: 519420032}
   tileWidth: 20
   tileHeight: 14
-  preloadRange: 1
+  preloadRange: 2
   itemManager: {fileID: 6921569528381471641}
+  levelType: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
