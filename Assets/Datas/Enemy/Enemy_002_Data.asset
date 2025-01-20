@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b588b6cb480085d429aaaed50ffb988b, type: 3}
-  m_Name: Enemy_001_Data
+  m_Name: Enemy_002_Data
   m_EditorClassIdentifier: 
-  spritePrefab: {fileID: 8951934548676239562, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
-  showName: Green Slime
-  hp: 100
-  damage: 10
-  speed: 1
+  spritePrefab: {fileID: 8951934548676239562, guid: 40826b2318648414b89eb831043a243d, type: 3}
+  showName: Monkey
+  hp: 120
+  damage: 20
+  speed: 0.6

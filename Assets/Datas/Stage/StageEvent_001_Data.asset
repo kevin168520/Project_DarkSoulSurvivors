@@ -13,11 +13,18 @@ MonoBehaviour:
   m_Name: StageEvent_001_Data
   m_EditorClassIdentifier: 
   enemyWaves:
-  - stageTime: 2
+  - eventType: 0
+    stageTime: 2
     stageMsg: "\u7B2C\u4E00\u6B21"
     enemyData: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
     enemyCount: 2
-  - stageTime: 4
+  - eventType: 0
+    stageTime: 4
     stageMsg: "\u7B2C\u4E8C\u6B21"
-    enemyData: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
+    enemyData: {fileID: 11400000, guid: 221c9aab8b0c2af41a94dffbffe195d4, type: 2}
     enemyCount: 2
+  - eventType: 1
+    stageTime: 10
+    stageMsg: "\u901A\u95DC!!"
+    enemyData: {fileID: 0}
+    enemyCount: 0

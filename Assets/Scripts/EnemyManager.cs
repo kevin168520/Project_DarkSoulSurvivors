@@ -51,7 +51,7 @@ public class EnemyManager : MonoBehaviour
     void SpawnEnemy(EnemyScriptable enemyData = null)
     {
 
-        GameObject newEnemy = Instantiate(enemy);
+        GameObject newEnemy = Instantiate(enemyData.spritePrefab);
         newEnemy.transform.position = GenerateRandomPosition(); // 設置座標座標
         newEnemy.transform.parent = transform; // 除錯用 保持場景層級
 
