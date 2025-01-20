@@ -2089,7 +2089,7 @@ GameObject:
   - component: {fileID: 1467877773}
   - component: {fileID: 1467877772}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: LoginManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2112,14 +2112,14 @@ MonoBehaviour:
   btnGameStart: {fileID: 1823595940}
   btnShop: {fileID: 1377770257}
   btnExit: {fileID: 1973230368}
-  objGameStartMenu: {fileID: 95762114}
-  btnGameState1: {fileID: 1390287956}
-  btnGameState2: {fileID: 2099414094}
-  btnBackToMenu: {fileID: 1247125820}
   objCharacterMenu: {fileID: 1882064191}
   btnCharacter1: {fileID: 85556418}
   btnCharacter2: {fileID: 1172915882}
   btnBackToState: {fileID: 338686706}
+  objGameStartMenu: {fileID: 95762114}
+  btnGameState1: {fileID: 1390287956}
+  btnGameState2: {fileID: 2099414094}
+  btnBackToMenu: {fileID: 1247125820}
 --- !u!4 &1467877773
 Transform:
   m_ObjectHideFlags: 0
