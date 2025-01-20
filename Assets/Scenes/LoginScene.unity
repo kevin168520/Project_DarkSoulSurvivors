@@ -283,19 +283,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 85556419}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: e4223497a075cf24d90216c5966f6090, type: 2}
-        m_TargetAssemblyTypeName: DataContainerScriptable, Assembly-CSharp
-        m_MethodName: SetCharacter
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 31c2210de46857545bc7c352fe80ab86, type: 2}
-          m_ObjectArgumentAssemblyTypeName: CharacterScriptable, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &85556419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1288,19 +1276,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1172915883}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: e4223497a075cf24d90216c5966f6090, type: 2}
-        m_TargetAssemblyTypeName: DataContainerScriptable, Assembly-CSharp
-        m_MethodName: SetCharacter
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: c84436b3af4e2c9489befd091ce27452, type: 2}
-          m_ObjectArgumentAssemblyTypeName: CharacterScriptable, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1172915883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2713,7 +2689,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1882064192
 RectTransform:
   m_ObjectHideFlags: 0
