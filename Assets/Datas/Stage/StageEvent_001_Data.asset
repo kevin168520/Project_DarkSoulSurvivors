@@ -14,17 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyWaves:
   - eventType: 0
-    stageTime: 2
+    stageTime: 3
     stageMsg: "\u7B2C\u4E00\u6B21"
     enemyData: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
-    enemyCount: 2
+    enemyCount: 50
   - eventType: 0
-    stageTime: 4
+    stageTime: 20
     stageMsg: "\u7B2C\u4E8C\u6B21"
     enemyData: {fileID: 11400000, guid: 221c9aab8b0c2af41a94dffbffe195d4, type: 2}
-    enemyCount: 2
+    enemyCount: 50
+  - eventType: 0
+    stageTime: 30
+    stageMsg: "\u901A\u95DC!!"
+    enemyData: {fileID: 11400000, guid: 728b2fc85c2c050418864e9359ba8c26, type: 2}
+    enemyCount: 50
+  - eventType: 0
+    stageTime: 30
+    stageMsg: "\u901A\u95DC!!"
+    enemyData: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
+    enemyCount: 80
+  - eventType: 0
+    stageTime: 60
+    stageMsg: "\u901A\u95DC!!"
+    enemyData: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
+    enemyCount: 80
   - eventType: 1
-    stageTime: 10
+    stageTime: 600
     stageMsg: "\u901A\u95DC!!"
     enemyData: {fileID: 0}
     enemyCount: 0
