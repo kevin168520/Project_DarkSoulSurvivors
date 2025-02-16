@@ -100,7 +100,7 @@ public class LoginManagerScript : MonoBehaviour
 
         btnGameState2.onClick.AddListener(delegate ()
         {
-            sGameSceneState = "MainGameLevel_2"; //GameState2需修改為對應的遊戲場景1的名稱
+            sGameSceneState = "MainGameLevel_2"; //GameState2需修改為對應的遊戲場景2的名稱
             _startGameScript.StartGame(sGameSceneState);
             Debug.Log(sGameSceneState);
         });
