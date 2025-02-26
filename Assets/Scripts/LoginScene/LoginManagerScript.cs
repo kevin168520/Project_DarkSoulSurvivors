@@ -6,17 +6,26 @@ using UnityEngine.UI;
 public class LoginManagerScript : MonoBehaviour
 {
     public StartGameScript _startGameScript;
+    public ShopItemScript _shopItemScript;
+    //public PlayerDataSavingScript _playerDataSavingScript;
 
+    [Header("LoaginMenu")]
     public GameObject objLoginMenu;
     public Button btnGameStart;
     public Button btnShop;
     public Button btnExit;
-    
+
+    [Header("ShopMenu")]
+    public GameObject objShopMenu;
+    public Button btnShopExit;
+
+    [Header("CharacterMenu")]
     public GameObject objCharacterMenu;
     public Button btnCharacter1;
     public Button btnCharacter2;
     public Button btnBackToState;
 
+    [Header("GameStartMenu")]
     public GameObject objGameStartMenu;
     public Button btnGameState1;
     public Button btnGameState2;
@@ -29,7 +38,8 @@ public class LoginManagerScript : MonoBehaviour
     {
         initial();
         BtnCtrlLoginMenu();
-        BtnCharacterMenu();
+        BtnCtrlShopMenu();
+        BtnCtrlCharacterMenu();
         BtnCtrlGameStartMenu();
     }
 
@@ -54,19 +64,20 @@ public class LoginManagerScript : MonoBehaviour
 
         btnShop.onClick.AddListener(delegate ()
         {
-
+            _shopItemScript.PlayerShopStatusLoading();
+            objShopMenu.SetActive(true);
         });
 
         btnExit.onClick.AddListener(delegate ()
         {
-            Application.Quit();
+            ExitGame();
         });
     }
 
     /// <summary>
-    /// 遊戲角色選擇 BtnCharacterMenu()
+    /// 遊戲角色選擇 BtnCtrlCharacterMenu()
     /// </summary>
-    private void BtnCharacterMenu()
+    private void BtnCtrlCharacterMenu()
     {
         btnCharacter1.onClick.AddListener(delegate ()
         {
@@ -111,5 +122,26 @@ public class LoginManagerScript : MonoBehaviour
             sGameSceneState = "";
             Debug.Log(sGameSceneState);
         });
+    }
+
+    /// <summary>
+    /// 商店介面 BtnCtrlShopMenu()
+    /// </summary>
+    private void BtnCtrlShopMenu()
+    {
+        btnShopExit.onClick.AddListener(delegate ()
+        {
+            _shopItemScript.PlayerShopStatusSaving();
+            objShopMenu.SetActive(false);
+        });
+    }
+
+    /// <summary>
+    /// 離開遊戲 ExitGame()
+    /// </summary>
+    private void ExitGame()
+    {
+        _shopItemScript.PlayerShopStatusSaving();
+        Application.Quit();
     }
 }
