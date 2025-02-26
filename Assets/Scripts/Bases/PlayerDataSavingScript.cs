@@ -31,16 +31,20 @@ public class PlayerDataSavingScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Saving Json Data的方法 PlayerDataSaving()
+    /// Saving Json Data的方法 PlayerDataSaving(bool bGameExit)
     /// </summary>
-    public void PlayerDataSaving()
+    /// <param name="bGameExit"></param>
+    public void PlayerDataSaving(bool bGameExit)
     {
         //寫入Json Data
         string json = JsonUtility.ToJson(_playerData);
         Debug.Log("Serialized JSON : " + json);
         File.WriteAllText(sPlayerDataSavingPath, json);
 
-        Application.Quit();
+        if (bGameExit)
+        {
+            Application.Quit();
+        }
     }
 
     /// <summary>

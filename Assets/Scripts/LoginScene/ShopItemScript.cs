@@ -2,14 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ShopItemScript : MonoBehaviour
 {
-    public PlayerData _playerData;    //玩家資料
-    public Button btnShopExit;
-    //[SerializeField] private PlayerDataSavingScript _playerDataSavingScript;    //玩家資料
-
     [Header("ShopItemLevel")]
     public int iPlayerMoney;
     public int iPlayerItemLevel_HP;
@@ -20,8 +15,6 @@ public class ShopItemScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _playerData = new PlayerData();
-
         //如果存檔存在則讀取存檔的資料，如果不存在則為預設值
         if (File.Exists(PlayerDataSavingScript.inst.sPlayerDataSavingPath))
         {
@@ -46,18 +39,19 @@ public class ShopItemScript : MonoBehaviour
     }
 
     /// <summary>
-    /// 玩家的商店狀態儲存 PlayerShopStatusSaving()
+    /// 玩家的商店狀態儲存 PlayerShopStatusSaving(bool bGameExit)
     /// </summary>
-    public void PlayerShopStatusSaving()
+    /// <param name="b"></param>
+    public void PlayerShopStatusSaving(bool bGameExit)
     {
-        _playerData.iPlayer_Money = iPlayerMoney;
-        _playerData.iPlayerItemLevel_HP = iPlayerItemLevel_HP;
-        _playerData.iPlayerItemLevel_ATK = iPlayerItemLevel_ATK;
-        _playerData.iPlayerItemLevel_DEF = iPlayerItemLevel_DEF;
-        _playerData.iPlayerItemLevel_moveSpeed = iPlayerItemLevel_moveSpeed;
+        PlayerDataSavingScript.inst._playerData.iPlayer_Money = iPlayerMoney;
+        PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_HP = iPlayerItemLevel_HP;
+        PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_ATK = iPlayerItemLevel_ATK;
+        PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_DEF = iPlayerItemLevel_DEF;
+        PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_moveSpeed = iPlayerItemLevel_moveSpeed;
 
-        PlayerDataSavingScript.inst.PlayerDataSaving();
-        Debug.Log("PlayerShopStatusSaving Finish!");
+        PlayerDataSavingScript.inst.PlayerDataSaving(bGameExit);
+        Debug.Log("PlayerShopStatusSaving Finish! And bGameExit = " + bGameExit);
     }
 
     /// <summary>
@@ -66,11 +60,11 @@ public class ShopItemScript : MonoBehaviour
     public void PlayerShopStatusLoading()
     {
         PlayerDataSavingScript.inst.PlayerDataLoading();
-        iPlayerMoney = _playerData.iPlayer_Money;
-        iPlayerItemLevel_HP = _playerData.iPlayerItemLevel_HP;
-        iPlayerItemLevel_ATK = _playerData.iPlayerItemLevel_ATK;
-        iPlayerItemLevel_DEF = _playerData.iPlayerItemLevel_DEF;
-        iPlayerItemLevel_moveSpeed = _playerData.iPlayerItemLevel_moveSpeed;
+        iPlayerMoney = PlayerDataSavingScript.inst._playerData.iPlayer_Money;
+        iPlayerItemLevel_HP = PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_HP;
+        iPlayerItemLevel_ATK = PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_ATK;
+        iPlayerItemLevel_DEF = PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_DEF;
+        iPlayerItemLevel_moveSpeed = PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_moveSpeed;
         Debug.Log("PlayerShopStatusLoading Finish!");
     }
 }
