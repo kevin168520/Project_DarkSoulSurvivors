@@ -142,6 +142,5 @@ public class LoginManagerScript : MonoBehaviour
     private void ExitGame()
     {
         _shopItemScript.PlayerShopStatusSaving();
-        Application.Quit();
     }
 }
