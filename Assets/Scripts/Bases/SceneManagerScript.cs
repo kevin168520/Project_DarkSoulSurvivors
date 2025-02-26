@@ -9,7 +9,18 @@ public class SceneManagerScript : MonoBehaviour
 
     private void Awake()
     {
-        inst = this;
+        // 檢查是否已經有一個實例
+        if (inst == null)
+        {
+            // 如果沒有實例，設置當前物件為實例並防止銷毀
+            inst = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            // 如果已有實例，銷毀當前物件
+            Destroy(this);
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -34,11 +45,10 @@ public class SceneManagerScript : MonoBehaviour
     }
 
     /// <summary>
-    /// 遊戲結束時的場景切換 EndGameSceneAction (string sGameSceneState)
+    /// 遊戲結束時的場景切換 EndGameSceneAction()
     /// </summary>
-    /// <param name="sGameSceneState"></param>
-    public void EndGameSceneAction (string sGameSceneState)
+    public void EndGameSceneAction ()
     {
-
+        SceneManager.LoadScene("LoginScene");  //回到主畫面
     }
 }

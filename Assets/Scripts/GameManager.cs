@@ -36,10 +36,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel; // 遊戲結束UI
     [SerializeField] private GameObject gameCompletePanel; // 遊戲通關UI
 
+    private bool bGameOver;
+
     // 設置靜態指向自己
     void Awake() {
 
       instance = this;
+    }
+
+    void Start() 
+    {
+        
+    }
+
+     void Update()
+    {
+        GameOverEvent(bGameOver);
     }
 
     // 暫停
@@ -57,6 +69,7 @@ public class GameManager : MonoBehaviour
     public void GameOver(){
       PauseGame();
       gameOverPanel.SetActive(true);
+      bGameOver = true;
     }
 
 
@@ -64,6 +77,17 @@ public class GameManager : MonoBehaviour
     public void GameComplete(){
       PauseGame();
       gameCompletePanel.SetActive(true);
+      bGameOver = true;
     }
 
+    private void GameOverEvent(bool bGameOverKey)
+    {
+        if (bGameOverKey)
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                SceneManagerScript.inst.EndGameSceneAction();
+            }
+        }
+    }
 }
