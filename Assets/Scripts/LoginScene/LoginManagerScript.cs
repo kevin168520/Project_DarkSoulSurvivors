@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class LoginManagerScript : MonoBehaviour
 {
     public StartGameScript _startGameScript;
-    public ShopItemScript _shopItemScript;
+    public ShopItemManagerScript _shopItemManagerScript;
     //public PlayerDataSavingScript _playerDataSavingScript;
 
     [Header("LoaginMenu")]
@@ -53,6 +53,8 @@ public class LoginManagerScript : MonoBehaviour
     {
         sGameSceneState = "";
         objGameStartMenu.SetActive(false);
+
+        PlayerDataSavingScript.inst.PlayerDataLoading();
     }
 
     private void BtnCtrlLoginMenu()
@@ -64,7 +66,7 @@ public class LoginManagerScript : MonoBehaviour
 
         btnShop.onClick.AddListener(delegate ()
         {
-            _shopItemScript.PlayerShopStatusLoading();
+            _shopItemManagerScript.PlayerShopStatusLoading();
             objShopMenu.SetActive(true);
         });
 
@@ -131,7 +133,7 @@ public class LoginManagerScript : MonoBehaviour
     {
         btnShopExit.onClick.AddListener(delegate ()
         {
-            _shopItemScript.PlayerShopStatusSaving(false);
+            _shopItemManagerScript.PlayerShopStatusSaving(false);
             objShopMenu.SetActive(false);
         });
     }
@@ -141,6 +143,6 @@ public class LoginManagerScript : MonoBehaviour
     /// </summary>
     private void ExitGame()
     {
-        _shopItemScript.PlayerShopStatusSaving(true);
+        _shopItemManagerScript.PlayerShopStatusSaving(true);
     }
 }

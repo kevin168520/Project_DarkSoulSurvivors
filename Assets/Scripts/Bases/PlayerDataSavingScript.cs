@@ -21,7 +21,7 @@ public class PlayerDataSavingScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _playerData = new PlayerData();
+
     }
 
     // Update is called once per frame
@@ -53,25 +53,28 @@ public class PlayerDataSavingScript : MonoBehaviour
     /// <returns></returns>
     public string PlayerDataLoading()
     {
-
+        //判別是否有存檔資料sPlayerDataSavingPath
         if (File.Exists(sPlayerDataSavingPath))
         {
-            // 讀取有存檔的Json資料
+            //帶入路徑資料
             string json = File.ReadAllText(sPlayerDataSavingPath);
-            //Debug.Log("Player data loaded: " + json);
+            _playerData = JsonUtility.FromJson<PlayerData>(json);
+            Debug.Log("Player data loaded: " + json);
             return json;
         }
         else
         {
-            //確認未存檔的Json資料
-            string json = JsonUtility.ToJson(_playerData);
-            //Debug.Log("Player data not found: " + json);
+            //因為路徑下沒有對應資料，因此產生一個新的並自動存檔
+            _playerData = new PlayerData();
+            Debug.Log("Player data not found");
+            PlayerDataSaving(false);
             return null;
         }
     }
 
 }
 
+[System.Serializable]
 /// <summary>
 /// 用於存檔/讀取的玩家資料
 /// </summary>

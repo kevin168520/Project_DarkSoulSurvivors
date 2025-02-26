@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CharacterScript : MonoBehaviour, IDamageable
 {
-    public ShopItemScript _shopItemScript;
     // 內部
     [SerializeField] int maxHp = 100;     // 最大血量
     int currentHp; // 當前血量
