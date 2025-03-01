@@ -14,7 +14,7 @@ public class PlayerDataSavingScript : MonoBehaviour
     {
         inst = this;
         string sGetDataPath = Path.GetFullPath(Application.dataPath);
-        sPlayerDataSavingPath = Path.Combine(sGetDataPath, "PlayerDataSaving.json");    //¹w³]¸ô®| + ÀÉ®×¦WºÙ(PlayerDataSaving.json)
+        sPlayerDataSavingPath = Path.Combine(sGetDataPath, "PlayerDataSaving.json");    //é è¨­è·¯å¾‘ + æª”æ¡ˆåç¨±(PlayerDataSaving.json)
         Debug.Log(sPlayerDataSavingPath);
     }
 
@@ -31,12 +31,12 @@ public class PlayerDataSavingScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Saving Json Dataªº¤èªk PlayerDataSaving(bool bGameExit)
+    /// Saving Json Dataçš„æ–¹æ³• PlayerDataSaving(bool bGameExit)
     /// </summary>
     /// <param name="bGameExit"></param>
     public void PlayerDataSaving(bool bGameExit)
     {
-        //¼g¤JJson Data
+        //å¯«å…¥Json Data
         string json = JsonUtility.ToJson(_playerData);
         Debug.Log("Serialized JSON : " + json);
         File.WriteAllText(sPlayerDataSavingPath, json);
@@ -48,15 +48,15 @@ public class PlayerDataSavingScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Loading Json Dataªº¤èªk PlayerDataLoading()
+    /// Loading Json Dataçš„æ–¹æ³• PlayerDataLoading()
     /// </summary>
     /// <returns></returns>
     public string PlayerDataLoading()
     {
-        //§P§O¬O§_¦³¦sÀÉ¸ê®ÆsPlayerDataSavingPath
+        //åˆ¤åˆ¥æ˜¯å¦æœ‰å­˜æª”è³‡æ–™sPlayerDataSavingPath
         if (File.Exists(sPlayerDataSavingPath))
         {
-            //±a¤J¸ô®|¸ê®Æ
+            //å¸¶å…¥è·¯å¾‘è³‡æ–™
             string json = File.ReadAllText(sPlayerDataSavingPath);
             _playerData = JsonUtility.FromJson<PlayerData>(json);
             Debug.Log("Player data loaded: " + json);
@@ -64,7 +64,7 @@ public class PlayerDataSavingScript : MonoBehaviour
         }
         else
         {
-            //¦]¬°¸ô®|¤U¨S¦³¹ïÀ³¸ê®Æ¡A¦]¦¹²£¥Í¤@­Ó·sªº¨Ã¦Û°Ê¦sÀÉ
+            //å› ç‚ºè·¯å¾‘ä¸‹æ²’æœ‰å°æ‡‰è³‡æ–™ï¼Œå› æ­¤ç”¢ç”Ÿä¸€å€‹æ–°çš„ä¸¦è‡ªå‹•å­˜æª”
             _playerData = new PlayerData();
             Debug.Log("Player data not found");
             PlayerDataSaving(false);
@@ -76,7 +76,7 @@ public class PlayerDataSavingScript : MonoBehaviour
 
 [System.Serializable]
 /// <summary>
-/// ¥Î©ó¦sÀÉ/Åª¨úªºª±®a¸ê®Æ
+/// ç”¨æ–¼å­˜æª”/è®€å–çš„ç©å®¶è³‡æ–™
 /// </summary>
 public class PlayerData
 {

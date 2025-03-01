@@ -9,16 +9,16 @@ public class SceneManagerScript : MonoBehaviour
 
     private void Awake()
     {
-        // ÀË¬d¬O§_¤w¸g¦³¤@­Ó¹ê¨Ò
+        // æª¢æŸ¥æ˜¯å¦å·²ç¶“æœ‰ä¸€å€‹å¯¦ä¾‹
         if (inst == null)
         {
-            // ¦pªG¨S¦³¹ê¨Ò¡A³]¸m·í«eª«¥ó¬°¹ê¨Ò¨Ã¨¾¤î¾P·´
+            // å¦‚æœæ²’æœ‰å¯¦ä¾‹ï¼Œè¨­ç½®ç•¶å‰ç‰©ä»¶ç‚ºå¯¦ä¾‹ä¸¦é˜²æ­¢éŠ·æ¯€
             inst = this;
             DontDestroyOnLoad(gameObject);
         }
         else
         {
-            // ¦pªG¤w¦³¹ê¨Ò¡A¾P·´·í«eª«¥ó
+            // å¦‚æœå·²æœ‰å¯¦ä¾‹ï¼ŒéŠ·æ¯€ç•¶å‰ç‰©ä»¶
             Destroy(this);
         }
     }
@@ -35,20 +35,20 @@ public class SceneManagerScript : MonoBehaviour
     }
 
     /// <summary>
-    /// ¹CÀ¸±Ò°Ê®Éªº³õ´º¤Á´« StartGameSceneAction(string sGameSceneState)
+    /// éŠæˆ²å•Ÿå‹•æ™‚çš„å ´æ™¯åˆ‡æ› StartGameSceneAction(string sGameSceneState)
     /// </summary>
     /// <param name="sGameSceneState"></param>
     public void StartGameSceneAction(string sGameSceneState)
     {
-        SceneManager.LoadScene(sGameSceneState, LoadSceneMode.Single);  //Ãö¥d¥ÎªºScene
-        SceneManager.LoadScene("PlayerDataScene", LoadSceneMode.Additive);   //DataªºScene
+        SceneManager.LoadScene(sGameSceneState, LoadSceneMode.Single);  //é—œå¡ç”¨çš„Scene
+        SceneManager.LoadScene("PlayerDataScene", LoadSceneMode.Additive);   //Dataçš„Scene
     }
 
     /// <summary>
-    /// ¹CÀ¸µ²§ô®Éªº³õ´º¤Á´« EndGameSceneAction()
+    /// éŠæˆ²çµæŸæ™‚çš„å ´æ™¯åˆ‡æ› EndGameSceneAction()
     /// </summary>
     public void EndGameSceneAction ()
     {
-        SceneManager.LoadScene("LoginScene");  //¦^¨ì¥Dµe­±
+        SceneManager.LoadScene("LoginScene");  //å›åˆ°ä¸»ç•«é¢
     }
 }

@@ -25,7 +25,7 @@ public class ShopItemManagerScript : MonoBehaviour
     }
 
     /// <summary>
-    /// ª±®aªº°Ó©±ª¬ºAÀx¦s PlayerShopStatusSaving(bool bGameExit)
+    /// çŽ©å®¶çš„å•†åº—ç‹€æ…‹å„²å­˜ PlayerShopStatusSaving(bool bGameExit)
     /// </summary>
     /// <param name="b"></param>
     public void PlayerShopStatusSaving(bool bGameExit)
@@ -41,7 +41,7 @@ public class ShopItemManagerScript : MonoBehaviour
     }
 
     /// <summary>
-    /// ª±®aªº°Ó©±ª¬ºA¸ü¤J PlayerShopStatusLoading()
+    /// çŽ©å®¶çš„å•†åº—ç‹€æ…‹è¼‰å…¥ PlayerShopStatusLoading()
     /// </summary>
     public void PlayerShopStatusLoading()
     {
