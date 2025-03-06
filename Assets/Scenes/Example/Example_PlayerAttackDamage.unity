@@ -532,7 +532,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 100
-  attackedTimerToDisable: 0
+  def: 0
+  speedMult: 1
+  attackMult: 1
+  attackedTimerToDisable: 1
 --- !u!1 &1042300897
 GameObject:
   m_ObjectHideFlags: 3

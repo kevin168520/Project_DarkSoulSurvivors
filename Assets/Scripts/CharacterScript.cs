@@ -5,7 +5,11 @@ using UnityEngine;
 public class CharacterScript : MonoBehaviour, IDamageable
 {
     // 內部
-    [SerializeField] int maxHp = 100;     // 最大血量
+    CharacterScriptable character => GameManager.character; // 角色資料
+    [SerializeField] int maxHp = 100; // 最大血量
+    [SerializeField] int def = 0; // 防禦
+    [SerializeField] float speedMult = 1; // 速度倍率
+    [SerializeField] float attackMult = 1; // 攻擊倍率
     int currentHp; // 當前血量
     bool isDead = false;  // 死亡判定
 
@@ -15,11 +19,20 @@ public class CharacterScript : MonoBehaviour, IDamageable
 
     void Awake()
     {
-        currentHp = maxHp;
     }
 
     void Start()
     {
+        if(character == null) { // 除錯用 方便於測試時不放置 GameManager
+          Debug.LogWarning("Character not found in GameManager.character");
+          return;
+        }
+        
+        maxHp = character.hp;
+        def = character.def;
+        speedMult = character.speedMult;
+        attackMult = character.attackMult;
+        currentHp = maxHp;
     }
 
     void Update()
@@ -45,6 +58,12 @@ public class CharacterScript : MonoBehaviour, IDamageable
         return; 
         }
 
+        // 如果傷害低於防禦則不損傷
+        if(def >= damage ) {
+        // Debug.Log($"Character no harm caused: {def} >= {damage}");
+        return; 
+        }
+
         // 當前血量扣損
         currentHp -= damage;
     
@@ -60,7 +79,7 @@ public class CharacterScript : MonoBehaviour, IDamageable
         attackedTimer = attackedTimerToDisable;
         }
     
-        Debug.Log($"Character TakeDamage: {damage}, currentHp: {currentHp}, CharacterIsDead: {isDead}");
+        Debug.Log($"Character TakeDamage: {damage} - {def}, currentHp: {currentHp}, CharacterIsDead: {isDead}");
   }
 
 }
