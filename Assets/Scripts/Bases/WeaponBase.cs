@@ -6,7 +6,7 @@ public abstract class WeaponBase : MonoBehaviour
 {
     // 外部
     [SerializeField] protected WeaponScriptable weaponData; // 武器數據
-    [System.NonSerialized] public DirectionComponent direction; // 方向組件
+    [System.NonSerialized] public IDirection direction; // 方向組件
 
     // 內部
     float timer; // 計時用
@@ -16,7 +16,7 @@ public abstract class WeaponBase : MonoBehaviour
         Transform parent = transform.parent;
 
         // 父物件中查找 DirectionComponent
-        direction = parent.GetComponent<DirectionComponent>();
+        direction = parent.GetComponent<IDirection>();
     }
 
     
