@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterScript : MonoBehaviour, IDamageable
 {
     // 內部
-    CharacterScriptable character => GameManager.character; // 角色資料
+    CharacterScriptable character => GameManager.instance.playerData; // 角色資料
     [SerializeField] int maxHp = 100; // 最大血量
     [SerializeField] int def = 0; // 防禦
     [SerializeField] float speedMult = 1; // 速度倍率
