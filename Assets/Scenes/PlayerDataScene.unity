@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 400678534}
   - component: {fileID: 400678533}
   - component: {fileID: 400678532}
-  - component: {fileID: 400678531}
   - component: {fileID: 400678530}
   m_Layer: 0
   m_Name: Player
@@ -156,19 +155,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d18f9cb58a6044d8746b6bb357bae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataContainer: {fileID: 11400000, guid: e4223497a075cf24d90216c5966f6090, type: 2}
---- !u!114 &400678531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 400678529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07f63820635d40243977dac448eb0a32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &400678532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +168,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 100
+  def: 0
+  speedMult: 1
+  attackMult: 1
   attackedTimerToDisable: 1
 --- !u!114 &400678533
 MonoBehaviour:
@@ -519,6 +508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 400678529}
+  _playerData: {fileID: 0}
   gameOverPanel: {fileID: 787708751}
   gameCompletePanel: {fileID: 1834417604}
 --- !u!4 &1179702899

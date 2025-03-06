@@ -17,10 +17,6 @@ public abstract class WeaponBase : MonoBehaviour
 
         // 父物件中查找 DirectionComponent
         direction = parent.GetComponent<DirectionComponent>();
-
-        // 如果父物件上沒有 DirectionComponent，則添加一個
-        if (direction == null)
-            direction = parent.gameObject.AddComponent<DirectionComponent>();
     }
 
     
