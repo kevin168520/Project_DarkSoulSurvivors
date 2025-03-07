@@ -25,7 +25,8 @@ public abstract class WeaponBehaviourBase : AttackBehaviourBase
     public void SetWeaponData(WeaponScriptable weaponData) {
       damage = weaponData.damage;
       projectileSpeed = weaponData.projectileSpeed;
-      timeToDisable = weaponData.timeToDisable;
+      // activeToDisable = weaponData.timeToDisable;
+      SetActiveInterval(weaponData.activeInterval);
     }
 
     // 檢查對象

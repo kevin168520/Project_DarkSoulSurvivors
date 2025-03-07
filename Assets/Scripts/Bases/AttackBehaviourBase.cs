@@ -13,37 +13,35 @@ public abstract class AttackBehaviourBase : MonoBehaviour
     Vector2 localAttackSize {get => attackSize * transform.localScale;} // 攻擊範圍 * 物件縮放 配合放大用
 
     // 頻率
-    [SerializeField] protected float timeToDisable; //攻擊持續時間
-    float timer; // 維持時間
-    int frameInterval = 6; // 跳偵處理
-    int frameCounter = 0;
+    TimerUtility activeCounter = new TimerUtility(1f); // 攻擊持續計時
+    TimerUtility frameCounter = new TimerUtility(6f, true); // 跳偵優化處理
 
+    public void SetActiveInterval(float f) {
+      activeCounter.SetTimeInterval(f);
+    }
 
     // 開啟攻擊
     virtual public void OnEnable() {
-      timer = timeToDisable;
+      activeCounter.Reset();
     }
 
     // 攻擊計時
     virtual public void LateUpdate() {
-      timer -= Time.deltaTime;
-      if(timer < 0f)  
+      if (activeCounter.UpdateDelta()) {
         gameObject.SetActive(false);
+      }
     }
 
     // 捕抓敵人
     virtual public void Update(){
       BeforeUpdate();
-      frameCounter++;
-      if (frameCounter >= frameInterval)
+      if (frameCounter.UpdateFrame())
       {
         Collider2D[] collisions = Physics2D.OverlapBoxAll(  // 捕抓範圍內的碰撞
             transform.position, localAttackSize, 0f);
 
         foreach(Collider2D collision in collisions)
           if(CheckCollider(collision))ApplyDamage(collision); 
-        
-        frameCounter = 0;
       }
     }
     // 子類實作捕抓敵人前動作

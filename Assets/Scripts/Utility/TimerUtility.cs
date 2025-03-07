@@ -6,20 +6,29 @@ public class TimerUtility
 {
     private float timeInterval; // 間格
     private float timeCounter; // 計時
-    private bool isLoopOn;  // 循環計時
+    private bool loopEnabled;  // 啟用循環計時
+    
     public bool IsTiming => timeCounter < timeInterval; // 判定計時中
     public bool IsTimeOver => timeCounter >= timeInterval; // 判定計時超過
 
-    public TimerUtility(float timeInterval, bool isLoopOn = false) {
+    public TimerUtility(float timeInterval, bool loopEnabled = false) {
         this.timeInterval = timeInterval;
-        this.isLoopOn = isLoopOn;
+        this.loopEnabled = loopEnabled;
+    }
+
+    public void SetTimeInterval(float f) {
+        timeInterval = f;
+    }
+
+    public void SetLoopEnabled(bool b) {
+        loopEnabled = b;
     }
 
     public bool Update(float deltaTime) {
         if (IsTiming) {
           timeCounter += deltaTime;
           if (IsTimeOver) {
-              if (isLoopOn) Reset();
+              if (loopEnabled) Reset();
               return true;
           }
         }
