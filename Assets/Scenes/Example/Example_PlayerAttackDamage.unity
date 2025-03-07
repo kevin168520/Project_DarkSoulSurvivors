@@ -122,37 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &27473186
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 27473187}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &27473187
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 27473186}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.347, y: -0.051082153, z: -0.018013436}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &358367189
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,6 +607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 932056954}
+  _playerData: {fileID: 0}
   gameOverPanel: {fileID: 0}
   gameCompletePanel: {fileID: 0}
 --- !u!4 &1439648519
@@ -862,7 +832,19 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5823705132313194928, guid: dae5271b4d0b2ff47a7dc78f1746bdd3, type: 3}
-      propertyPath: attackSize.x
+      propertyPath: targetDetector.detectionSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5823705132313194928, guid: dae5271b4d0b2ff47a7dc78f1746bdd3, type: 3}
+      propertyPath: targetDetector.detectionSize.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328105510230261562, guid: dae5271b4d0b2ff47a7dc78f1746bdd3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7641820963975669417, guid: dae5271b4d0b2ff47a7dc78f1746bdd3, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8804694374959994503, guid: dae5271b4d0b2ff47a7dc78f1746bdd3, type: 3}
@@ -883,4 +865,3 @@ SceneRoots:
   - {fileID: 932056957}
   - {fileID: 2013841579}
   - {fileID: 1439648519}
-  - {fileID: 27473187}

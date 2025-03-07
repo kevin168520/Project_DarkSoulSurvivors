@@ -247,8 +247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d1253bed1d33814b8354e2d58253d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSize: {x: 1, y: 1}
-  timeToDisable: 1
+  targetDetector:
+    detectionSize: {x: 0.8, y: 0.2}
   audioSource: {fileID: 3001871165180629939}
 --- !u!1 &8804694374959994503
 GameObject:

@@ -247,8 +247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c48dcf15457ea8446b405827f35b9ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSize: {x: 1, y: 1}
-  timeToDisable: 0.4
+  targetDetector:
+    detectionSize: {x: 1.2, y: 1.2}
   audioSource: {fileID: 146783172315694056}
 --- !u!1 &7641820963975669417
 GameObject:
@@ -369,8 +369,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c48dcf15457ea8446b405827f35b9ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSize: {x: 1, y: 1}
-  timeToDisable: 0.4
+  targetDetector:
+    detectionSize: {x: 1.2, y: 1.2}
   audioSource: {fileID: 146783172315694056}
 --- !u!1 &8804694374959994503
 GameObject:
