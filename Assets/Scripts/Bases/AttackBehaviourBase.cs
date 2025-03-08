@@ -12,8 +12,8 @@ public abstract class AttackBehaviourBase : MonoBehaviour
     [SerializeField] TargetDetector targetDetector = new TargetDetector(new Vector2(1, 1));
 
     // 頻率
-    TimerUtility activeCounter = new TimerUtility(1f); // 攻擊持續計時
-    TimerUtility frameCounter = new TimerUtility(6f, true); // 跳偵優化處理
+    TimeCounter activeCounter = new TimeCounter(1f); // 攻擊持續計時
+    TimeCounter frameCounter = new TimeCounter(6f, true); // 跳偵優化處理
 
     public void SetActiveInterval(float f) {
       activeCounter.SetTimeInterval(f);

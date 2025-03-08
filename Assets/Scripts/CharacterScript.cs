@@ -15,11 +15,11 @@ public class CharacterScript : MonoBehaviour, IDamageable
 
     // 受攻擊時間
     [SerializeField] protected float attackedTimerToDisable; // 無敵時間
-    TimerUtility attackedTimer;
+    TimeCounter attackedTimer;
 
     void Awake()
     {
-        attackedTimer = new TimerUtility(attackedTimerToDisable);
+        attackedTimer = new TimeCounter(attackedTimerToDisable);
     }
 
     void Start()

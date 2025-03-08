@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimerUtility
+public class TimeCounter
 {
     private float timeInterval; // 間格
     private float timeCounter; // 計時
@@ -11,7 +11,7 @@ public class TimerUtility
     public bool IsTiming => timeCounter < timeInterval; // 判定計時中
     public bool IsTimeOver => timeCounter >= timeInterval; // 判定計時超過
 
-    public TimerUtility(float timeInterval, bool loopEnabled = false) {
+    public TimeCounter(float timeInterval, bool loopEnabled = false) {
         this.timeInterval = timeInterval;
         this.loopEnabled = loopEnabled;
     }
