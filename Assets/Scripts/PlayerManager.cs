@@ -13,11 +13,6 @@ public class PlayerManager : MonoBehaviour
         spritePrefab.transform.position = playerTransform.position;
         spritePrefab.transform.parent = playerTransform;
         spritePrefab.SetActive(true);
-        
-        GameObject startingWeapon = Instantiate(character.startingWeapon);
-        startingWeapon.transform.position = playerTransform.position;
-        startingWeapon.transform.parent = playerTransform;
-        startingWeapon.SetActive(true);
     }
 
     // Update is called once per frame

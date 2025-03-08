@@ -11,6 +11,10 @@ public abstract class WeaponBase : MonoBehaviour
     // 內部
     float timer; // 計時用
 
+    public void SetWeaponData(WeaponScriptable d) {
+        weaponData = d;
+    }
+
     void Start()
     {
         Transform parent = transform.parent;
