@@ -8,8 +8,8 @@ public abstract class WeaponBase : MonoBehaviour
     TimeCounter attackCounter  = new TimeCounter(1f, true); // 計時用
 
     public void SetWeaponData(WeaponScriptable d) {
-        weaponData = d;
-        attackCounter.SetTimeInterval(weaponData.timeToAttack);
+      weaponData = d;
+      attackCounter.SetTimeInterval(d.flightSpeed);
     }
     
     // 計時攻擊頻率
@@ -19,14 +19,6 @@ public abstract class WeaponBase : MonoBehaviour
         Attack();
       }
     }
-
-    // 子類取得當前傷害倍率
-    // void GetDamage() {
-    //   // virtual SetData(WeaponData wd) 設定武器數據
-    //   weaponData = wd;
-    //   timeToAttack = weaponData.stats.timeToAttack;
-    //   weaponStats = new WeaponStats(wd.stats.damage, wd.stats.timeToAttack)
-    // }
 
     // 子類實作攻擊
     abstract protected void Attack();

@@ -15,7 +15,7 @@ public class ProjectileWeaponBehaviour : WeaponBehaviourBase
 
     // 彈丸移動
     override protected void BeforeUpdate() {
-      transform.position += projectileDirection * projectileSpeed * Time.deltaTime;
+      transform.position += FlightDirection * FlightSpeed * Time.deltaTime;
     }
 
     // 結束攻擊 彈丸自滅
@@ -28,7 +28,7 @@ public class ProjectileWeaponBehaviour : WeaponBehaviourBase
     {
         // 判定可受傷
         if(collision.GetComponent<IDamageable>() is IDamageable e){
-          e.TakeDamage(damage); // 申請對象傷害
+          e.TakeDamage(Attack); // 申請對象傷害
           
           gameObject.SetActive(false); // 結束攻擊
         }

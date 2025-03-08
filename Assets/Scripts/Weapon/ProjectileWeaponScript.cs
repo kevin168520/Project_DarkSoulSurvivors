@@ -28,7 +28,7 @@ public class ProjectileWeaponScript : WeaponBase
       
       WeaponBehaviourBase projectileBehaviour = projectileGO.GetComponent<WeaponBehaviourBase>();
       projectileBehaviour.SetWeaponData(weaponData);
-      projectileBehaviour.SetDirection(direction.Normalized);
+      projectileBehaviour.FlightDirection = direction.Normalized;
 
       float angle = Mathf.Atan2(direction.Normalized.y, direction.Normalized.x) * Mathf.Rad2Deg;
       projectileBehaviour.transform.rotation = Quaternion.Euler(0, 0, angle);

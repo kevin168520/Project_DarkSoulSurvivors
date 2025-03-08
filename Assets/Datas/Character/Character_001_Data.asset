@@ -15,3 +15,7 @@ MonoBehaviour:
   showName: Yuki
   spritePrefab: {fileID: 6676319224844049280, guid: dc9f5e93e8b37bc42a319b312dce0c2b, type: 3}
   startingWeapon: {fileID: 8804694374959994503, guid: dae5271b4d0b2ff47a7dc78f1746bdd3, type: 3}
+  hp: 100
+  def: 0
+  speedMult: 1
+  attackMult: 1

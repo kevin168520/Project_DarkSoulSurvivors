@@ -7,6 +7,17 @@ using UnityEngine;
 /// </summary>
 public abstract class AttackBehaviourBase : MonoBehaviour
 {
+    // 屬性
+    private int _attack; // 攻擊值
+    public int Attack{ get => _attack; set => _attack = value;}
+    private float _attackInterval; // 攻擊間格
+    public float AttackInterval{ get => _attackInterval; set => _attackInterval = value;}
+    private float _activeInterval; // 攻擊持續
+    public float ActiveInterval{ get => _activeInterval; set {_activeInterval = value; activeCounter.SetTimeInterval(value);}}
+    private float _flightSpeed; // 飛行攻擊速度
+    public float FlightSpeed{ get => _flightSpeed; set => _flightSpeed = value;}
+    private Vector3 _flightDirection; // 飛行攻擊方向
+    public Vector3 FlightDirection{ get => _flightDirection; set => _flightDirection = value;}
 
     // 範圍
     [SerializeField] TargetDetector targetDetector = new TargetDetector(new Vector2(1, 1));
@@ -15,8 +26,12 @@ public abstract class AttackBehaviourBase : MonoBehaviour
     TimeCounter activeCounter = new TimeCounter(1f); // 攻擊持續計時
     TimeCounter frameCounter = new TimeCounter(6f, true); // 跳偵優化處理
 
-    public void SetActiveInterval(float f) {
-      activeCounter.SetTimeInterval(f);
+    // 音效
+    public AudioSource audioSource;
+    
+    // 播放音樂
+    public void PlaySound() {
+        if (audioSource != null) audioSource.Play();
     }
 
     // 開啟攻擊
