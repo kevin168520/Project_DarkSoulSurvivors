@@ -6,8 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/Weapon", order = 1)]
 public class WeaponScriptable : ScriptableObject
 {
-    public int damage;           // 傷害
-    public float timeToAttack;   // 攻擊頻率
-    public float timeToDisable;  // 攻擊持續
-    public float projectileSpeed; // 彈丸速度
+    public int attack; // 攻擊值
+    public float attackInterval; // 攻擊間格
+    public float activeInterval; // 攻擊持續
+    public float flightSpeed; // 飛行攻擊速度
 }

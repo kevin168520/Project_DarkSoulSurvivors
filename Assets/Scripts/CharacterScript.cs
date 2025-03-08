@@ -5,26 +5,20 @@ using UnityEngine;
 public class CharacterScript : MonoBehaviour, IDamageable
 {
     // 內部
-    [SerializeField] int maxHp = 100;     // 最大血量
-    int currentHp; // 當前血量
+    [SerializeField] public int maxHp = 100; // 最大血量
+    [SerializeField] public int def = 0; // 防禦
+    [SerializeField] public float speedMult = 1; // 速度倍率
+    [SerializeField] public float attackMult = 1; // 攻擊倍率
+    [SerializeField] public int currentHp = 100; // 當前血量
     bool isDead = false;  // 死亡判定
 
     // 受攻擊時間
     [SerializeField] protected float attackedTimerToDisable; // 無敵時間
-    float attackedTimer; // 計時
-
-    void Awake()
-    {
-        currentHp = maxHp;
-    }
-
-    void Start()
-    {
-    }
+    TimeCounter attackedTimer = new TimeCounter(1f);
 
     void Update()
     {
-        if(attackedTimer > 0f)  attackedTimer -= Time.deltaTime;
+        attackedTimer.UpdateDelta();
     }
 
 
@@ -39,9 +33,15 @@ public class CharacterScript : MonoBehaviour, IDamageable
         }
 
         // 如果還在無敵時間 則不動作
-        if(attackedTimer > 0f ) 
+        if(attackedTimer.IsTiming) 
         {
         // Debug.Log($"Character is attackedTimerToDisable: {attackedTimer}");
+        return; 
+        }
+
+        // 如果傷害低於防禦則不損傷
+        if(def >= damage ) {
+        // Debug.Log($"Character no harm caused: {def} >= {damage}");
         return; 
         }
 
@@ -57,10 +57,10 @@ public class CharacterScript : MonoBehaviour, IDamageable
         else
         { 
         // 受攻擊時間處理
-        attackedTimer = attackedTimerToDisable;
+        attackedTimer.Reset();
         }
     
-        Debug.Log($"Character TakeDamage: {damage}, currentHp: {currentHp}, CharacterIsDead: {isDead}");
+        Debug.Log($"Character TakeDamage: {damage} - {def}, currentHp: {currentHp}, CharacterIsDead: {isDead}");
   }
 
 }

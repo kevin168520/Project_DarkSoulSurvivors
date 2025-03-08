@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyManager : MonoBehaviour
 {
 
-    public GameObject player; // 玩家目標
+    GameObject player => GameManager.instance.player; // 玩家目標
     [SerializeField] private GameObject enemy; // 敵人物件
 
     // 內部物件
@@ -21,7 +21,7 @@ public class EnemyManager : MonoBehaviour
 
     void Start()
     {
-        player = GameManager.instance.player;
+        
     }
 
 
@@ -70,24 +70,24 @@ public class EnemyManager : MonoBehaviour
         switch(UnityEngine.Random.value)
         {
           case < 0.25f: // 下方
-            position.x = UnityEngine.Random.Range(-spawnArea.x, spawnArea.x);
-            position.y = spawnArea.y * -1f;
-            position.z = 0f;
+            position.x += UnityEngine.Random.Range(-spawnArea.x, spawnArea.x);
+            position.y += spawnArea.y * -1f;
+            position.z += 0f;
             break;
           case < 0.5f: // 左方
-            position.y = UnityEngine.Random.Range(-spawnArea.y, spawnArea.y);
-            position.x = spawnArea.x * -1f;
-            position.z = 0f;
+            position.y += UnityEngine.Random.Range(-spawnArea.y, spawnArea.y);
+            position.x += spawnArea.x * -1f;
+            position.z += 0f;
             break;
           case < 0.75f: // 上方
-            position.x = UnityEngine.Random.Range(-spawnArea.x, spawnArea.x);
-            position.y = spawnArea.y * 1f;
-            position.z = 0f;
+            position.x += UnityEngine.Random.Range(-spawnArea.x, spawnArea.x);
+            position.y += spawnArea.y * 1f;
+            position.z += 0f;
             break;
           default: // 右方
-            position.y = UnityEngine.Random.Range(-spawnArea.y, spawnArea.y);
-            position.x = spawnArea.x * 1f;
-            position.z = 0f;
+            position.y += UnityEngine.Random.Range(-spawnArea.y, spawnArea.y);
+            position.x += spawnArea.x * 1f;
+            position.z += 0f;
             break;
         }
         return position;

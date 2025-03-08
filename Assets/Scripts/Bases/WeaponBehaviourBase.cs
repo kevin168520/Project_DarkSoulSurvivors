@@ -4,28 +4,10 @@ using UnityEngine;
 
 public abstract class WeaponBehaviourBase : AttackBehaviourBase
 {
-    // protected string targetTag; // 目標
-    protected int damage = 10; // 攻擊傷害
-    protected float projectileSpeed; // 彈丸速度
-    protected Vector3 projectileDirection; // 移動方向
-    public AudioSource audioSource; // 音效播放
-
-    public void PlaySound()
-    {
-        if (audioSource != null)
-        {
-            audioSource.Play();
-        }
-    }
-
-    public void SetDirection(Vector3 direction) {
-      projectileDirection = direction;
-    }
-
-    public void SetWeaponData(WeaponScriptable weaponData) {
-      damage = weaponData.damage;
-      projectileSpeed = weaponData.projectileSpeed;
-      timeToDisable = weaponData.timeToDisable;
+    public void SetWeaponData(WeaponScriptable d) {
+      Attack = d.attack;
+      FlightSpeed = d.flightSpeed;
+      ActiveInterval = d.activeInterval;
     }
 
     // 檢查對象

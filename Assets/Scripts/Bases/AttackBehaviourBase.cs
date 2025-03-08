@@ -7,43 +7,53 @@ using UnityEngine;
 /// </summary>
 public abstract class AttackBehaviourBase : MonoBehaviour
 {
+    // 屬性
+    private int _attack; // 攻擊值
+    public int Attack{ get => _attack; set => _attack = value;}
+    private float _attackInterval; // 攻擊間格
+    public float AttackInterval{ get => _attackInterval; set => _attackInterval = value;}
+    private float _activeInterval; // 攻擊持續
+    public float ActiveInterval{ get => _activeInterval; set {_activeInterval = value; activeCounter.SetTimeInterval(value);}}
+    private float _flightSpeed; // 飛行攻擊速度
+    public float FlightSpeed{ get => _flightSpeed; set => _flightSpeed = value;}
+    private Vector3 _flightDirection; // 飛行攻擊方向
+    public Vector3 FlightDirection{ get => _flightDirection; set => _flightDirection = value;}
 
     // 範圍
-    [SerializeField] protected Vector2 attackSize = new Vector2(1, 1); // 攻擊範圍
-    Vector2 localAttackSize {get => attackSize * transform.localScale;} // 攻擊範圍 * 物件縮放 配合放大用
+    [SerializeField] TargetDetector targetDetector = new TargetDetector(new Vector2(1, 1));
 
     // 頻率
-    [SerializeField] protected float timeToDisable; //攻擊持續時間
-    float timer; // 維持時間
-    int frameInterval = 6; // 跳偵處理
-    int frameCounter = 0;
+    TimeCounter activeCounter = new TimeCounter(1f); // 攻擊持續計時
+    TimeCounter frameCounter = new TimeCounter(6f, true); // 跳偵優化處理
 
+    // 音效
+    public AudioSource audioSource;
+    
+    // 播放音樂
+    public void PlaySound() {
+        if (audioSource != null) audioSource.Play();
+    }
 
     // 開啟攻擊
     virtual public void OnEnable() {
-      timer = timeToDisable;
+      activeCounter.Reset();
     }
 
     // 攻擊計時
     virtual public void LateUpdate() {
-      timer -= Time.deltaTime;
-      if(timer < 0f)  
+      if (activeCounter.UpdateDelta()) {
         gameObject.SetActive(false);
+      }
     }
 
     // 捕抓敵人
     virtual public void Update(){
       BeforeUpdate();
-      frameCounter++;
-      if (frameCounter >= frameInterval)
+      if (frameCounter.UpdateFrame())
       {
-        Collider2D[] collisions = Physics2D.OverlapBoxAll(  // 捕抓範圍內的碰撞
-            transform.position, localAttackSize, 0f);
-
-        foreach(Collider2D collision in collisions)
-          if(CheckCollider(collision))ApplyDamage(collision); 
-        
-        frameCounter = 0;
+        targetDetector.DetectTargets(transform, collision => {
+            if(CheckCollider(collision))ApplyDamage(collision); 
+        });
       }
     }
     // 子類實作捕抓敵人前動作
@@ -57,8 +67,7 @@ public abstract class AttackBehaviourBase : MonoBehaviour
 #if DEBUG
     private void OnDrawGizmosSelected() // 編輯器中繪製 attackSize
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, localAttackSize);
+        targetDetector.DrawDetectionGizmo(transform);
     }
 #endif
 }

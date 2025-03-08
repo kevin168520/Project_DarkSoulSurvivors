@@ -14,8 +14,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public static GameManager instance; 
     public static CharacterScriptable character;
-
     public GameObject player; // 玩家
+    public CharacterScriptable _playerData; // 玩家資料
+    [HideInInspector] public CharacterScriptable playerData { get{
+      if(_playerData == null) _playerData = character;
+      return _playerData;
+    }}
 
     Transform _playerTransform; // 玩家座標
     [HideInInspector] public Transform playerTransform { get{
@@ -29,6 +33,13 @@ public class GameManager : MonoBehaviour
         if(cs.Length > 0)_playerCharacter = cs[0];
       }
       return _playerCharacter;
+    }}
+    IDirection _playerDirection; // 玩家方向
+    [HideInInspector] public IDirection playerDirection { get{
+      if(_playerDirection == null) {
+        _playerDirection = player.transform.GetComponent<IDirection>();
+      }
+      return _playerDirection;
     }}
 
     public bool isPause {get => Time.timeScale == 0;} // 玩家

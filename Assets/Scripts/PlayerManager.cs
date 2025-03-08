@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    Transform playerTransform => GameManager.instance.playerTransform; // 玩家座標資料
+    CharacterScriptable playerData => GameManager.instance.playerData; // 角色資料
+    CharacterScript playerCharacter => GameManager.instance.playerCharacter; // 玩家角色
     void Start()
     {
-        CharacterScriptable character = GameManager.character;
-        
-        GameObject spritePrefab = Instantiate(character.spritePrefab);
-        spritePrefab.transform.position = transform.position;
-        spritePrefab.transform.parent = transform;
+        // 載入角色圖片
+        GameObject spritePrefab = Instantiate(playerData.spritePrefab);
+        spritePrefab.transform.position = playerTransform.position;
+        spritePrefab.transform.parent = playerTransform;
         spritePrefab.SetActive(true);
         
-        GameObject startingWeapon = Instantiate(character.startingWeapon);
-        startingWeapon.transform.position = transform.position;
-        startingWeapon.transform.parent = transform;
-        startingWeapon.SetActive(true);
+        // 載入角色資料
+        playerCharacter.maxHp = playerData.hp;
+        playerCharacter.def = playerData.def;
+        playerCharacter.speedMult = playerData.speedMult;
+        playerCharacter.attackMult = playerData.attackMult;
+        playerCharacter.currentHp = playerData.hp;
     }
 
     // Update is called once per frame

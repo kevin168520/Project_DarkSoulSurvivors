@@ -21,7 +21,7 @@ public class WeaponBehaviour : WeaponBehaviourBase
 
         // 判定可受傷
         if(collision.GetComponent<IDamageable>() is IDamageable e){
-          e.TakeDamage(damage); // 申請對象傷害
+          e.TakeDamage(Attack); // 申請對象傷害
 
           enemiesHit.Add(collision); // 加入曾被攻擊過
         }
