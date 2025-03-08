@@ -4,33 +4,19 @@ using UnityEngine;
 
 public abstract class WeaponBase : MonoBehaviour
 {
-    // 外部
     [SerializeField] protected WeaponScriptable weaponData; // 武器數據
-    [System.NonSerialized] public IDirection direction; // 方向組件
-
-    // 內部
-    float timer; // 計時用
+    TimeCounter attackCounter  = new TimeCounter(1f, true); // 計時用
 
     public void SetWeaponData(WeaponScriptable d) {
         weaponData = d;
+        attackCounter.SetTimeInterval(weaponData.timeToAttack);
     }
-
-    void Start()
-    {
-        Transform parent = transform.parent;
-
-        // 父物件中查找 DirectionComponent
-        direction = parent.GetComponent<IDirection>();
-    }
-
     
     // 計時攻擊頻率
     void Update(){
-      timer -= Time.deltaTime;
-      if(timer < 0f)
+      if(attackCounter.UpdateDelta())
       {
         Attack();
-        timer = weaponData.timeToAttack;
       }
     }
 

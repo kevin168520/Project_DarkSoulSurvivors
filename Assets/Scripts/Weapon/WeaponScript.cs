@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponScript : WeaponBase
 {
+    IDirection direction => GameManager.instance.playerDirection; // 方向組件
     [SerializeField] private List<WeaponBehaviourBase> attackEffects;
     
 

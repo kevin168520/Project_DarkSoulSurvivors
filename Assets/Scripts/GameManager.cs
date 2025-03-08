@@ -34,6 +34,13 @@ public class GameManager : MonoBehaviour
       }
       return _playerCharacter;
     }}
+    IDirection _playerDirection; // 玩家方向
+    [HideInInspector] public IDirection playerDirection { get{
+      if(_playerDirection == null) {
+        _playerDirection = player.transform.GetComponent<IDirection>();
+      }
+      return _playerDirection;
+    }}
 
     public bool isPause {get => Time.timeScale == 0;} // 玩家
     

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ProjectileWeaponScript : WeaponBase
 {
+    IDirection direction => GameManager.instance.playerDirection; // 方向組件
     [SerializeField] private GameObject projectile;
 
     // 執行攻擊
