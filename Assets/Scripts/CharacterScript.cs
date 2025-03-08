@@ -5,36 +5,16 @@ using UnityEngine;
 public class CharacterScript : MonoBehaviour, IDamageable
 {
     // 內部
-    CharacterScriptable character => GameManager.instance.playerData; // 角色資料
-    [SerializeField] int maxHp = 100; // 最大血量
-    [SerializeField] int def = 0; // 防禦
-    [SerializeField] float speedMult = 1; // 速度倍率
-    [SerializeField] float attackMult = 1; // 攻擊倍率
-    int currentHp = 100; // 當前血量
+    [SerializeField] public int maxHp = 100; // 最大血量
+    [SerializeField] public int def = 0; // 防禦
+    [SerializeField] public float speedMult = 1; // 速度倍率
+    [SerializeField] public float attackMult = 1; // 攻擊倍率
+    [SerializeField] public int currentHp = 100; // 當前血量
     bool isDead = false;  // 死亡判定
 
     // 受攻擊時間
     [SerializeField] protected float attackedTimerToDisable; // 無敵時間
-    TimeCounter attackedTimer;
-
-    void Awake()
-    {
-        attackedTimer = new TimeCounter(attackedTimerToDisable);
-    }
-
-    void Start()
-    {
-        if(character == null) { // 除錯用 方便於測試時不放置 GameManager
-          Debug.LogWarning("Character not found in GameManager.character");
-          return;
-        }
-        
-        maxHp = character.hp;
-        def = character.def;
-        speedMult = character.speedMult;
-        attackMult = character.attackMult;
-        currentHp = maxHp;
-    }
+    TimeCounter attackedTimer = new TimeCounter(1f);
 
     void Update()
     {

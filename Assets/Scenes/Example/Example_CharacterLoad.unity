@@ -122,6 +122,98 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &867881531
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -5866906260013599935, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+      propertyPath: targetAttack
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385243878837099067, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2385243878837099067, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+      propertyPath: m_LinearDrag
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943219657499440151, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.9755363
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943219657499440151, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.27773803
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943219657499440151, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943219657499440151, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943219657499440151, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943219657499440151, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943219657499440151, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943219657499440151, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943219657499440151, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943219657499440151, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8951934548676239562, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+      propertyPath: m_Name
+      value: Enemy_001
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8951934548676239562, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 867881533}
+  m_SourcePrefab: {fileID: 100100000, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+--- !u!1 &867881532 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8951934548676239562, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
+  m_PrefabInstance: {fileID: 867881531}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &867881533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867881532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace38481ecd108749bb0eba6629f287a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropItemPrefab:
+  - {fileID: 4645613739593393676, guid: 11256550b25a2f34da4d87ae844a2cbc, type: 3}
+  chance: 1
 --- !u!1 &1219468164
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,6 +250,7 @@ MonoBehaviour:
   def: 0
   speedMult: 1
   attackMult: 1
+  currentHp: 100
   attackedTimerToDisable: 1
 --- !u!114 &1219468168
 MonoBehaviour:
@@ -336,6 +429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5172f44fcb6c284d852d65d2c009ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  equipWeapon: []
 --- !u!4 &1651613879
 Transform:
   m_ObjectHideFlags: 0
@@ -541,3 +635,4 @@ SceneRoots:
   - {fileID: 1522856273}
   - {fileID: 2021792849}
   - {fileID: 1651613879}
+  - {fileID: 867881531}

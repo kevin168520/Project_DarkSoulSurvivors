@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class TimeCounter
 {
-    private float timeInterval; // 間格
+    [SerializeField] private float timeInterval; // 間格
     private float timeCounter; // 計時
     private bool loopEnabled;  // 啟用循環計時
     

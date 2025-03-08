@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    Transform playerTransform => GameManager.instance.playerTransform;
+    Transform playerTransform => GameManager.instance.playerTransform; // 玩家座標資料
+    CharacterScriptable playerData => GameManager.instance.playerData; // 角色資料
     // [SerializeField] WeaponBase weaponPrefab;
     [SerializeField] List<WeaponBase> equipWeapon = new List<WeaponBase>();
     
     void Start()
     {
-        CharacterScriptable character = GameManager.instance.playerData;
-        
-        AddWeapon(Instantiate(character.startingWeapon).GetComponent<WeaponBase>());
+        WeaponBase startingWeapon = Instantiate(playerData.startingWeapon).GetComponent<WeaponBase>(); // 起始武器
+
+        AddWeapon(startingWeapon);
     }
     
     // 透過武器資料添加武器物件
