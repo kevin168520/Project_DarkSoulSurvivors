@@ -7,7 +7,7 @@ public class PlayerManager : MonoBehaviour
     Transform playerTransform => GameManager.instance.playerTransform; // 玩家座標資料
     CharacterScriptable playerData => GameManager.instance.playerData; // 角色資料
     CharacterScript playerCharacter => GameManager.instance.playerCharacter; // 玩家角色
-    [SerializeField] private LevelUpUI playerLevelUpUI; // 遊戲等級 UI
+    [SerializeField] private PlayerStatUI playerLevelUpUI; // 遊戲等級 UI
     void Start()
     {
         // 載入角色圖片

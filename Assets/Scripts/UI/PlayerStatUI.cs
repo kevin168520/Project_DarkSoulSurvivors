@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class LevelUpUI : MonoBehaviour
+public class PlayerStatUI : MonoBehaviour
 {
     [SerializeField] Slider _ExpBar;
     public float ExpBar {set{
