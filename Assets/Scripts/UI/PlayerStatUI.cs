@@ -6,6 +6,10 @@ using TMPro;
 
 public class PlayerStatUI : MonoBehaviour
 {
+    [SerializeField] Slider _HpBar;
+    public float HpBar {set{
+      _HpBar.value = value;
+    }}
     [SerializeField] Slider _ExpBar;
     public float ExpBar {set{
       _ExpBar.value = value;

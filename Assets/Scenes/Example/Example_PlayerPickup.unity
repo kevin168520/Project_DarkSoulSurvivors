@@ -1972,6 +1972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d08bdf76a05cf2c41b0a9f6336400406, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _HpBar: {fileID: 1412246213}
   _ExpBar: {fileID: 645240113}
   _ExpLevel: {fileID: 908177483}
 --- !u!1 &568260207
@@ -3690,6 +3691,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb45bcaca9b8bb14f923e84fcc597dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dataChangeListener:
+    m_PersistentCalls:
+      m_Calls: []
   level: 1
   levelUpExp: 10
   totalExp: 0
@@ -3700,9 +3704,6 @@ MonoBehaviour:
   currentHp: 100
   invincibilityCounter:
     timeInterval: 1
-  dataChangeListener:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &932056962
 MonoBehaviour:
   m_ObjectHideFlags: 0

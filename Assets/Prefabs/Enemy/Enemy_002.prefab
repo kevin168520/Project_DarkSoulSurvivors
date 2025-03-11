@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2385243878837099067}
   - component: {fileID: -7762495527468864855}
   - component: {fileID: -5866906260013599935}
+  - component: {fileID: 1720972137115826222}
   m_Layer: 0
   m_Name: Enemy_002
   m_TagString: Enemy
@@ -198,3 +199,18 @@ MonoBehaviour:
   rgdbd: {fileID: 2385243878837099067}
   data: {fileID: 11400000, guid: 221c9aab8b0c2af41a94dffbffe195d4, type: 2}
   speed: 0
+--- !u!114 &1720972137115826222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8951934548676239562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace38481ecd108749bb0eba6629f287a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropItemPrefab:
+  - {fileID: 4645613739593393676, guid: 11256550b25a2f34da4d87ae844a2cbc, type: 3}
+  chance: 1

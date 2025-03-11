@@ -24,6 +24,12 @@ public class CharacterScript : MonoBehaviour, IDamageable {
   bool isDead = false; // 死亡判定
   [SerializeField] TimeCounter invincibilityCounter = new TimeCounter(1f); // 無敵時間
 
+  public void AddHp(int hp) {
+    currentHp += hp;
+
+    dataChangeListener.Invoke(StatType.CurrentHp);
+  }
+
   public void AddExp(int exp) {
     totalExp += exp;
 
@@ -41,6 +47,21 @@ public class CharacterScript : MonoBehaviour, IDamageable {
     levelUpExp = level * 10;
 
     dataChangeListener.Invoke(StatType.Level);
+  }
+
+  public bool CheckDead() {
+    if(currentHp <= 0) {
+      isDead = true;
+      dataChangeListener.Invoke(StatType.isDead);
+    }
+    
+    return isDead;
+  }
+
+  public void OnHitInvincibility() {
+    invincibilityCounter.Reset();
+
+    dataChangeListener.Invoke(StatType.Invincibility);
   }
 
   void Update() {
@@ -68,15 +89,12 @@ public class CharacterScript : MonoBehaviour, IDamageable {
     }
 
     // 當前血量扣損
-    currentHp -= damage;
+    AddHp(-damage);
 
     // 死亡處理
-    if (currentHp <= 0) {
-      isDead = true;
-      GameManager.instance.GameOver();
-    } else {
-      // 受攻擊時間處理
-      invincibilityCounter.Reset();
+    if(!CheckDead()) { 
+    // 受攻擊時間處理
+      OnHitInvincibility();
     }
 
     Debug.Log($"Character TakeDamage: {damage} - {def}, currentHp: {currentHp}, CharacterIsDead: {isDead}");
