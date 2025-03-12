@@ -6,14 +6,16 @@ public class WeaponManager : MonoBehaviour
 {
     Transform playerTransform => GameManager.instance.playerTransform; // 玩家座標資料
     CharacterScriptable playerData => GameManager.instance.playerData; // 角色資料
-    // [SerializeField] WeaponBase weaponPrefab;
+    CharacterScript playerCharacter => GameManager.instance.playerCharacter; // 玩家角色
     [SerializeField] List<WeaponBase> equipWeapon = new List<WeaponBase>();
     
     void Start()
     {
-        WeaponBase startingWeapon = Instantiate(playerData.startingWeapon).GetComponent<WeaponBase>(); // 起始武器
+        // 添加角色起始武器
+        AddWeapon(playerData.startingWeapon);
 
-        AddWeapon(startingWeapon);
+        // 註冊角色監聽
+        playerCharacter.dataChangeListener.AddListener(OnCharacterdataChange);
     }
     
     // 透過武器資料添加武器物件
@@ -29,5 +31,20 @@ public class WeaponManager : MonoBehaviour
       weapon.transform.parent = playerTransform;
       weapon.transform.position = Vector3.zero;
       weapon.gameObject.SetActive(true);
+    }
+    
+
+    public void OnCharacterdataChange(CharacterScript.StatType type){
+      switch (type)
+      {
+        case CharacterScript.StatType.Level:
+          break;
+        case CharacterScript.StatType.SpeedMult:
+          break;
+        case CharacterScript.StatType.AttackMult:
+          break;
+        case CharacterScript.StatType.isDead:
+          break;
+      }
     }
 }
