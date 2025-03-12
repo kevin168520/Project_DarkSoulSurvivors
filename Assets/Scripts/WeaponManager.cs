@@ -17,11 +17,11 @@ public class WeaponManager : MonoBehaviour
     }
     
     // 透過武器資料添加武器物件
-    // public void AddWeapon(WeaponScriptable weaponData){
-    //   WeaponBase weapon = Instantiate<WeaponBase>(weaponPrefab);
-    //   weapon.SetWeaponData(weaponData);
-    //   AddWeapon(weapon);
-    // }
+    public void AddWeapon(WeaponScriptable weaponData){
+      WeaponBase weapon = Instantiate<WeaponBase>(weaponData.weaponPrefab);
+      weapon.SetWeaponData(weaponData);
+      AddWeapon(weapon);
+    }
     
     // 添加武器物件並移動玩家座標下
     public void AddWeapon(WeaponBase weapon){

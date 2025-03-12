@@ -601,7 +601,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 400678529}
-  _playerData: {fileID: 11400000, guid: 31c2210de46857545bc7c352fe80ab86, type: 2}
+  _playerData: {fileID: 0}
   gameOverPanel: {fileID: 787708751}
   gameCompletePanel: {fileID: 1834417604}
 --- !u!4 &1179702899

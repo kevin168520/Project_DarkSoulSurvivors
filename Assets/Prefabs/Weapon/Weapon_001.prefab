@@ -420,6 +420,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: e953efef9ae2e8349a71a96239bfa5c6, type: 2}
+  attack: 100
+  attackCounter:
+    timeInterval: 0.5
+  activeInterval: 0.4
+  flightSpeed: 0
   attackEffects:
   - {fileID: 5823705132313194928}
   - {fileID: 1103949769877742458}
