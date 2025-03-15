@@ -12,7 +12,19 @@ public class PlayerDataSavingScript : MonoBehaviour
 
     private void Awake()
     {
-        inst = this;
+        // 檢查是否已經有一個實例
+        if (inst == null)
+        {
+            // 如果沒有實例，設置當前物件為實例並防止銷毀
+            inst = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            // 如果已有實例，銷毀當前物件
+            Destroy(this);
+        }
+
         string sGetDataPath = Path.GetFullPath(Application.dataPath);
         sPlayerDataSavingPath = Path.Combine(sGetDataPath, "PlayerDataSaving.json");    //預設路徑 + 檔案名稱(PlayerDataSaving.json)
         Debug.Log(sPlayerDataSavingPath);
