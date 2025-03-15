@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 129fe8af886c531468f3d519a4ca029e, type: 3}
   m_Name: Weapon_002_Data
   m_EditorClassIdentifier: 
+  weaponNumber: 2
+  weaponName: Bow
+  weaponIcon: {fileID: 1489561533, guid: 2de71b63f61271c48adc6aed7f22ab03, type: 3}
   weaponPrefab: {fileID: 7425358095781309691, guid: bebcfe7670da6344eb911036f53d2505, type: 3}
-  upgradeData:
+  weaponDatas:
   - attack: 60
     attackInterval: 0.2
     activeInterval: 1
