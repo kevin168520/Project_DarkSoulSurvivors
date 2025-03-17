@@ -17,6 +17,8 @@ public class TimeCounter
         this.loopEnabled = loopEnabled;
     }
 
+    public float GetTimeInterval() => timeInterval;
+
     public void SetTimeInterval(float f) {
         timeInterval = f;
     }

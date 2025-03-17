@@ -21,7 +21,8 @@ public class EnemyManager : MonoBehaviour
 
     void Start()
     {
-        
+        Camera cam = Camera.main;
+        spawnArea = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, cam.nearClipPlane));
     }
 
 

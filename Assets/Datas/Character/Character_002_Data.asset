@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showName: OldMan
   spritePrefab: {fileID: 6676319224844049280, guid: 7b272e877022adb4f82ae15282c8aa41, type: 3}
-  startingWeapon: {fileID: 8804694374959994503, guid: bebcfe7670da6344eb911036f53d2505, type: 3}
+  startingWeapon: {fileID: 11400000, guid: 29d49d07c1a6df6468df96dbf46b345c, type: 2}
+  hp: 100
+  def: 0
+  speedMult: 1
+  attackMult: 1

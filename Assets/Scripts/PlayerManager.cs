@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
     Transform playerTransform => GameManager.instance.playerTransform; // 玩家座標資料
     CharacterScriptable playerData => GameManager.instance.playerData; // 角色資料
     CharacterScript playerCharacter => GameManager.instance.playerCharacter; // 玩家角色
+    [SerializeField] private PlayerStatUI playerStatUI; // 遊戲等級 UI
     void Start()
     {
         // 載入角色圖片
@@ -21,11 +22,41 @@ public class PlayerManager : MonoBehaviour
         playerCharacter.speedMult = playerData.speedMult;
         playerCharacter.attackMult = playerData.attackMult;
         playerCharacter.currentHp = playerData.hp;
+
+        // 註冊角色監聽
+        playerCharacter.dataChangeListener.AddListener(OnCharacterdataChange);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void OnCharacterdataChange(CharacterScript.StatType type){
+      switch (type)
+      {
+        case CharacterScript.StatType.Level:
+          playerStatUI.ExpLevel = playerCharacter.level;
+          break;
+        case CharacterScript.StatType.TotalExp:
+          playerStatUI.ExpBar = (float)playerCharacter.totalExp / playerCharacter.levelUpExp;
+          break;
+        case CharacterScript.StatType.Def:
+          break;
+        case CharacterScript.StatType.SpeedMult:
+          break;
+        case CharacterScript.StatType.AttackMult:
+          break;
+        case CharacterScript.StatType.MaxHp:
+        case CharacterScript.StatType.CurrentHp:
+          playerStatUI.HpBar = (float)playerCharacter.currentHp / playerCharacter.maxHp;
+          break;
+        case CharacterScript.StatType.isDead:
+          GameManager.instance.GameOver();
+          break;
+        case CharacterScript.StatType.Invincibility:
+          break;
+      }
     }
 }

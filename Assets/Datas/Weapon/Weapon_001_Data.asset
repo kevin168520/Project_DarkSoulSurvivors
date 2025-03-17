@@ -12,7 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 129fe8af886c531468f3d519a4ca029e, type: 3}
   m_Name: Weapon_001_Data
   m_EditorClassIdentifier: 
-  attack: 100
-  attackInterval: 0.5
-  activeInterval: 0.4
-  flightSpeed: 0
+  weaponNumber: 1
+  weaponName: Fireball
+  weaponIcon: {fileID: 1077666847, guid: e9d40a9777e11724fbfdb34f573a2366, type: 3}
+  weaponPrefab: {fileID: 7408650113086900405, guid: dae5271b4d0b2ff47a7dc78f1746bdd3, type: 3}
+  weaponDatas:
+  - attack: 100
+    attackInterval: 0.5
+    activeInterval: 0.4
+    flightSpeed: 0
+    description: Circling Fireball
+  - attack: 120
+    attackInterval: 0.5
+    activeInterval: 0.4
+    flightSpeed: 0
+    description: Attack Upgrade 20%

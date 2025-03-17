@@ -8,26 +8,20 @@ using UnityEngine;
 public abstract class AttackBehaviourBase : MonoBehaviour
 {
     // 屬性
-    private int _attack; // 攻擊值
-    public int Attack{ get => _attack; set => _attack = value;}
-    private float _attackInterval; // 攻擊間格
-    public float AttackInterval{ get => _attackInterval; set => _attackInterval = value;}
-    private float _activeInterval; // 攻擊持續
-    public float ActiveInterval{ get => _activeInterval; set {_activeInterval = value; activeCounter.SetTimeInterval(value);}}
-    private float _flightSpeed; // 飛行攻擊速度
-    public float FlightSpeed{ get => _flightSpeed; set => _flightSpeed = value;}
-    private Vector3 _flightDirection; // 飛行攻擊方向
-    public Vector3 FlightDirection{ get => _flightDirection; set => _flightDirection = value;}
-
-    // 範圍
-    [SerializeField] TargetDetector targetDetector = new TargetDetector(new Vector2(1, 1));
-
-    // 頻率
+    public int Attack; // 攻擊值
+    public float AttackInterval; // 攻擊間格
+    public float ActiveInterval{ // 攻擊持續
+      get => activeCounter.GetTimeInterval(); 
+      set => activeCounter.SetTimeInterval(value);
+    }
     TimeCounter activeCounter = new TimeCounter(1f); // 攻擊持續計時
-    TimeCounter frameCounter = new TimeCounter(6f, true); // 跳偵優化處理
+    public float FlightSpeed; // 飛行攻擊速度
+    public Vector3 FlightDirection; // 飛行攻擊方向
 
-    // 音效
-    public AudioSource audioSource;
+    // 功能
+    TargetDetector targetDetector = new TargetDetector(new Vector2(1, 1)); // 捕抓範圍
+    TimeCounter frameCounter = new TimeCounter(6f, true); // 跳偵優化處理
+    public AudioSource audioSource; // 音效
     
     // 播放音樂
     public void PlaySound() {
@@ -36,32 +30,43 @@ public abstract class AttackBehaviourBase : MonoBehaviour
 
     // 開啟攻擊
     virtual public void OnEnable() {
+      OnAttackStart();
       activeCounter.Reset();
     }
 
     // 攻擊計時
     virtual public void LateUpdate() {
       if (activeCounter.UpdateDelta()) {
-        gameObject.SetActive(false);
+        OnAttackEnd();
       }
     }
+
+    // 攻擊時間結束
+    public void ActiveStop() => activeCounter.Update(activeCounter.GetTimeInterval());
 
     // 捕抓敵人
     virtual public void Update(){
-      BeforeUpdate();
+      OnUpdateStart();
       if (frameCounter.UpdateFrame())
       {
-        targetDetector.DetectTargets(transform, collision => {
-            if(CheckCollider(collision))ApplyDamage(collision); 
-        });
+        targetDetector.DetectTargets(transform, HandleTargets);
       }
     }
-    // 子類實作捕抓敵人前動作
-    virtual protected void BeforeUpdate(){}
+
+    // 提供子類處理捕抓
+    virtual protected void HandleTargets(Collider2D collider) => ApplyAttack(collider); 
+
+    // 提供子類 Update()
+    virtual protected void OnUpdateStart(){}
+
+    // 子類實作結束
+    abstract protected void OnAttackStart();
 
     // 子類實作攻擊
-    abstract protected void ApplyDamage(Collider2D collider);
-    abstract protected bool CheckCollider(Collider2D collider);
+    abstract protected void ApplyAttack(Collider2D collider);
+
+    // 子類實作結束
+    abstract protected void OnAttackEnd();
     
 
 #if DEBUG

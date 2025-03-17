@@ -7,15 +7,18 @@ public class WeaponBehaviour : WeaponBehaviourBase
     List<Object> enemiesHit = new List<Object>(); // 避免相同敵人多次攻擊
 
     // 開啟攻擊
-    override public void OnEnable() {
-        base.OnEnable();
-        PlaySound();
+    protected override void OnAttackStart()
+    {
         enemiesHit.Clear();
+        PlaySound();
     }
 
     // 執行攻擊
-    protected override void ApplyDamage(Collider2D collision)
+    protected override void ApplyAttack(Collider2D collision)
     {
+        // 檢查對象
+        if(!collision.CompareTag("Enemy")) return;
+
         // 判定未被攻擊過
         if(enemiesHit.Contains(collision)) return;
 
@@ -25,5 +28,11 @@ public class WeaponBehaviour : WeaponBehaviourBase
 
           enemiesHit.Add(collision); // 加入曾被攻擊過
         }
+    }
+
+    // 結束攻擊
+    protected override void OnAttackEnd()
+    {
+        gameObject.SetActive(false);
     }
 }

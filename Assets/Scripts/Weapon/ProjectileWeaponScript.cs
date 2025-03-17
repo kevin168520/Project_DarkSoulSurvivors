@@ -8,7 +8,7 @@ public class ProjectileWeaponScript : WeaponBase
     [SerializeField] private GameObject projectile;
 
     // 執行攻擊
-    override protected void Attack()
+    override protected void HandleAttack()
     {
         StartCoroutine(AttackProcess());
     }
@@ -27,7 +27,7 @@ public class ProjectileWeaponScript : WeaponBase
       projectileGO.SetActive(true);
       
       WeaponBehaviourBase projectileBehaviour = projectileGO.GetComponent<WeaponBehaviourBase>();
-      projectileBehaviour.SetWeaponData(weaponData);
+      projectileBehaviour.ApplyWeaponStats(this);
       projectileBehaviour.FlightDirection = direction.Normalized;
 
       float angle = Mathf.Atan2(direction.Normalized.y, direction.Normalized.x) * Mathf.Rad2Deg;

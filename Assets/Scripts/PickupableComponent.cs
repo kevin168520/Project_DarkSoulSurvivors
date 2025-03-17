@@ -23,7 +23,12 @@ public class PickupableComponent : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision){
       if(collision.tag == "Player") {
         // 被撿拾的處理
-        Destroy(gameObject);
+        OnPickup(collision);
       }
+    }
+
+    // 子類實作被撿拾後的動作
+    virtual protected void OnPickup(Collider2D collision){
+        Destroy(gameObject);
     }
 }
