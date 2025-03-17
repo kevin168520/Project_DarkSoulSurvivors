@@ -94,6 +94,7 @@ public class WeaponManager : MonoBehaviour
             Debug.Log($"{weaponData.weaponName} Upgrade To ({weaponData.weaponLevel} Level)");
             weapon.LoadWeaponData(weaponData);
             weaponUpgradeUI.Active = false;
+            GameManager.instance.UnPauseGame();
             return;
           }
         }
@@ -101,6 +102,7 @@ public class WeaponManager : MonoBehaviour
         Debug.Log($"{weaponData.weaponName} New Add");
         AddWeapon(weaponData);
         weaponUpgradeUI.Active = false;
+        GameManager.instance.UnPauseGame();
       }
     }
     
@@ -111,6 +113,7 @@ public class WeaponManager : MonoBehaviour
         case CharacterScript.StatType.Level:
           InitWeaponUpgradeUI();
           weaponUpgradeUI.Active = true;
+          GameManager.instance.PauseGame();
           break;
         case CharacterScript.StatType.SpeedMult:
           break;
