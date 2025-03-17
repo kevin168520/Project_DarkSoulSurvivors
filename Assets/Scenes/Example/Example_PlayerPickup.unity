@@ -5884,10 +5884,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponUpgradeUI: {fileID: 283843176}
   equipWeapon: []
-  upgradeWeapon: []
-  allWeapon:
-  - {fileID: 11400000, guid: e953efef9ae2e8349a71a96239bfa5c6, type: 2}
-  - {fileID: 11400000, guid: 29d49d07c1a6df6468df96dbf46b345c, type: 2}
+  weaponDatabase: {fileID: 11400000, guid: 828947e1545f8dc4fa60c6f0dc0f3d6a, type: 2}
 --- !u!1 &1382417634
 GameObject:
   m_ObjectHideFlags: 0

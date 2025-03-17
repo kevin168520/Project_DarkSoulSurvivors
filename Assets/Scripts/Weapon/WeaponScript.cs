@@ -9,14 +9,14 @@ public class WeaponScript : WeaponBase
     
 
     // 執行攻擊 生成攻擊行為
-    override protected void Attack()
+    override protected void HandleAttack()
     {
       
         if(direction.Normalized.x >= 0){
-          attackEffects[0].SetWeaponData(weaponData);
+          attackEffects[0].ApplyWeaponStats(this);
           attackEffects[0].gameObject.SetActive(true);
         } else {
-          attackEffects[1].SetWeaponData(weaponData);
+          attackEffects[1].ApplyWeaponStats(this);
           attackEffects[1].gameObject.SetActive(true);
         }
     }

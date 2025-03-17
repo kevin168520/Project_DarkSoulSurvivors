@@ -7,10 +7,9 @@ public class WeaponManager : MonoBehaviour
     Transform playerTransform => GameManager.instance.playerTransform; // 玩家座標資料
     CharacterScriptable playerData => GameManager.instance.playerData; // 角色資料
     CharacterScript playerCharacter => GameManager.instance.playerCharacter; // 玩家角色
-    [SerializeField] private WeaponUpgradeUI weaponUpgradeUI; // 玩家升級 UI
-    [SerializeField] List<WeaponBase> equipWeapon = new List<WeaponBase>();
-    [SerializeField] List<WeaponScriptable> upgradeWeapon = new List<WeaponScriptable>();
-    [SerializeField] List<WeaponScriptable> allWeapon;
+    [SerializeField] WeaponUpgradeUI weaponUpgradeUI; // 玩家升級 UI
+    [SerializeField] List<WeaponBase> equipWeapon = new List<WeaponBase>(); // 已裝備武器
+    [SerializeField] WeaponDatabaseScriptable weaponDatabase; // 武器資料庫
     
     void Start()
     {
@@ -21,42 +20,33 @@ public class WeaponManager : MonoBehaviour
         playerCharacter.dataChangeListener.AddListener(OnCharacterdataChange);
     }
     
-    // 透過武器資料添加武器物件
+    // 添加武器物件 透過武器資料
     public void AddWeapon(WeaponScriptable weaponData){
       WeaponBase weapon = Instantiate<WeaponBase>(weaponData.weaponPrefab);
-      weapon.SetWeaponData(weaponData);
+      weapon.LoadWeaponData(weaponData);
       AddWeapon(weapon);
     }
     
-    // 添加武器物件並移動玩家座標下
+    // 添加武器物件
     public void AddWeapon(WeaponBase weapon){
       equipWeapon.Add(weapon);
+
+      // 移動玩家座標下
       weapon.transform.parent = playerTransform;
       weapon.transform.localPosition  = Vector3.zero;
       weapon.gameObject.SetActive(true);
     }
-
-    public WeaponScriptable SearchWeapon(int number) {
-      foreach(WeaponScriptable w in allWeapon){
-        if(w.weaponNumber == number) return w;
-      }
-
-      Debug.LogWarning($"can't Search WeaponNumber {number}");
-      return null;
-    }
-
-    public bool CheckUpgradeWeapon(WeaponScriptable weaponData, WeaponBase weapon) {
-        return weaponData.weaponDatas.Count > (weapon.weaponLevel+1);
-    }
     
-    // 檢查可升級的武器列表
-    public void CheckUpgradeWeapons(){
-      upgradeWeapon = new List<WeaponScriptable>();
+    // 初始化武器升級介面 只會在角色升級時被呼叫
+    public void InitWeaponUpgradeUI(){
+      
+      // 篩選武器內容
+      List<WeaponScriptable> upgradeWeapon = new List<WeaponScriptable>();
       List<WeaponScriptable> nonupgradeWeapon = new List<WeaponScriptable>();
 
       foreach(WeaponBase weapon in equipWeapon){
-        WeaponScriptable weaponData = Instantiate(SearchWeapon(weapon.weaponNumber));
-        if(CheckUpgradeWeapon(weaponData, weapon)) {
+        WeaponScriptable weaponData = Instantiate(weaponDatabase.Search(weapon.weaponNumber));
+        if(weapon.IsWeaponUpgradeable()) {
           weaponData.weaponLevel++;
           upgradeWeapon.Add(weaponData);
         } else {
@@ -64,27 +54,30 @@ public class WeaponManager : MonoBehaviour
         }
       }
 
-      
-      for(int i = upgradeWeapon.Count; i < weaponUpgradeUI.options.Count; i++){
-        foreach(WeaponScriptable weaponDataPre in allWeapon){
-            if(!upgradeWeapon.Contains(weaponDataPre) && !nonupgradeWeapon.Contains(weaponDataPre)) upgradeWeapon.Add(weaponDataPre);
+      // 如果還有剩餘位置 從武器資料庫中塞選
+      if(upgradeWeapon.Count < weaponUpgradeUI.options.Count){
+        weaponDatabase.Shuffle();
+        
+        foreach (WeaponScriptable weaponDataPre in weaponDatabase)
+        {
+            if (upgradeWeapon.Count >= weaponUpgradeUI.options.Count) break;
+            if (!upgradeWeapon.Contains(weaponDataPre) && !nonupgradeWeapon.Contains(weaponDataPre))
+            {
+                upgradeWeapon.Add(weaponDataPre);
+            }
         }
       }
-    }
-    
-    // 初始化武器升級介面 只會在角色升級時被呼叫
-    public void InitWeaponUpgradeUI(){
-      List<UpgradeOptions> options = weaponUpgradeUI.options;
 
-      for(int i = 0; i < options.Count; i++){
-        UpgradeOptions op = options[i];
+      // 設置選項內容
+      for(int i = 0; i < weaponUpgradeUI.options.Count; i++){
+        UpgradeOptions op = weaponUpgradeUI.options[i];
         if(i < upgradeWeapon.Count) {
           WeaponScriptable weaponData = upgradeWeapon[i];
           op.IconImage = weaponData.weaponIcon;
           op.TitleText = weaponData.weaponName;
           op.DescriptionText = weaponData.description;
           op.Active = true;
-          op.Listener = UpgradeWeapons;
+          op.Listener = OnUpgradeWeapons;
           op.ReturnValue = weaponData;
         } else {
           op.Active = false;
@@ -92,32 +85,30 @@ public class WeaponManager : MonoBehaviour
       }
     }
     
-    public void UpgradeWeapons(Object obj){
+    // 升級武器選項的監聽
+    public void OnUpgradeWeapons(Object obj){
       if(obj is WeaponScriptable weaponData){
-        bool upgrade = false;
+        // 升級武器是當前裝備 更新武器資料
         foreach(WeaponBase weapon in equipWeapon){
-          if(CheckUpgradeWeapon(weaponData, weapon)) {
+          if(weapon.IsSameWeapon(weaponData)) {
             Debug.Log($"{weaponData.weaponName} Upgrade To ({weaponData.weaponLevel} Level)");
-            weapon.SetWeaponData(weaponData);
-            upgrade = true;
-            break;
+            weapon.LoadWeaponData(weaponData);
+            weaponUpgradeUI.Active = false;
+            return;
           }
         }
-
-        if(!upgrade){
-          AddWeapon(weaponData);
-        }
+        // 升級武器不是當前裝備 執行新增武器
+        Debug.Log($"{weaponData.weaponName} New Add");
+        AddWeapon(weaponData);
+        weaponUpgradeUI.Active = false;
       }
-
-      weaponUpgradeUI.Active = false;
     }
     
-
+    // 角色資料監聽
     public void OnCharacterdataChange(CharacterScript.StatType type){
       switch (type)
       {
         case CharacterScript.StatType.Level:
-          CheckUpgradeWeapons();
           InitWeaponUpgradeUI();
           weaponUpgradeUI.Active = true;
           break;

@@ -4,15 +4,14 @@ using UnityEngine;
 
 public abstract class WeaponBehaviourBase : AttackBehaviourBase
 {
-    public void SetWeaponData(WeaponScriptable d) {
+    public void ApplyWeaponStats(WeaponBase d) {
       Attack = d.attack;
       FlightSpeed = d.flightSpeed;
       ActiveInterval = d.activeInterval;
     }
-
-    // 檢查對象
-    override protected bool CheckCollider(Collider2D collider){
-      if(collider.CompareTag("Enemy")) return true;
-      return false;
+    public void ApplyWeaponStats(WeaponScriptable d) {
+      Attack = d.attack;
+      FlightSpeed = d.flightSpeed;
+      ActiveInterval = d.activeInterval;
     }
 }
