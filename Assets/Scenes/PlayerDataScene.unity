@@ -1285,6 +1285,10 @@ MonoBehaviour:
   _playerData: {fileID: 0}
   gameOverPanel: {fileID: 787708751}
   gameCompletePanel: {fileID: 1834417604}
+  gamePauseMenu: {fileID: 3621463903327325771}
+  btnReturnToGame: {fileID: 3971058352146383616}
+  btnSetting: {fileID: 6808595350223929620}
+  btnBackToMenu: {fileID: 1097749859534294592}
 --- !u!4 &1179702899
 Transform:
   m_ObjectHideFlags: 0
@@ -3038,10 +3042,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 9194349339893609422}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -20}
-  m_SizeDelta: {x: 1000, y: 100}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -262.5, y: -40}
+  m_SizeDelta: {x: 525, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &270731427008645089
 MonoBehaviour:
@@ -4056,7 +4060,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -50}
   m_SizeDelta: {x: 400, y: 150}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &2027076437065066612
@@ -5177,7 +5181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8143122960554367768}
   m_Layer: 5
-  m_Name: PauseMenu
+  m_Name: gamePauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7006,7 +7010,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -8838,7 +8842,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -200}
+  m_AnchoredPosition: {x: 0, y: -250}
   m_SizeDelta: {x: 1000, y: 300}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1660057539 &9223372036854775807
