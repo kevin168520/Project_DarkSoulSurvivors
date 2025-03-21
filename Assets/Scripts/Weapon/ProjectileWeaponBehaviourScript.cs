@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class ProjectileWeaponBehaviour : WeaponBehaviourBase
 {
-    // [SerializeField] Vector3 direction; // 移動方向
-    
-
     // 開啟攻擊
     protected override void OnAttackStart()
     {
@@ -19,16 +16,10 @@ public class ProjectileWeaponBehaviour : WeaponBehaviourBase
     }
 
     // 執行攻擊
-    override protected void ApplyAttack(Collider2D collision)
+    override protected void HandleAttack(Collider2D collision)
     {
-        // 檢查對象
-        if(!collision.CompareTag("Enemy")) return;
-
-        // 判定可受傷
-        if(collision.GetComponent<IDamageable>() is IDamageable e){
-          e.TakeDamage(Attack); // 申請對象傷害
-          
-          ActiveStop(); // 強制結束持續攻擊
+        if(OnAttackEvent(collision)){
+          OnAttackEnd(); // 彈丸擊中目標後結束
         }
     }
 

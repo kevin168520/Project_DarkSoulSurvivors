@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProjectileWeaponScript : WeaponBase
 {
     IDirection direction => GameManager.instance.playerDirection; // 方向組件
-    [SerializeField] private GameObject projectile;
+    [SerializeField] private WeaponBehaviourBase projectilePrefab;
 
     // 執行攻擊
     override protected void HandleAttack()
@@ -21,17 +21,19 @@ public class ProjectileWeaponScript : WeaponBase
 
     // 生成子彈物件
     void SpawnProjectile() {
-      GameObject projectileGO = Instantiate(projectile);
-      projectileGO.transform.position = transform.position;
-      projectileGO.transform.parent = transform;
-      projectileGO.SetActive(true);
+      // 子彈場景狀態
+      WeaponBehaviourBase projectile = Instantiate(projectilePrefab);
+      projectile.transform.position = transform.position;
+      // projectile.transform.parent = transform;
+      projectile.gameObject.SetActive(true);
       
-      WeaponBehaviourBase projectileBehaviour = projectileGO.GetComponent<WeaponBehaviourBase>();
-      projectileBehaviour.ApplyWeaponStats(this);
-      projectileBehaviour.FlightDirection = direction.Normalized;
+      // 子彈屬性
+      projectile.ApplyWeaponStats(this);
+      projectile.OnAttackEvent = ApplyDamage;
+      projectile.FlightDirection = direction.Normalized;
 
+      // 子彈方向
       float angle = Mathf.Atan2(direction.Normalized.y, direction.Normalized.x) * Mathf.Rad2Deg;
-      projectileBehaviour.transform.rotation = Quaternion.Euler(0, 0, angle);
-
+      projectile.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 }

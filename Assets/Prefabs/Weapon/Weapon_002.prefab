@@ -247,8 +247,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d1253bed1d33814b8354e2d58253d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetDetector:
-    detectionSize: {x: 0.8, y: 0.2}
+  attackInterval: 0
+  FlightSpeed: 0
+  FlightDirection: {x: 0, y: 0, z: 0}
   audioSource: {fileID: 3001871165180629939}
 --- !u!1 &8804694374959994503
 GameObject:
@@ -296,10 +297,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec1fa36cb60a0db489cf2c19ba00cbfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: 29d49d07c1a6df6468df96dbf46b345c, type: 2}
+  weaponNumber: 0
+  weaponLevel: 0
+  weaponLevelMax: 0
   attack: 60
   attackCounter:
     timeInterval: 0.2
   activeInterval: 1
   flightSpeed: 5
-  projectile: {fileID: 7641820963975669417}
+  projectilePrefab: {fileID: 8323581174175904042}

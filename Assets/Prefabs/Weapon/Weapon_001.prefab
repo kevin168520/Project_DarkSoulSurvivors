@@ -247,8 +247,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c48dcf15457ea8446b405827f35b9ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetDetector:
-    detectionSize: {x: 1.2, y: 1.2}
+  attackInterval: 0
+  FlightSpeed: 0
+  FlightDirection: {x: 0, y: 0, z: 0}
   audioSource: {fileID: 146783172315694056}
 --- !u!1 &7641820963975669417
 GameObject:
@@ -369,8 +370,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c48dcf15457ea8446b405827f35b9ec2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetDetector:
-    detectionSize: {x: 1.2, y: 1.2}
+  attackInterval: 0
+  FlightSpeed: 0
+  FlightDirection: {x: 0, y: 0, z: 0}
   audioSource: {fileID: 146783172315694056}
 --- !u!1 &8804694374959994503
 GameObject:
@@ -419,12 +421,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec17a5fd530c676478c6d890cf424692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 11400000, guid: e953efef9ae2e8349a71a96239bfa5c6, type: 2}
+  weaponNumber: 0
+  weaponLevel: 0
+  weaponLevelMax: 0
   attack: 100
   attackCounter:
     timeInterval: 0.5
   activeInterval: 0.4
   flightSpeed: 0
-  attackEffects:
+  weaponBehaviours:
   - {fileID: 5823705132313194928}
   - {fileID: 1103949769877742458}
