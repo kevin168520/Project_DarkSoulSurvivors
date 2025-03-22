@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponBehaviour : WeaponBehaviourBase
 {
-    List<Object> enemiesHit = new List<Object>(); // 避免相同敵人多次攻擊
+    HashSet<Object> enemiesHit = new HashSet<Object>(); // 避免相同敵人多次攻擊 HashSet 無排序速度較快
 
     // 開啟攻擊
     protected override void OnAttackStart()
@@ -14,18 +14,9 @@ public class WeaponBehaviour : WeaponBehaviourBase
     }
 
     // 執行攻擊
-    protected override void ApplyAttack(Collider2D collision)
+    protected override void HandleAttack(Collider2D collision)
     {
-        // 檢查對象
-        if(!collision.CompareTag("Enemy")) return;
-
-        // 判定未被攻擊過
-        if(enemiesHit.Contains(collision)) return;
-
-        // 判定可受傷
-        if(collision.GetComponent<IDamageable>() is IDamageable e){
-          e.TakeDamage(Attack); // 申請對象傷害
-
+        if(OnAttackEvent(collision)){
           enemiesHit.Add(collision); // 加入曾被攻擊過
         }
     }

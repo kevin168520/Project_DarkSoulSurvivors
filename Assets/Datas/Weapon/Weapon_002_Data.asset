@@ -16,14 +16,15 @@ MonoBehaviour:
   weaponName: Bow
   weaponIcon: {fileID: 1489561533, guid: 2de71b63f61271c48adc6aed7f22ab03, type: 3}
   weaponPrefab: {fileID: 7425358095781309691, guid: bebcfe7670da6344eb911036f53d2505, type: 3}
+  weaponLevel: 0
   weaponDatas:
   - attack: 60
-    attackInterval: 0.2
-    activeInterval: 1
-    flightSpeed: 5
+    attackInterval: 0.4
+    activeInterval: 0.5
+    flightSpeed: 10
     description: Shooting Arrows
   - attack: 60
-    attackInterval: 0.2
-    activeInterval: 2
-    flightSpeed: 5
+    attackInterval: 0.4
+    activeInterval: 1
+    flightSpeed: 10
     description: Active Upgrade 100%

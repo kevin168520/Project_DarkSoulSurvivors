@@ -83,6 +83,12 @@ public class WeaponManager : MonoBehaviour
           op.Active = false;
         }
       }
+
+      // 開啟武器生級選單
+      if(upgradeWeapon.Count > 0) {
+        weaponUpgradeUI.Active = true;
+        GameManager.instance.PauseGame();
+      }
     }
     
     // 升級武器選項的監聽
@@ -112,8 +118,6 @@ public class WeaponManager : MonoBehaviour
       {
         case CharacterScript.StatType.Level:
           InitWeaponUpgradeUI();
-          weaponUpgradeUI.Active = true;
-          GameManager.instance.PauseGame();
           break;
         case CharacterScript.StatType.SpeedMult:
           break;

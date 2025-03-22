@@ -1,15 +1,22 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class WeaponBase : MonoBehaviour
 {
+    // 結算素質
+    protected int totalDamage; // 總傷害
+    
     // 武器素質
     public int weaponNumber; // 武器編號
     public int weaponLevel; // 武器等級
     public int weaponLevelMax; // 武器最高等級
     public int attack; // 攻擊值
-    public float attackInterval{get => attackCounter.GetTimeInterval(); set => attackCounter.SetTimeInterval(value);} // 攻擊間格
+    public float attackInterval{ // 攻擊間格
+      get => attackCounter.GetTimeInterval(); 
+      set => attackCounter.SetTimeInterval(value);
+    }
     [SerializeField] TimeCounter attackCounter  = new TimeCounter(1f, true); // 攻擊間格 計時用
     public float activeInterval; // 攻擊持續
     public float flightSpeed; // 飛行攻擊速度
@@ -45,4 +52,20 @@ public abstract class WeaponBase : MonoBehaviour
 
     // 子類實作攻擊
     abstract protected void HandleAttack();
+    
+    // 執行攻擊
+    virtual protected bool ApplyDamage(Collider2D collision)
+    {
+        // 檢查對象
+        if(!collision.CompareTag("Enemy")) return false;
+
+        // 判定可受傷
+        if(collision.GetComponent<IDamageable>() is IDamageable e){
+          e.TakeDamage(attack); // 申請對象傷害
+
+          totalDamage += attack;
+          return true;
+        }
+        return false;
+    }
 }
