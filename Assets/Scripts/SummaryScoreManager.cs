@@ -6,21 +6,24 @@ using UnityEngine.UI;
 public class SummaryScoreManager : MonoBehaviour
 {
     [SerializeField] SummaryScoreUI summaryScoreUI;
-    public Sprite characterImage; //�n����
-    public List<ScoreSummary> weaponSummary;
+    Sprite characterImage => PlayerDataSavingScript.inst._summaryCharacter; // 角色圖片
+    List<ScoreSummary> weaponSummary => PlayerDataSavingScript.inst._summaryWeapon; // 武器結算資料
 
     void Start() {
         // InitSummaryScoreUI()
-        summaryScoreUI.characterImage = characterImage;
-        summaryScoreUI.backToMenuButton = BackToMenuButton; 
-        
+        if(characterImage != null){
+          summaryScoreUI.characterImage = characterImage;
+          summaryScoreUI.backToMenuButton = BackToMenuButton; 
+        }
         // InitWeaponSummary()
-        foreach(var item in weaponSummary) {
-            summaryScoreUI.AddDetailScrollItem(
-                item.weaponIcon,
-                item.weaponName,
-                item.weaponScore
-          );
+        if(weaponSummary != null){
+          foreach(var item in weaponSummary) {
+              summaryScoreUI.AddDetailScrollItem(
+                  item.weaponIcon,
+                  item.weaponName,
+                  item.weaponScore
+            );
+          }
         }
     }
     

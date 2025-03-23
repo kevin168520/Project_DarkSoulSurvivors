@@ -34,6 +34,8 @@ public class PlayerManager : MonoBehaviour
         
     }
 
+    public Sprite GetCharacterImage() => playerData.showImage;
+
     public void OnCharacterdataChange(CharacterScript.StatType type){
       switch (type)
       {

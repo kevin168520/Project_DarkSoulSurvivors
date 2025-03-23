@@ -36,6 +36,8 @@ public class WeaponManager : MonoBehaviour
       weapon.transform.localPosition  = Vector3.zero;
       weapon.gameObject.SetActive(true);
     }
+
+    public List<WeaponBase> GetWeapons() => equipWeapon;
     
     // 初始化武器升級介面 只會在角色升級時被呼叫
     public void InitWeaponUpgradeUI(){

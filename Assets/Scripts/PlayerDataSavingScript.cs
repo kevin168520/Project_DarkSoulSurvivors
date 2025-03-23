@@ -10,6 +10,9 @@ public class PlayerDataSavingScript : MonoBehaviour
 
     public string sPlayerDataSavingPath;
     public CharacterScriptable _characterData; // 玩家資料
+    
+    public Sprite _summaryCharacter; // 角色圖片
+    public List<SummaryScoreManager.ScoreSummary> _summaryWeapon; // 武器結算資料
 
     private void Awake()
     {

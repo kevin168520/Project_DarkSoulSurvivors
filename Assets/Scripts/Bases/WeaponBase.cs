@@ -6,7 +6,9 @@ using UnityEngine;
 public abstract class WeaponBase : MonoBehaviour
 {
     // 結算素質
-    protected int totalDamage; // 總傷害
+    public string weaponName; // 武器名稱
+    public Sprite weaponIcon; // 武器圖片
+    public int totalDamage; // 總傷害
     
     // 武器素質
     public int weaponNumber; // 武器編號
@@ -23,6 +25,8 @@ public abstract class WeaponBase : MonoBehaviour
 
     // 設置武器資料
     public void LoadWeaponData(WeaponScriptable weaponData) {
+      weaponIcon = weaponData.weaponIcon;
+      weaponName = weaponData.weaponName;
       weaponNumber = weaponData.weaponNumber;
       weaponLevel = weaponData.weaponLevel;
       weaponLevelMax = weaponData.weaponDatas.Count;

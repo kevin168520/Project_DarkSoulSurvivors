@@ -1288,6 +1288,8 @@ MonoBehaviour:
   btnReturnToGame: {fileID: 3971058352146383616}
   btnSetting: {fileID: 6808595350223929620}
   btnBackToMenu: {fileID: 1097749859534294592}
+  weaponManager: {fileID: 778463204}
+  playerManager: {fileID: 1863902842}
 --- !u!4 &1179702899
 Transform:
   m_ObjectHideFlags: 0
