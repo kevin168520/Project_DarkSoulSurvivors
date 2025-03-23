@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
     // 遊戲通關
     public void GameComplete(){
         PauseGame();
-        _gamePauseUI.gameOverPanel.SetActive(true);
+        _gamePauseUI.gameCompletePanel.SetActive(true);
         bGameOver = true;
     }
 
@@ -107,6 +107,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
+            InitPauseUI();
             _gamePauseUI.gamePauseMenu.SetActive(true);
         }
     }
@@ -116,6 +117,13 @@ public class GameManager : MonoBehaviour
         UnPauseGame();
         CalcSummaryData();
         SceneManagerScript.inst.EndGameSceneAction();
+    }
+    private void InitPauseUI() {
+        Sprite[] weaponIcon = new Sprite[weaponManager.GetWeapons().Count];
+        for(int i =0; i<weaponIcon.Length; i++){
+            weaponIcon[i] = weaponManager.GetWeapons()[i].weaponIcon;
+        }
+        _gamePauseUI.SetweaponIcons(weaponIcon);
     }
 
     private void CalcSummaryData() {

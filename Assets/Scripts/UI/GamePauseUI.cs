@@ -5,13 +5,14 @@ using UnityEngine.UI;
 
 public class GamePauseUI : MonoBehaviour
 {
-    public GameObject gameOverPanel; // ¹CÀ¸µ²§ôUI
-    public GameObject gameCompletePanel; // ¹CÀ¸³qÃöUI
-    public GameObject gamePauseMenu; // ¹CÀ¸¼È°±UI
+    public GameObject gameOverPanel; // éŠæˆ²çµæŸUI
+    public GameObject gameCompletePanel; // éŠæˆ²é€šé—œUI
+    public GameObject gamePauseMenu; // éŠæˆ²æš«åœUI
+    public List<Image> gamePauseWeaponsItems; // ç©å®¶æ‰€æœ‰æ­¦å™¨åœ–ç‰‡ä½ç½®
 
-    [SerializeField] private Button btnReturnToGame; // ¦^¨ì¹CÀ¸Ä~Äò¶i¦æ
-    [SerializeField] private Button btnSetting; // ©|µL¥\¯à
-    [SerializeField] private Button btnBackToMenu; // ¦^¨ìLoginScene
+    [SerializeField] private Button btnReturnToGame; // å›åˆ°éŠæˆ²ç¹¼çºŒé€²è¡Œ
+    [SerializeField] private Button btnSetting; // å°šç„¡åŠŸèƒ½
+    [SerializeField] private Button btnBackToMenu; // å›åˆ°LoginScene
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,7 @@ public class GamePauseUI : MonoBehaviour
     }
 
     /// <summary>
-    /// ¹CÀ¸¤¶­±«ö¶s±±¨î BtnCtrlGameScene()
+    /// éŠæˆ²ä»‹é¢æŒ‰éˆ•æ§åˆ¶ BtnCtrlGameScene()
     /// </summary>
     public void BtnCtrlGameScene()
     {
@@ -46,5 +47,16 @@ public class GamePauseUI : MonoBehaviour
             gamePauseMenu.SetActive(false);
             GameManager.instance.SummaryEvent();
         });
+    }
+    
+    public void SetweaponIcons(params Sprite[] weaponIcons) {
+        for(int i = 0; i<gamePauseWeaponsItems.Count; i++) {
+          if(i < weaponIcons.Length){
+            gamePauseWeaponsItems[i].sprite = weaponIcons[i];
+            gamePauseWeaponsItems[i].gameObject.SetActive(true);
+          } else {
+            gamePauseWeaponsItems[i].gameObject.SetActive(false);
+          }
+        }
     }
 }
