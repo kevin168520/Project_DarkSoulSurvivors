@@ -2958,6 +2958,7 @@ MonoBehaviour:
     iPlayerItemLevel_DEF: 0
     iPlayerItemLevel_moveSpeed: 0
   sPlayerDataSavingPath: 
+  _characterData: {fileID: 0}
 --- !u!4 &1473830676
 Transform:
   m_ObjectHideFlags: 0
@@ -5313,7 +5314,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1171427847, guid: fd935ca458794ee459bb7bbc53f43647, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 101cd1128aabf6d4da52cfeda664e021, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5776,7 +5777,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1171427847, guid: fd935ca458794ee459bb7bbc53f43647, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ff14826071b735e4794b58705dd04ab1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8221,7 +8222,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1171427847, guid: fd935ca458794ee459bb7bbc53f43647, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ae688eeb9e8f20b46a91fac9e7b7a8ec, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8386,7 +8387,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1171427847, guid: fd935ca458794ee459bb7bbc53f43647, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 843e769b82531c04ab0813001c7334f4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

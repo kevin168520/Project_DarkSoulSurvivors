@@ -30,7 +30,6 @@ public class SummaryScoreManager : MonoBehaviour
     
     [System.Serializable]
     public class ScoreSummary {
-        public Sprite characterImage; //¥¿¦¡ªº
         public Sprite weaponIcon;
         public string weaponName;
         public string weaponScore;
