@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     Transform playerTransform => GameManager.instance.playerTransform; // 玩家座標資料
-    CharacterScriptable playerData => GameManager.instance.playerData; // 角色資料
+    CharacterScriptable playerData => PlayerDataSavingScript.inst._characterData; // 角色資料
+    PlayerData playerStoreData => PlayerDataSavingScript.inst._playerData; // 商店資料
     CharacterScript playerCharacter => GameManager.instance.playerCharacter; // 玩家角色
     [SerializeField] private PlayerStatUI playerStatUI; // 遊戲等級 UI
     void Start()
@@ -17,11 +18,11 @@ public class PlayerManager : MonoBehaviour
         spritePrefab.SetActive(true);
         
         // 載入角色資料
-        playerCharacter.maxHp = playerData.hp;
-        playerCharacter.def = playerData.def;
-        playerCharacter.speedMult = playerData.speedMult;
+        playerCharacter.maxHp = playerData.hp + playerStoreData.iPlayerItemLevel_HP;
+        playerCharacter.def = playerData.def + playerStoreData.iPlayerItemLevel_DEF;
+        playerCharacter.speedMult = playerData.speedMult + playerStoreData.iPlayerItemLevel_moveSpeed;
         playerCharacter.attackMult = playerData.attackMult;
-        playerCharacter.currentHp = playerData.hp;
+        playerCharacter.currentHp = playerCharacter.maxHp;
 
         // 註冊角色監聽
         playerCharacter.dataChangeListener.AddListener(OnCharacterdataChange);

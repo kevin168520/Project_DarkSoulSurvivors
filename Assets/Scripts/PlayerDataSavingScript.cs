@@ -6,9 +6,10 @@ using UnityEngine;
 public class PlayerDataSavingScript : MonoBehaviour
 {
     public static PlayerDataSavingScript inst;
-    public PlayerData _playerData;
+    public PlayerData _playerData; // 商店資料
 
     public string sPlayerDataSavingPath;
+    public CharacterScriptable _characterData; // 玩家資料
 
     private void Awake()
     {

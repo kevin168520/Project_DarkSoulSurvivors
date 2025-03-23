@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class StartGameScript : MonoBehaviour
 {
+    CharacterScriptable character { // 跨場景用角色資料
+        get => PlayerDataSavingScript.inst._characterData;
+        set => PlayerDataSavingScript.inst._characterData = value;
+    }
     public List<CharacterScriptable> _characterList;
     public void SetCharacter(int num)
     {
@@ -12,7 +16,7 @@ public class StartGameScript : MonoBehaviour
           Debug.LogWarning("Lost Character Data!!!");
           return;
         }
-        GameManager.character = _characterList[num];
+        character = _characterList[num];
     }
     public void StartGame(string sGameSceneState)
     {

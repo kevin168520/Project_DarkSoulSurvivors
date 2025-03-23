@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
     Transform playerTransform => GameManager.instance.playerTransform; // 玩家座標資料
-    CharacterScriptable playerData => GameManager.instance.playerData; // 角色資料
+    CharacterScriptable playerData => PlayerDataSavingScript.inst._characterData; // 角色資料
     CharacterScript playerCharacter => GameManager.instance.playerCharacter; // 玩家角色
     [SerializeField] WeaponUpgradeUI weaponUpgradeUI; // 玩家升級 UI
     [SerializeField] List<WeaponBase> equipWeapon = new List<WeaponBase>(); // 已裝備武器
