@@ -170,7 +170,7 @@ public class LoginManagerScript : MonoBehaviour
     {
         btnShopExit.onClick.AddListener(delegate ()
         {
-            _shopItemManagerScript.PlayerShopStatusSaving(false);
+            _shopItemManagerScript.PlayerShopStatusSaving();
             objShopMenu.SetActive(false);
         });
 
@@ -266,7 +266,7 @@ public class LoginManagerScript : MonoBehaviour
     /// </summary>
     private void ExitGame()
     {
-        _shopItemManagerScript.PlayerShopStatusSaving(true);
+        PlayerDataSavingScript.inst.PlayerDataSaving(true);
     }
 
     /// <summary>

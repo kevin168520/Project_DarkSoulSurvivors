@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class GamePauseUI : MonoBehaviour
 {
-    [SerializeField] private GameObject gameOverPanel; // 遊戲結束UI
-    [SerializeField] private GameObject gameCompletePanel; // 遊戲通關UI
-    [SerializeField] private GameObject gamePauseMenu; // 遊戲暫停UI
+    public GameObject gameOverPanel; // 遊戲結束UI
+    public GameObject gameCompletePanel; // 遊戲通關UI
+    public GameObject gamePauseMenu; // 遊戲暫停UI
 
     [SerializeField] private Button btnReturnToGame; // 回到遊戲繼續進行
     [SerializeField] private Button btnSetting; // 尚無功能
@@ -28,7 +28,7 @@ public class GamePauseUI : MonoBehaviour
     /// <summary>
     /// 遊戲介面按鈕控制 BtnCtrlGameScene()
     /// </summary>
-    private void BtnCtrlGameScene()
+    public void BtnCtrlGameScene()
     {
         btnReturnToGame.onClick.AddListener(delegate ()
         {
@@ -44,8 +44,7 @@ public class GamePauseUI : MonoBehaviour
         btnBackToMenu.onClick.AddListener(delegate ()
         {
             gamePauseMenu.SetActive(false);
-            GameManager.instance.UnPauseGame();
-            SceneManagerScript.inst.EndGameSceneAction();
+            GameManager.instance.SummaryEvent();
         });
     }
 }

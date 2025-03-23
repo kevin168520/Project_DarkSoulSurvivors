@@ -25,10 +25,9 @@ public class ShopItemManagerScript : MonoBehaviour
     }
 
     /// <summary>
-    /// 玩家的商店狀態儲存 PlayerShopStatusSaving(bool bGameExit)
+    /// 玩家的商店狀態儲存 PlayerShopStatusSaving()
     /// </summary>
-    /// <param name="b"></param>
-    public void PlayerShopStatusSaving(bool bGameExit)
+    public void PlayerShopStatusSaving()
     {
         PlayerDataSavingScript.inst._playerData.iPlayer_Money = iPlayerMoney;
         PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_HP = iPlayerItemLevel_HP;
@@ -36,8 +35,8 @@ public class ShopItemManagerScript : MonoBehaviour
         PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_DEF = iPlayerItemLevel_DEF;
         PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_moveSpeed = iPlayerItemLevel_moveSpeed;
 
-        PlayerDataSavingScript.inst.PlayerDataSaving(bGameExit);
-        Debug.Log("PlayerShopStatusSaving Finish! And bGameExit = " + bGameExit);
+        PlayerDataSavingScript.inst.PlayerDataSaving(false);
+        Debug.Log("PlayerShopStatusSaving Finish!");
     }
 
     /// <summary>

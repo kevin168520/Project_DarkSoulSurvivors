@@ -11,10 +11,13 @@ public class GameManager : MonoBehaviour
 {
     /// <summary>
     ///  GameManager 靜態物件。從外部要讀取內部變數使用如下:
-    ///   GameManager.instance.player;
+    ///  GameManager.instance.player;
     /// </summary>
     public static GameManager instance; 
     public static CharacterScriptable character;
+
+    [SerializeField] GamePauseUI _gamePauseUI;
+
     public GameObject player; // 玩家物件
     Transform _playerTransform; // 玩家座標
     [HideInInspector] public Transform playerTransform { get{
@@ -37,21 +40,12 @@ public class GameManager : MonoBehaviour
       return _playerDirection;
     }}
 
-    public bool isPause {get => Time.timeScale == 0;} // 玩家
-    
-    [SerializeField] private GameObject gameOverPanel; // 遊戲結束UI
-    [SerializeField] private GameObject gameCompletePanel; // 遊戲通關UI
-    [SerializeField] private GameObject gamePauseMenu; // 遊戲暫停UI
-
-    [SerializeField] private Button btnReturnToGame; // 回到遊戲繼續進行
-    [SerializeField] private Button btnSetting; // 尚無功能
-    [SerializeField] private Button btnBackToMenu; // 回到LoginScene
-
+    public bool isPause {get => Time.timeScale == 0;} // 玩家    
     private bool bGameOver;
 
     [SerializeField] private WeaponManager weaponManager;
     [SerializeField] private PlayerManager playerManager;
-    
+
     public Sprite characterImage { // 角色圖片
         set => PlayerDataSavingScript.inst._summaryCharacter = value;
     }
@@ -67,7 +61,7 @@ public class GameManager : MonoBehaviour
 
     void Start() 
     {
-        BtnCtrlGameScene();
+        _gamePauseUI.BtnCtrlGameScene();
     }
 
      void Update()
@@ -77,28 +71,27 @@ public class GameManager : MonoBehaviour
 
     // 暫停
     public void PauseGame(){
-      Time.timeScale = 0f;
+        Time.timeScale = 0f;
     }
 
     // 解除暫停
     public void UnPauseGame(){
-      Time.timeScale = 1f;
+        Time.timeScale = 1f;
     }
 
 
     // 遊戲結束
     public void GameOver(){
-      PauseGame();
-      gameOverPanel.SetActive(true);
-      bGameOver = true;
+        PauseGame();
+        _gamePauseUI.gameOverPanel.SetActive(true);
+        bGameOver = true;
     }
-
 
     // 遊戲通關
     public void GameComplete(){
-      PauseGame();
-      gameCompletePanel.SetActive(true);
-      bGameOver = true;
+        PauseGame();
+        _gamePauseUI.gameOverPanel.SetActive(true);
+        bGameOver = true;
     }
 
     private void GameOverEvent(bool bGameOverKey)
@@ -107,18 +100,22 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                // 計算結果並保存
-                CalcSummaryData();
-                //進入結算畫面
-                SceneManagerScript.inst.EndGameSceneAction();
+                SummaryEvent();
             }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
-            gamePauseMenu.SetActive(true);
+            _gamePauseUI.gamePauseMenu.SetActive(true);
         }
+    }
+
+    public void SummaryEvent()
+    {
+        UnPauseGame();
+        CalcSummaryData();
+        SceneManagerScript.inst.EndGameSceneAction();
     }
 
     private void CalcSummaryData() {
@@ -134,29 +131,5 @@ public class GameManager : MonoBehaviour
             weaponSummary.Add(item);
         }
         this.weaponSummary = weaponSummary;
-    }
-
-    /// <summary>
-    /// 遊戲介面按鈕控制 BtnCtrlGameScene()
-    /// </summary>
-    private void BtnCtrlGameScene()
-    {
-        btnReturnToGame.onClick.AddListener(delegate ()
-        {
-            gamePauseMenu.SetActive(false);
-            UnPauseGame();
-        });
-
-        btnSetting.onClick.AddListener(delegate ()
-        {
-            Debug.Log("Not Finish");
-        });
-
-        btnBackToMenu.onClick.AddListener(delegate ()
-        {
-            gamePauseMenu.SetActive(false);
-            UnPauseGame();
-            SceneManagerScript.inst.EndGameSceneAction();
-        });
     }
 }
