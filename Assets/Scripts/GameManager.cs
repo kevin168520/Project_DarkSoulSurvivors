@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
+                //進入結算畫面
                 SceneManagerScript.inst.EndGameSceneAction();
             }
         }

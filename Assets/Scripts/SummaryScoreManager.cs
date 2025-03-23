@@ -1,36 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SummaryScoreManager : MonoBehaviour
 {
     [SerializeField] SummaryScoreUI summaryScoreUI;
-    public Sprite characterImage;
-    public List<WeaponSummary> weaponSummary;
+    public Sprite characterImage; //要換掉
+    public List<ScoreSummary> weaponSummary;
 
     void Start() {
         // InitSummaryScoreUI()
         summaryScoreUI.characterImage = characterImage;
-        summaryScoreUI.backToHomeButton = BackToHomeButton;
+        summaryScoreUI.backToMenuButton = BackToMenuButton; 
         
         // InitWeaponSummary()
         foreach(var item in weaponSummary) {
-          summaryScoreUI.AddDetailScrollItem(
-            item.weaponIcon,
-            item.weaponName,
-            item.weaponScore
+            summaryScoreUI.AddDetailScrollItem(
+                item.weaponIcon,
+                item.weaponName,
+                item.weaponScore
           );
         }
     }
     
-    void BackToHomeButton() {
-        SceneManagerScript.inst.EndGameSceneAction();
+    void BackToMenuButton() {
+        SceneManagerScript.inst.BackToMenuSceneAction();
     }
     
     [System.Serializable]
-    public class WeaponSummary {
-      public Sprite weaponIcon;
-      public string weaponName;
-      public string weaponScore;
+    public class ScoreSummary {
+        public Sprite characterImage; //正式的
+        public Sprite weaponIcon;
+        public string weaponName;
+        public string weaponScore;
     }
 }

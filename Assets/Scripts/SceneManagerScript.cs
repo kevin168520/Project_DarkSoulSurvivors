@@ -49,6 +49,11 @@ public class SceneManagerScript : MonoBehaviour
     /// </summary>
     public void EndGameSceneAction ()
     {
+        SceneManager.LoadScene("SummaryScene");  //跳至結算畫面
+    }
+
+    public void BackToMenuSceneAction()
+    {
         SceneManager.LoadScene("LoginScene");  //回到主畫面
     }
 }
