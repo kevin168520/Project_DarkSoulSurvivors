@@ -369,7 +369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c2b12e5b61d330418ee6efcc0911278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   enemy: {fileID: 8951934548676239562, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
   spawnArea: {x: 5, y: 4}
 --- !u!114 &7053940654327085694
@@ -388,7 +387,7 @@ MonoBehaviour:
   - {fileID: 3154937048756934759, guid: 602cd83fa3d5669438c2541ec61a62e2, type: 3}
   - {fileID: 6571956254147485010, guid: 12effb99dd3597b42ab3612626d4dbc7, type: 3}
   - {fileID: 2314024631521982275, guid: 65f98c9f12be4da459ff38f94c9e147d, type: 3}
-  player: {fileID: 0}
+  player: {fileID: 8499489573184629438}
   tileWidth: 26
   tileHeight: 14
   preloadRange: 2
