@@ -15,10 +15,6 @@ public class EnemyManager : MonoBehaviour
     
     List<EnemyWave> enemyWaves = new List<EnemyWave>(); // 待生成敵人柱列
 
-    void Awake()
-    {
-    }
-
     void Start()
     {
         Camera cam = Camera.main;

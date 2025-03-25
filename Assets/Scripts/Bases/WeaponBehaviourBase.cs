@@ -19,7 +19,7 @@ public abstract class WeaponBehaviourBase : AttackBehaviourBase
     }
 
     // 設置武器能力 透過 WeaponBase
-    public void ApplyWeaponStats(WeaponBase d) {
+    public void ApplyWeaponStats(WeaponHandlerBase d) {
       FlightSpeed = d.flightSpeed;
       activeInterval = d.activeInterval;
     }

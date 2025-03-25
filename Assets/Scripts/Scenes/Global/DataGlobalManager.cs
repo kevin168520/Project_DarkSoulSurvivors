@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class PlayerDataSavingScript : MonoBehaviour
+public class DataGlobalManager : MonoBehaviour
 {
-    public static PlayerDataSavingScript inst;
+    public static DataGlobalManager inst;
     public PlayerData _playerData; // 商店資料
 
     public string sPlayerDataSavingPath;
@@ -32,18 +32,6 @@ public class PlayerDataSavingScript : MonoBehaviour
         string sGetDataPath = Path.GetFullPath(Application.dataPath);
         sPlayerDataSavingPath = Path.Combine(sGetDataPath, "PlayerDataSaving.json");    //預設路徑 + 檔案名稱(PlayerDataSaving.json)
         Debug.Log(sPlayerDataSavingPath);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     /// <summary>

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileWeaponScript : WeaponBase
+public class ProjectileWeaponScript : WeaponHandlerBase
 {
     IDirection direction => GameManager.instance.playerDirection; // 方向組件
     [SerializeField] private WeaponBehaviourBase projectilePrefab;

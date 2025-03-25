@@ -9,7 +9,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
     [SerializeField] private GameObject target; // 移動目標
     public void SetTarget(GameObject gb) => target = gb;
     [SerializeField] private string targetAttack; // 攻擊目標
-    [SerializeField] private DropComponent dropItem; // 掉落物
+    [SerializeField] private ItemDropComponent dropItem; // 掉落物
 
     // 內部物件
     [SerializeField] private Rigidbody2D rgdbd; // 剛體
@@ -25,7 +25,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
         hp = data.hp;
         damage = data.damage;
         speed = data.speed;
-        dropItem = GetComponent<DropComponent>();
+        dropItem = GetComponent<ItemDropComponent>();
     }
 
     void Start()

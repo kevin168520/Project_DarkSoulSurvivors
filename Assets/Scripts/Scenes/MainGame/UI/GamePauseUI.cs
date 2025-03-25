@@ -14,18 +14,6 @@ public class GamePauseUI : MonoBehaviour
     [SerializeField] private Button btnSetting; // 尚無功能
     [SerializeField] private Button btnBackToMenu; // 回到LoginScene
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /// <summary>
     /// 遊戲介面按鈕控制 BtnCtrlGameScene()
     /// </summary>

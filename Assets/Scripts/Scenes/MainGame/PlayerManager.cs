@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     Transform playerTransform => GameManager.instance.playerTransform; // 玩家座標資料
-    CharacterScriptable playerData => PlayerDataSavingScript.inst._characterData; // 角色資料
-    PlayerData playerStoreData => PlayerDataSavingScript.inst._playerData; // 商店資料
+    CharacterScriptable playerData => DataGlobalManager.inst._characterData; // 角色資料
+    PlayerData playerStoreData => DataGlobalManager.inst._playerData; // 商店資料
     CharacterScript playerCharacter => GameManager.instance.playerCharacter; // 玩家角色
     [SerializeField] private PlayerStatUI playerStatUI; // 遊戲等級 UI
     void Start()
@@ -26,12 +26,6 @@ public class PlayerManager : MonoBehaviour
 
         // 註冊角色監聽
         playerCharacter.dataChangeListener.AddListener(OnCharacterdataChange);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public Sprite GetCharacterImage() => playerData.showImage;

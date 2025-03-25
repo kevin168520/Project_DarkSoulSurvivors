@@ -12,30 +12,18 @@ public class ShopItemManagerScript : MonoBehaviour
     public int iPlayerItemLevel_DEF;
     public int iPlayerItemLevel_moveSpeed;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     /// <summary>
     /// 玩家的商店狀態儲存 PlayerShopStatusSaving()
     /// </summary>
     public void PlayerShopStatusSaving()
     {
-        PlayerDataSavingScript.inst._playerData.iPlayer_Money = iPlayerMoney;
-        PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_HP = iPlayerItemLevel_HP;
-        PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_ATK = iPlayerItemLevel_ATK;
-        PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_DEF = iPlayerItemLevel_DEF;
-        PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_moveSpeed = iPlayerItemLevel_moveSpeed;
+        DataGlobalManager.inst._playerData.iPlayer_Money = iPlayerMoney;
+        DataGlobalManager.inst._playerData.iPlayerItemLevel_HP = iPlayerItemLevel_HP;
+        DataGlobalManager.inst._playerData.iPlayerItemLevel_ATK = iPlayerItemLevel_ATK;
+        DataGlobalManager.inst._playerData.iPlayerItemLevel_DEF = iPlayerItemLevel_DEF;
+        DataGlobalManager.inst._playerData.iPlayerItemLevel_moveSpeed = iPlayerItemLevel_moveSpeed;
 
-        PlayerDataSavingScript.inst.PlayerDataSaving(false);
+        DataGlobalManager.inst.PlayerDataSaving(false);
         Debug.Log("PlayerShopStatusSaving Finish!");
     }
 
@@ -44,12 +32,12 @@ public class ShopItemManagerScript : MonoBehaviour
     /// </summary>
     public void PlayerShopStatusLoading()
     {
-        PlayerDataSavingScript.inst.PlayerDataLoading();
-        iPlayerMoney = PlayerDataSavingScript.inst._playerData.iPlayer_Money;
-        iPlayerItemLevel_HP = PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_HP;
-        iPlayerItemLevel_ATK = PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_ATK;
-        iPlayerItemLevel_DEF = PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_DEF;
-        iPlayerItemLevel_moveSpeed = PlayerDataSavingScript.inst._playerData.iPlayerItemLevel_moveSpeed;
-        Debug.Log("PlayerShopStatusLoading Finish!" + iPlayerMoney + "/" + PlayerDataSavingScript.inst._playerData.iPlayer_Money);
+        DataGlobalManager.inst.PlayerDataLoading();
+        iPlayerMoney = DataGlobalManager.inst._playerData.iPlayer_Money;
+        iPlayerItemLevel_HP = DataGlobalManager.inst._playerData.iPlayerItemLevel_HP;
+        iPlayerItemLevel_ATK = DataGlobalManager.inst._playerData.iPlayerItemLevel_ATK;
+        iPlayerItemLevel_DEF = DataGlobalManager.inst._playerData.iPlayerItemLevel_DEF;
+        iPlayerItemLevel_moveSpeed = DataGlobalManager.inst._playerData.iPlayerItemLevel_moveSpeed;
+        Debug.Log("PlayerShopStatusLoading Finish!" + iPlayerMoney + "/" + DataGlobalManager.inst._playerData.iPlayer_Money);
     }
 }

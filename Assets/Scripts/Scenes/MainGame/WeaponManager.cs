@@ -5,10 +5,10 @@ using UnityEngine;
 public class WeaponManager : MonoBehaviour
 {
     Transform playerTransform => GameManager.instance.playerTransform; // 玩家座標資料
-    CharacterScriptable playerData => PlayerDataSavingScript.inst._characterData; // 角色資料
+    CharacterScriptable playerData => DataGlobalManager.inst._characterData; // 角色資料
     CharacterScript playerCharacter => GameManager.instance.playerCharacter; // 玩家角色
     [SerializeField] WeaponUpgradeUI weaponUpgradeUI; // 玩家升級 UI
-    [SerializeField] List<WeaponBase> equipWeapon = new List<WeaponBase>(); // 已裝備武器
+    [SerializeField] List<WeaponHandlerBase> equipWeapon = new List<WeaponHandlerBase>(); // 已裝備武器
     [SerializeField] WeaponDatabaseScriptable weaponDatabase; // 武器資料庫
     
     void Start()
@@ -22,13 +22,13 @@ public class WeaponManager : MonoBehaviour
     
     // 添加武器物件 透過武器資料
     public void AddWeapon(WeaponScriptable weaponData){
-      WeaponBase weapon = Instantiate<WeaponBase>(weaponData.weaponPrefab);
+      WeaponHandlerBase weapon = Instantiate(weaponData.weaponPrefab).GetComponent<WeaponHandlerBase>();
       weapon.LoadWeaponData(weaponData);
       AddWeapon(weapon);
     }
     
     // 添加武器物件
-    public void AddWeapon(WeaponBase weapon){
+    public void AddWeapon(WeaponHandlerBase weapon){
       equipWeapon.Add(weapon);
 
       // 移動玩家座標下
@@ -37,7 +37,7 @@ public class WeaponManager : MonoBehaviour
       weapon.gameObject.SetActive(true);
     }
 
-    public List<WeaponBase> GetWeapons() => equipWeapon;
+    public List<WeaponHandlerBase> GetWeapons() => equipWeapon;
     
     // 初始化武器升級介面 只會在角色升級時被呼叫
     public void InitWeaponUpgradeUI(){
@@ -46,7 +46,7 @@ public class WeaponManager : MonoBehaviour
       List<WeaponScriptable> upgradeWeapon = new List<WeaponScriptable>();
       List<WeaponScriptable> nonupgradeWeapon = new List<WeaponScriptable>();
 
-      foreach(WeaponBase weapon in equipWeapon){
+      foreach(WeaponHandlerBase weapon in equipWeapon){
         WeaponScriptable weaponData = Instantiate(weaponDatabase.Search(weapon.weaponNumber));
         if(weapon.IsWeaponUpgradeable()) {
           weaponData.weaponLevel++;
@@ -97,7 +97,7 @@ public class WeaponManager : MonoBehaviour
     public void OnUpgradeWeapons(Object obj){
       if(obj is WeaponScriptable weaponData){
         // 升級武器是當前裝備 更新武器資料
-        foreach(WeaponBase weapon in equipWeapon){
+        foreach(WeaponHandlerBase weapon in equipWeapon){
           if(weapon.IsSameWeapon(weaponData)) {
             Debug.Log($"{weaponData.weaponName} Upgrade To ({weaponData.weaponLevel} Level)");
             weapon.LoadWeaponData(weaponData);

@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class StartGameScript : MonoBehaviour
 {
     CharacterScriptable character { // 跨場景用角色資料
-        get => PlayerDataSavingScript.inst._characterData;
-        set => PlayerDataSavingScript.inst._characterData = value;
+        get => DataGlobalManager.inst._characterData;
+        set => DataGlobalManager.inst._characterData = value;
     }
     public List<CharacterScriptable> _characterList;
     public void SetCharacter(int num)
@@ -23,6 +23,6 @@ public class StartGameScript : MonoBehaviour
         //SceneManager.LoadScene(sGameSceneState, LoadSceneMode.Single);  //關卡用的Scene
         //SceneManager.LoadScene("PlayerDataScene", LoadSceneMode.Additive);   //Data的Scene
 
-        SceneManagerScript.inst.StartGameSceneAction(sGameSceneState);
+        SceneGlobalManager.inst.StartGameSceneAction(sGameSceneState);
     }
 }

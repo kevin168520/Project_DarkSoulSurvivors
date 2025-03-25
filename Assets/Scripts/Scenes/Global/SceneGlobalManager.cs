@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneManagerScript : MonoBehaviour
+public class SceneGlobalManager : MonoBehaviour
 {
-    public static SceneManagerScript inst;
+    public static SceneGlobalManager inst;
 
     private void Awake()
     {
@@ -22,17 +22,6 @@ public class SceneManagerScript : MonoBehaviour
             Destroy(this);
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     /// <summary>
     /// 遊戲啟動時的場景切換 StartGameSceneAction(string sGameSceneState)
@@ -41,7 +30,7 @@ public class SceneManagerScript : MonoBehaviour
     public void StartGameSceneAction(string sGameSceneState)
     {
         SceneManager.LoadScene(sGameSceneState, LoadSceneMode.Single);  //關卡用的Scene
-        SceneManager.LoadScene("PlayerDataScene", LoadSceneMode.Additive);   //Data的Scene
+        SceneManager.LoadScene((int)ScenesBuildData.MainGamePlayer, LoadSceneMode.Additive);   //Data的Scene
     }
 
     /// <summary>
@@ -49,11 +38,11 @@ public class SceneManagerScript : MonoBehaviour
     /// </summary>
     public void EndGameSceneAction ()
     {
-        SceneManager.LoadScene("SummaryScene");  //跳至結算畫面
+        SceneManager.LoadScene((int)ScenesBuildData.SummaryScene);  //跳至結算畫面
     }
 
     public void BackToMenuSceneAction()
     {
-        SceneManager.LoadScene("LoginScene");  //回到主畫面
+        SceneManager.LoadScene((int)ScenesBuildData.StartScene);  //回到主畫面
     }
 }

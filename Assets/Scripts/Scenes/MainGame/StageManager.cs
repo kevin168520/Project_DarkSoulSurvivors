@@ -9,10 +9,6 @@ public class StageManager : MonoBehaviour
     float stageTime;  // 關卡時間
     int stageEventIndex;   // 關卡事件索引
     
-    void Start()
-    {
-    }
-
     // 計時關卡時間
     void Update()
     {

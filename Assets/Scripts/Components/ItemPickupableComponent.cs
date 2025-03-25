@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupableComponent : MonoBehaviour
+public class ItemPickupableComponent : MonoBehaviour
 {
     
     Vector3 target => GameManager.instance.playerTransform.position; // 目標

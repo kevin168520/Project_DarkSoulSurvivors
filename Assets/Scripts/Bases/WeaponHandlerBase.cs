@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class WeaponBase : MonoBehaviour
+public abstract class WeaponHandlerBase : MonoBehaviour
 {
     // 結算素質
     public string weaponName; // 武器名稱

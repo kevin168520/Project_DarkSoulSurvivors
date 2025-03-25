@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class SummaryScoreManager : MonoBehaviour
 {
     [SerializeField] SummaryScoreUI summaryScoreUI;
-    Sprite characterImage => PlayerDataSavingScript.inst._summaryCharacter; // 角色圖片
-    List<ScoreSummary> weaponSummary => PlayerDataSavingScript.inst._summaryWeapon; // 武器結算資料
+    Sprite characterImage => DataGlobalManager.inst._summaryCharacter; // 角色圖片
+    List<ScoreSummary> weaponSummary => DataGlobalManager.inst._summaryWeapon; // 武器結算資料
 
     void Start() {
         // InitSummaryScoreUI()
@@ -28,7 +28,7 @@ public class SummaryScoreManager : MonoBehaviour
     }
     
     void BackToMenuButton() {
-        SceneManagerScript.inst.BackToMenuSceneAction();
+        SceneGlobalManager.inst.BackToMenuSceneAction();
     }
     
     [System.Serializable]

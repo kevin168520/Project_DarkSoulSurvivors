@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DropComponent : MonoBehaviour
+public class ItemDropComponent : MonoBehaviour
 {
   public List<GameObject> dropItemPrefab; // 掉落物品
   [Range(0f, 1f)] public float chance; // 掉落率

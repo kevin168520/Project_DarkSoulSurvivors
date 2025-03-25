@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupComponent : MonoBehaviour
+public class PlayerPickupComponent : MonoBehaviour
 {
 
     float timeCounter; // 計時器
@@ -31,7 +31,7 @@ public class PickupComponent : MonoBehaviour
       // 判定對象是否為撿拾
       foreach(var collider in collisions){
         if(collider.CompareTag("Item")){
-          if(collider.GetComponent<PickupableComponent>() is PickupableComponent e){
+          if(collider.GetComponent<ItemPickupableComponent>() is ItemPickupableComponent e){
             // 啟動對象的撿拾中
             e.EnPickupable();
           }

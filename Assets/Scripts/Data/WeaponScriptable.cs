@@ -11,7 +11,7 @@ public class WeaponScriptable : ScriptableObject
     public int weaponNumber; // 武器編號
     public string weaponName; // 武器名稱
     public Sprite weaponIcon; // 武器圖片
-    public WeaponBase weaponPrefab; // 武器模組
+    public GameObject weaponPrefab; // 武器模組
     public int weaponLevel; // 武器等級
     public List<WeaponData> weaponDatas; // 武器資料
 

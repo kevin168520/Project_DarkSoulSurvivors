@@ -15,7 +15,8 @@ MonoBehaviour:
   weaponNumber: 1
   weaponName: Fireball
   weaponIcon: {fileID: 1077666847, guid: e9d40a9777e11724fbfdb34f573a2366, type: 3}
-  weaponPrefab: {fileID: 7408650113086900405, guid: dae5271b4d0b2ff47a7dc78f1746bdd3, type: 3}
+  weaponPrefab: {fileID: 8804694374959994503, guid: dae5271b4d0b2ff47a7dc78f1746bdd3, type: 3}
+  weaponLevel: 0
   weaponDatas:
   - attack: 100
     attackInterval: 0.5

@@ -47,10 +47,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerManager playerManager;
 
     public Sprite characterImage { // 角色圖片
-        set => PlayerDataSavingScript.inst._summaryCharacter = value;
+        set => DataGlobalManager.inst._summaryCharacter = value;
     }
     public List<SummaryScoreManager.ScoreSummary> weaponSummary{ // 武器結算資料
-        set => PlayerDataSavingScript.inst._summaryWeapon = value;
+        set => DataGlobalManager.inst._summaryWeapon = value;
     }
 
     // 設置靜態指向自己
@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
     {
         UnPauseGame();
         CalcSummaryData();
-        SceneManagerScript.inst.EndGameSceneAction();
+        SceneGlobalManager.inst.EndGameSceneAction();
     }
     private void InitPauseUI() {
         Sprite[] weaponIcon = new Sprite[weaponManager.GetWeapons().Count];

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponScript : WeaponBase
+public class WeaponScript : WeaponHandlerBase
 {
     IDirection direction => GameManager.instance.playerDirection; // 方向組件
     [SerializeField] private List<WeaponBehaviourBase> weaponBehaviours;

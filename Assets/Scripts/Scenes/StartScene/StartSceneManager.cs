@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Data.SqlTypes;
 
-public class LoginManagerScript : MonoBehaviour
+public class StartSceneManager : MonoBehaviour
 {
     public StartGameScript _startGameScript;
     public ShopItemManagerScript _shopItemManagerScript;
@@ -64,7 +64,6 @@ public class LoginManagerScript : MonoBehaviour
 
     private string sGameSceneState;
 
-    // Start is called before the first frame update
     void Start()
     {
         initial();
@@ -72,12 +71,6 @@ public class LoginManagerScript : MonoBehaviour
         BtnCtrlShopMenu();
         BtnCtrlCharacterMenu();
         BtnCtrlGameStartMenu();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void initial()
@@ -90,7 +83,7 @@ public class LoginManagerScript : MonoBehaviour
         iMoney_HP = 1000;
         iMoney_moveSpeed = 1000;
 
-        PlayerDataSavingScript.inst.PlayerDataLoading();
+        DataGlobalManager.inst.PlayerDataLoading();
     }
 
     private void BtnCtrlLoginMenu()
@@ -266,7 +259,7 @@ public class LoginManagerScript : MonoBehaviour
     /// </summary>
     private void ExitGame()
     {
-        PlayerDataSavingScript.inst.PlayerDataSaving(true);
+        DataGlobalManager.inst.PlayerDataSaving(true);
     }
 
     /// <summary>
