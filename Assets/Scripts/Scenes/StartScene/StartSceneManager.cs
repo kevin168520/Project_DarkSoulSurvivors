@@ -1,313 +1,108 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using System.Data.SqlTypes;
 
 public class StartSceneManager : MonoBehaviour
 {
-    public StartGameScript _startGameScript;
-    public ShopItemManagerScript _shopItemManagerScript;
-    //public PlayerDataSavingScript _playerDataSavingScript;
-
-    [Header("LoaginMenu")]
-    public GameObject objLoginMenu;
-    public Button btnGameStart;
-    public Button btnShop;
-    public Button btnExit;
-
-    [Header("ShopMenu")]
-    public GameObject objShopMenu;
-    public GameObject objShopTip;
-
-    public Button btnShopExit;
-    public Button btnShopTipExit;
-    public Button btnAbi1;
-    public Button btnAbi2;
-    public Button btnAbi3;
-    public Button btnAbi4;
-    public Button btnAbi5;
-    public Button btnAbi6;
-    public Button btnAbi7;
-    public Button btnAbi8;
-    public Button btnAbi9;
-
-    public TextMeshProUGUI txtTip;
-    public TextMeshProUGUI txtAbiDes1;
-    public TextMeshProUGUI txtAbiDes2;
-    public TextMeshProUGUI txtAbiDes3;
-    public TextMeshProUGUI txtAbiDes4;
-    public TextMeshProUGUI txtAbiDes5;
-    public TextMeshProUGUI txtAbiDes6;
-    public TextMeshProUGUI txtAbiDes7;
-    public TextMeshProUGUI txtAbiDes8;
-    public TextMeshProUGUI txtAbiDes9;
-    public TextMeshProUGUI txtMoney;
-
-    private int iMoney_HP;
-    private int iMoney_ATK;
-    private int iMoney_DEF;
-    private int iMoney_moveSpeed;
-
-    [Header("CharacterMenu")]
-    public GameObject objCharacterMenu;
-    public Button btnCharacter1;
-    public Button btnCharacter2;
-    public Button btnBackToState;
-
-    [Header("GameStartMenu")]
-    public GameObject objGameStartMenu;
-    public Button btnGameState1;
-    public Button btnGameState2;
-    public Button btnBackToMenu;
-
-    private string sGameSceneState;
+    enum enUIPaneltate {
+        Start, Shop, Character, Stage
+    }
+    public ShopItemManager _shopItemManager;
+    public StartSceneUI _startSceneUI;
+    
+    [Header("CharacterData")]
+    public CharacterDatabaseScriptable _characterDatabase;
+    CharacterScriptable _character { // 跨場景用角色資料
+        get => DataGlobalManager.inst._characterData;
+        set => DataGlobalManager.inst._characterData = value;
+    }
 
     void Start()
     {
         initial();
         BtnCtrlLoginMenu();
-        BtnCtrlShopMenu();
         BtnCtrlCharacterMenu();
         BtnCtrlGameStartMenu();
     }
 
     private void initial()
     {
-        sGameSceneState = "";
-        objGameStartMenu.SetActive(false);
-
-        iMoney_ATK = 1000;
-        iMoney_DEF = 1000;
-        iMoney_HP = 1000;
-        iMoney_moveSpeed = 1000;
-
-        DataGlobalManager.inst.PlayerDataLoading();
+        // 更新初始畫面
+        OnUIPanelRenew(enUIPaneltate.Start);
+        // 註冊玩家商店離開 按鈕
+        _shopItemManager.ShopExitOnClick(() => OnUIPanelRenew(enUIPaneltate.Start));
     }
 
+    /// <summary>遊戲開始選擇 BtnCtrlLoginMenu()</summary>
     private void BtnCtrlLoginMenu()
     {
-        btnGameStart.onClick.AddListener(delegate ()
-        {
-            objCharacterMenu.SetActive(true);
-        });
-
-        btnShop.onClick.AddListener(delegate ()
-        {
-            _shopItemManagerScript.PlayerShopStatusLoading();
-            objShopMenu.SetActive(true);
-            AbiDesRenew(enShopAbilityType.All.ToString());
-        });
-
-        btnExit.onClick.AddListener(delegate ()
-        {
-            ExitGame();
-        });
+        // Play 按鈕
+        _startSceneUI.btnGameStartOnClick = () => OnUIPanelRenew(enUIPaneltate.Character);
+        // Shop 按鈕
+        _startSceneUI.btnShopOnClick = () => OnShopGame();
+        // Exit 按鈕
+        _startSceneUI.btnExitOnClick = () => OnExitGame();
     }
 
-    /// <summary>
-    /// 遊戲角色選擇 BtnCtrlCharacterMenu()
-    /// </summary>
+    /// <summary>遊戲角色選擇 BtnCtrlCharacterMenu()</summary>
     private void BtnCtrlCharacterMenu()
     {
-        btnCharacter1.onClick.AddListener(delegate ()
-        {
-            objGameStartMenu.SetActive(true);
-            _startGameScript.SetCharacter(0);
-        });
-
-        btnCharacter2.onClick.AddListener(delegate ()
-        {
-            objGameStartMenu.SetActive(true);
-            _startGameScript.SetCharacter(1);
-        });
-
-        btnBackToState.onClick.AddListener(delegate ()
-        {
-            objCharacterMenu.SetActive(false);
-        });
+        // 角色 1 按鈕
+        _startSceneUI.btnCharacter1OnClick = () => OnCharacterSelect(1);
+        // 角色 2 按鈕
+        _startSceneUI.btnCharacter2OnClick = () => OnCharacterSelect(2);
+        // Back 按鈕
+        _startSceneUI.btnBackToStateOnClick = () => OnUIPanelRenew(enUIPaneltate.Start);
     }
 
-    /// <summary>
-    /// 遊戲場景切換 BtnCtrlGameStartMenu()
-    /// </summary>
+    /// <summary>遊戲場景切換 BtnCtrlGameStartMenu()</summary>
     private void BtnCtrlGameStartMenu()
     {
-        btnGameState1.onClick.AddListener(delegate ()
-        {
-            sGameSceneState = "MainGameLevel_1"; //GameState1需修改為對應的遊戲場景1的名稱
-            _startGameScript.StartGame(sGameSceneState);
-            Debug.Log(sGameSceneState);
-        });
-
-        btnGameState2.onClick.AddListener(delegate ()
-        {
-            sGameSceneState = "MainGameLevel_2"; //GameState2需修改為對應的遊戲場景2的名稱
-            _startGameScript.StartGame(sGameSceneState);
-            Debug.Log(sGameSceneState);
-        });
-
-        btnBackToMenu.onClick.AddListener(delegate ()
-        {
-            objGameStartMenu.SetActive(false);
-            sGameSceneState = "";
-            Debug.Log(sGameSceneState);
-        });
+        // State1 按鈕
+        _startSceneUI.btnGameState1OnClick = () => OnStageSelect(ScenesBuildData.MainGameLevel_1);
+        // State2 按鈕
+        _startSceneUI.btnGameState2OnClick = () => OnStageSelect(ScenesBuildData.MainGameLevel_2);
+        // Back 按鈕
+        _startSceneUI.btnBackToMenuOnClick = () => OnUIPanelRenew(enUIPaneltate.Character);
     }
 
-    /// <summary>
-    /// 商店介面 BtnCtrlShopMenu()
-    /// </summary>
-    private void BtnCtrlShopMenu()
-    {
-        btnShopExit.onClick.AddListener(delegate ()
-        {
-            _shopItemManagerScript.PlayerShopStatusSaving();
-            objShopMenu.SetActive(false);
-        });
+    /// <summary>選擇角色</summary>
+    void OnCharacterSelect(int index) {
+        _character = _characterDatabase.Search(index);
+        OnUIPanelRenew(enUIPaneltate.Stage);
 
-        btnShopTipExit.onClick.AddListener(delegate ()
-        {
-            objShopTip.SetActive(false);
-        });
-
-        btnAbi1.onClick.AddListener(delegate ()
-        {
-            if (_shopItemManagerScript.iPlayerMoney >= iMoney_HP)
-            {
-                _shopItemManagerScript.iPlayerMoney -= iMoney_HP;
-                _shopItemManagerScript.iPlayerItemLevel_HP += 1;
-                AbiDesRenew(enShopAbilityType.HP.ToString());
-            }
-            else
-            {
-                objShopTip.SetActive(true);
-            }
-        });
-
-        btnAbi2.onClick.AddListener(delegate ()
-        {
-            if (_shopItemManagerScript.iPlayerMoney >= iMoney_ATK)
-            {
-                _shopItemManagerScript.iPlayerMoney -= iMoney_ATK;
-                _shopItemManagerScript.iPlayerItemLevel_ATK += 1;
-                AbiDesRenew(enShopAbilityType.ATK.ToString());
-            }
-            else
-            {
-                objShopTip.SetActive(true);
-            }
-        });
-
-        btnAbi3.onClick.AddListener(delegate ()
-        {
-            if (_shopItemManagerScript.iPlayerMoney >= iMoney_DEF)
-            {
-                _shopItemManagerScript.iPlayerMoney -= iMoney_DEF;
-                _shopItemManagerScript.iPlayerItemLevel_DEF += 1;
-                AbiDesRenew(enShopAbilityType.DEF.ToString());
-            }
-            else
-            {
-                objShopTip.SetActive(true);
-            }
-        });
-
-        btnAbi4.onClick.AddListener(delegate ()
-        {
-            if (_shopItemManagerScript.iPlayerMoney >= iMoney_moveSpeed)
-            {
-                _shopItemManagerScript.iPlayerMoney -= iMoney_moveSpeed;
-                _shopItemManagerScript.iPlayerItemLevel_moveSpeed += 1;
-                AbiDesRenew(enShopAbilityType.MoveSpeed.ToString());
-            }
-            else
-            {
-                objShopTip.SetActive(true);
-            }
-        });
-
-        btnAbi5.onClick.AddListener(delegate ()
-        {
-
-        });
-
-        btnAbi6.onClick.AddListener(delegate ()
-        {
-
-        });
-
-        btnAbi7.onClick.AddListener(delegate ()
-        {
-
-        });
-
-        btnAbi8.onClick.AddListener(delegate ()
-        {
-
-        });
-
-        btnAbi9.onClick.AddListener(delegate ()
-        {
-
-        });
+        Debug.Log($"OnCharacterSelect({index})");
     }
 
-    /// <summary>
-    /// 離開遊戲 ExitGame()
-    /// </summary>
-    private void ExitGame()
-    {
-        DataGlobalManager.inst.PlayerDataSaving(true);
+    /// <summary>選擇關卡</summary>
+    void OnStageSelect(ScenesBuildData stageScene) {
+        SceneGlobalManager.inst.StartGameSceneAction(stageScene);
+
+        Debug.Log($"OnStateSelect({stageScene.ToString()})");
     }
 
-    /// <summary>
-    /// 刷新商店技能說明的敘述 AbiDesRenew(string sAbiBtnClick)
-    /// </summary>
-    /// <param name="string sAbiBtnClick"></param>
-    public void AbiDesRenew(string sAbiBtnClick)
-    {
-        string sMoney = "Money : " + _shopItemManagerScript.iPlayerMoney;
-        string sTxtHP = "Money : " + iMoney_HP + "\n" + "HP Level: " + _shopItemManagerScript.iPlayerItemLevel_HP;
-        string sTxtATK = "Money : " + iMoney_ATK + "\n" + "ATK Level: " + _shopItemManagerScript.iPlayerItemLevel_ATK;
-        string sTxtDEF = "Money : " + iMoney_DEF + "\n" + "DEF Level : " + _shopItemManagerScript.iPlayerItemLevel_DEF;
-        string sTxtMoveSpeed = "Money : " + iMoney_moveSpeed + "\n" + "MoveSpeed Level : " + _shopItemManagerScript.iPlayerItemLevel_moveSpeed;
-
-        switch (sAbiBtnClick)
-        {
-            case "All":
-                txtMoney.text = sMoney;
-                txtAbiDes1.text = sTxtHP;
-                txtAbiDes2.text = sTxtATK;
-                txtAbiDes3.text = sTxtDEF;
-                txtAbiDes4.text = sTxtMoveSpeed;
-                break;
-
-            case "HP":
-                txtMoney.text = sMoney;
-                txtAbiDes1.text = sTxtHP;
-                break;
-
-            case "ATK":
-                txtMoney.text = sMoney;
-                txtAbiDes2.text = sTxtATK;
-                break;
-
-            case "DEF":
-                txtMoney.text = sMoney;
-                txtAbiDes3.text = sTxtDEF;
-                break;
-
-            case "MoveSpeed":
-                txtMoney.text = sMoney;
-                txtAbiDes4.text = sTxtMoveSpeed;
-                break;
-        }
+    /// <summary>開啟商店</summary>
+    void OnShopGame() {
+        _shopItemManager.AbiDesRenew();
+        OnUIPanelRenew(enUIPaneltate.Shop);
     }
 
-    enum enShopAbilityType
-    {
-        All, Money, HP, ATK, DEF, MoveSpeed
+    /// <summary>離開遊戲</summary>
+    void OnExitGame() {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        _shopItemManager.PlayerShopStatusSaving();
+        Application.Quit();
+#endif
+    }
+
+    /// <summary>UI面板 顯示</summary>
+    void OnUIPanelRenew(enUIPaneltate state) {
+        // 顯示對應的 UI 面板
+        _startSceneUI.objLoginMenuShow = state == enUIPaneltate.Start;
+        _shopItemManager.UIPanelShow(state == enUIPaneltate.Shop);
+        _startSceneUI.objCharacterMenuShow = state == enUIPaneltate.Character;
+        _startSceneUI.objGameStartMenuShow = state == enUIPaneltate.Stage;
     }
 }

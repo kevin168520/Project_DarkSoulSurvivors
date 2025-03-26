@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d19af2e446fec4eaa477359b1a5516, type: 3}
   m_Name: Character_002_Data
   m_EditorClassIdentifier: 
+  showNumber: 2
   showName: OldMan
   showImage: {fileID: -1853965249, guid: fd935ca458794ee459bb7bbc53f43647, type: 3}
   spritePrefab: {fileID: 6676319224844049280, guid: 7b272e877022adb4f82ae15282c8aa41, type: 3}

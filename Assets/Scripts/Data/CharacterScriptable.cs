@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/Character", order = 1)]
 public class CharacterScriptable : ScriptableObject
 {
+    public int showNumber; // 人物編號
     public string showName; // 顯示名稱
     public Sprite showImage; // 顯示圖片
     public GameObject spritePrefab; // 資源欲置物

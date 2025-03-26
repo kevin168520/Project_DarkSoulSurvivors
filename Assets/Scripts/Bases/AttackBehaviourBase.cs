@@ -57,7 +57,7 @@ public abstract class AttackBehaviourBase : MonoBehaviour
     abstract protected void OnAttackEnd();
     
 
-#if DEBUG
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected() // 編輯器中繪製 attackSize
     {
         targetDetector.DrawDetectionGizmo(transform);

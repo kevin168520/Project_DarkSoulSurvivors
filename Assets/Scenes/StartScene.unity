@@ -396,53 +396,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &154776036
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 154776038}
-  - component: {fileID: 154776037}
-  m_Layer: 0
-  m_Name: StartGame
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &154776037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 154776036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3db57ec770373214dab4801ce2954eb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterList:
-  - {fileID: 11400000, guid: 31c2210de46857545bc7c352fe80ab86, type: 2}
-  - {fileID: 11400000, guid: c84436b3af4e2c9489befd091ce27452, type: 2}
---- !u!4 &154776038
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 154776036}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1467877773}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &181053133
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,7 +646,7 @@ Transform:
   m_GameObject: {fileID: 309092702}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 772.9092, y: 315.18115, z: -3.884517}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -983,11 +936,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b5ab06fa0b346743807ae34f9c30765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iPlayerMoney: 0
-  iPlayerItemLevel_HP: 0
-  iPlayerItemLevel_ATK: 0
-  iPlayerItemLevel_DEF: 0
-  iPlayerItemLevel_moveSpeed: 0
+  _shopMenuUI: {fileID: 4276521496085796306}
+  iMoney_HP: 0
+  iMoney_ATK: 0
+  iMoney_DEF: 0
+  iMoney_moveSpeed: 0
 --- !u!4 &491739243
 Transform:
   m_ObjectHideFlags: 0
@@ -1990,6 +1943,7 @@ GameObject:
   - component: {fileID: 1190874525}
   - component: {fileID: 1190874524}
   - component: {fileID: 1190874523}
+  - component: {fileID: 1190874526}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2013,7 +1967,7 @@ RectTransform:
   - {fileID: 1882064192}
   - {fileID: 95762115}
   - {fileID: 3739673297083028142}
-  m_Father: {fileID: 1408163572}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2083,6 +2037,30 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1190874526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1190874521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aedabd48462a684c9f23d87cd2ae7e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objLoginMenu: {fileID: 642995562}
+  btnGameStart: {fileID: 1823595940}
+  btnShop: {fileID: 1377770257}
+  btnExit: {fileID: 1973230368}
+  objCharacterMenu: {fileID: 1882064191}
+  btnCharacter1: {fileID: 85556418}
+  btnCharacter2: {fileID: 1172915882}
+  btnBackToState: {fileID: 338686706}
+  objGameStartMenu: {fileID: 95762114}
+  btnGameState1: {fileID: 1390287956}
+  btnGameState2: {fileID: 2099414094}
+  btnBackToMenu: {fileID: 1247125820}
 --- !u!1 &1211321090
 GameObject:
   m_ObjectHideFlags: 0
@@ -2671,38 +2649,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390287954}
   m_CullTransparentMesh: 1
---- !u!1 &1408163571
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1408163572}
-  m_Layer: 0
-  m_Name: Menu
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1408163572
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408163571}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1190874522}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1459860851
 GameObject:
   m_ObjectHideFlags: 0
@@ -2866,44 +2812,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74502025c5778c64f990d43c2839cea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startGameScript: {fileID: 154776037}
-  _shopItemManagerScript: {fileID: 491739242}
-  objLoginMenu: {fileID: 642995562}
-  btnGameStart: {fileID: 1823595940}
-  btnShop: {fileID: 1377770257}
-  btnExit: {fileID: 1973230368}
-  objShopMenu: {fileID: 4276521496085796305}
-  objShopTip: {fileID: 69484445}
-  btnShopExit: {fileID: 2920142558522241757}
-  btnShopTipExit: {fileID: 1058751696}
-  btnAbi1: {fileID: 2270469691677970732}
-  btnAbi2: {fileID: 743540358770505215}
-  btnAbi3: {fileID: 5676985333099779849}
-  btnAbi4: {fileID: 1605996034688154672}
-  btnAbi5: {fileID: 4131656483164426319}
-  btnAbi6: {fileID: 5640128054134099561}
-  btnAbi7: {fileID: 267987174662403938}
-  btnAbi8: {fileID: 6658613402599959842}
-  btnAbi9: {fileID: 6230152203506706588}
-  txtTip: {fileID: 1102341277}
-  txtAbiDes1: {fileID: 6519209390082689691}
-  txtAbiDes2: {fileID: 6342253687497541404}
-  txtAbiDes3: {fileID: 3451474190323739201}
-  txtAbiDes4: {fileID: 3309627385042820857}
-  txtAbiDes5: {fileID: 4158088537456377137}
-  txtAbiDes6: {fileID: 2338607885411528728}
-  txtAbiDes7: {fileID: 4839720542895076874}
-  txtAbiDes8: {fileID: 3195521007548144768}
-  txtAbiDes9: {fileID: 2294004261340825903}
-  txtMoney: {fileID: 1184729093}
-  objCharacterMenu: {fileID: 1882064191}
-  btnCharacter1: {fileID: 85556418}
-  btnCharacter2: {fileID: 1172915882}
-  btnBackToState: {fileID: 338686706}
-  objGameStartMenu: {fileID: 95762114}
-  btnGameState1: {fileID: 1390287956}
-  btnGameState2: {fileID: 2099414094}
-  btnBackToMenu: {fileID: 1247125820}
+  _shopItemManager: {fileID: 491739242}
+  _startSceneUI: {fileID: 1190874526}
+  _characterDatabase: {fileID: 11400000, guid: 320fc4e517fe25043afd43b5640193ec, type: 2}
 --- !u!4 &1467877773
 Transform:
   m_ObjectHideFlags: 0
@@ -2913,11 +2824,10 @@ Transform:
   m_GameObject: {fileID: 1467877771}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 716.4629, y: 563.41583, z: -5.9274144}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 154776038}
   - {fileID: 595246389}
   - {fileID: 491739243}
   m_Father: {fileID: 0}
@@ -2957,8 +2867,9 @@ MonoBehaviour:
     iPlayerItemLevel_ATK: 0
     iPlayerItemLevel_DEF: 0
     iPlayerItemLevel_moveSpeed: 0
-  sPlayerDataSavingPath: 
   _characterData: {fileID: 0}
+  _summaryCharacter: {fileID: 0}
+  _summaryWeapon: []
 --- !u!4 &1473830676
 Transform:
   m_ObjectHideFlags: 0
@@ -2968,7 +2879,7 @@ Transform:
   m_GameObject: {fileID: 1473830674}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 719, y: 172, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6763,6 +6674,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3739673297083028142}
+  - component: {fileID: 4276521496085796306}
   m_Layer: 5
   m_Name: objShopMenu
   m_TagString: Untagged
@@ -6770,6 +6682,42 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &4276521496085796306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4276521496085796305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29e816ead8f837349b5edc0fccab92a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objShopMenu: {fileID: 4276521496085796305}
+  btnShopExit: {fileID: 2920142558522241757}
+  txtMoney: {fileID: 1184729093}
+  objShopTip: {fileID: 69484445}
+  btnShopTipExit: {fileID: 1058751696}
+  txtTip: {fileID: 1102341277}
+  btnAbi1: {fileID: 2270469691677970732}
+  btnAbi2: {fileID: 743540358770505215}
+  btnAbi3: {fileID: 5676985333099779849}
+  btnAbi4: {fileID: 1605996034688154672}
+  btnAbi5: {fileID: 4131656483164426319}
+  btnAbi6: {fileID: 5640128054134099561}
+  btnAbi7: {fileID: 267987174662403938}
+  btnAbi8: {fileID: 6658613402599959842}
+  btnAbi9: {fileID: 6230152203506706588}
+  txtAbiDes1: {fileID: 6519209390082689691}
+  txtAbiDes2: {fileID: 6342253687497541404}
+  txtAbiDes3: {fileID: 3451474190323739201}
+  txtAbiDes4: {fileID: 3309627385042820857}
+  txtAbiDes5: {fileID: 4158088537456377137}
+  txtAbiDes6: {fileID: 2338607885411528728}
+  txtAbiDes7: {fileID: 4839720542895076874}
+  txtAbiDes8: {fileID: 3195521007548144768}
+  txtAbiDes9: {fileID: 2294004261340825903}
 --- !u!114 &4407638509797778836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9415,7 +9363,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2050891725}
-  - {fileID: 1408163572}
+  - {fileID: 1190874522}
   - {fileID: 1859112721}
   - {fileID: 309092704}
   - {fileID: 1473830676}

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -27,10 +28,10 @@ public class SceneGlobalManager : MonoBehaviour
     /// 遊戲啟動時的場景切換 StartGameSceneAction(string sGameSceneState)
     /// </summary>
     /// <param name="sGameSceneState"></param>
-    public void StartGameSceneAction(string sGameSceneState)
+    public void StartGameSceneAction(ScenesBuildData sGameSceneState)
     {
-        SceneManager.LoadScene(sGameSceneState, LoadSceneMode.Single);  //關卡用的Scene
-        SceneManager.LoadScene((int)ScenesBuildData.MainGamePlayer, LoadSceneMode.Additive);   //Data的Scene
+        SceneManager.LoadScene((int)sGameSceneState, LoadSceneMode.Single);  //關卡 Scene
+        SceneManager.LoadScene((int)ScenesBuildData.MainGamePlayer, LoadSceneMode.Additive);   //玩家角色 Scene
     }
 
     /// <summary>

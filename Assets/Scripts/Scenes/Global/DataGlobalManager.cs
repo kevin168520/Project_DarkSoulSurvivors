@@ -6,11 +6,15 @@ using UnityEngine;
 public class DataGlobalManager : MonoBehaviour
 {
     public static DataGlobalManager inst;
-    public PlayerData _playerData; // 商店資料
-
-    public string sPlayerDataSavingPath;
+    
+    
+    [Header("玩家商店資料")]
+    public PlayerStoreData _playerData; // 商店資料
+    
+    [Header("玩家角色資料")]
     public CharacterScriptable _characterData; // 玩家資料
     
+    [Header("遊戲結算資料")]
     public Sprite _summaryCharacter; // 角色圖片
     public List<SummaryScoreManager.ScoreSummary> _summaryWeapon; // 武器結算資料
 
@@ -27,52 +31,6 @@ public class DataGlobalManager : MonoBehaviour
         {
             // 如果已有實例，銷毀當前物件
             Destroy(this);
-        }
-
-        string sGetDataPath = Path.GetFullPath(Application.dataPath);
-        sPlayerDataSavingPath = Path.Combine(sGetDataPath, "PlayerDataSaving.json");    //預設路徑 + 檔案名稱(PlayerDataSaving.json)
-        Debug.Log(sPlayerDataSavingPath);
-    }
-
-    /// <summary>
-    /// Saving Json Data的方法 PlayerDataSaving(bool bGameExit)
-    /// </summary>
-    /// <param name="bGameExit"></param>
-    public void PlayerDataSaving(bool bGameExit)
-    {
-        //寫入Json Data
-        string json = JsonUtility.ToJson(_playerData);
-        Debug.Log("Serialized JSON : " + json);
-        File.WriteAllText(sPlayerDataSavingPath, json);
-
-        if (bGameExit)
-        {
-            Application.Quit();
-        }
-    }
-
-    /// <summary>
-    /// Loading Json Data的方法 PlayerDataLoading()
-    /// </summary>
-    /// <returns></returns>
-    public string PlayerDataLoading()
-    {
-        //判別是否有存檔資料sPlayerDataSavingPath
-        if (File.Exists(sPlayerDataSavingPath))
-        {
-            //帶入路徑資料
-            string json = File.ReadAllText(sPlayerDataSavingPath);
-            _playerData = JsonUtility.FromJson<PlayerData>(json);
-            Debug.Log("Player data loaded: " + json);
-            return json;
-        }
-        else
-        {
-            //因為路徑下沒有對應資料，因此產生一個新的並自動存檔
-            _playerData = new PlayerData();
-            Debug.Log("Player data not found");
-            PlayerDataSaving(false);
-            return null;
         }
     }
 
