@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartSceneManager : MonoBehaviour
+public class StartSceneManager : ManagerMonoBase
 {
     enum enUIPaneltate {
         Start, Shop, Character, Stage
@@ -13,8 +13,8 @@ public class StartSceneManager : MonoBehaviour
     [Header("CharacterData")]
     public CharacterDatabaseScriptable _characterDatabase;
     CharacterScriptable _character { // 跨場景用角色資料
-        get => DataGlobalManager.inst._characterData;
-        set => DataGlobalManager.inst._characterData = value;
+        get => DataGlobalManager._characterData;
+        set => DataGlobalManager._characterData = value;
     }
 
     void Start()
@@ -76,7 +76,7 @@ public class StartSceneManager : MonoBehaviour
 
     /// <summary>選擇關卡</summary>
     void OnStageSelect(ScenesBuildData stageScene) {
-        SceneGlobalManager.inst.StartGameSceneAction(stageScene);
+        SceneGlobalManager.LoadMainGameScene(stageScene);
 
         Debug.Log($"OnStateSelect({stageScene.ToString()})");
     }

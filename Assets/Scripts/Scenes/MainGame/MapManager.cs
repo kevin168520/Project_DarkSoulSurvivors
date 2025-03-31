@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class MapManager : MonoBehaviour
+public class MapManager : ManagerMonoBase
 {
     [Header("地圖設定")]
     public GameObject[] terrainPrefabs; // 地塊 Prefab 陣列
@@ -28,8 +28,8 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-        if(GameManager.instance != null)
-          player = GameManager.instance.playerTransform;
+        if(GameManager != null)
+          player = PlayerManager.Player.transform;
         playerGrid = GetPlayerGrid();
         UpdateTiles(playerGrid);
     }

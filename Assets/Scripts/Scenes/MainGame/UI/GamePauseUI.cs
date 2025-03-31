@@ -1,49 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GamePauseUI : MonoBehaviour
 {
-    public GameObject gameOverPanel; // 遊戲結束UI
-    public GameObject gameCompletePanel; // 遊戲通關UI
-    public GameObject gamePauseMenu; // 遊戲暫停UI
-    public List<Image> gamePauseWeaponsItems; // 玩家所有武器圖片位置
+    [SerializeField] GameObject gamePauseMenu; // 遊戲暫停UI
+    public bool gamePauseMenuShow {
+      get => gamePauseMenu.activeSelf;
+      set => gamePauseMenu.SetActive(value);}
 
-    [SerializeField] private Button btnReturnToGame; // 回到遊戲繼續進行
-    [SerializeField] private Button btnSetting; // 尚無功能
-    [SerializeField] private Button btnBackToMenu; // 回到LoginScene
+    [Header("武器圖片")]
+    [SerializeField] List<Image> imgWeaponsIcons;
 
-    /// <summary>
-    /// 遊戲介面按鈕控制 BtnCtrlGameScene()
-    /// </summary>
-    public void BtnCtrlGameScene()
-    {
-        btnReturnToGame.onClick.AddListener(delegate ()
-        {
-            gamePauseMenu.SetActive(false);
-            GameManager.instance.UnPauseGame();
-        });
-
-        btnSetting.onClick.AddListener(delegate ()
-        {
-            Debug.Log("Not Finish");
-        });
-
-        btnBackToMenu.onClick.AddListener(delegate ()
-        {
-            gamePauseMenu.SetActive(false);
-            GameManager.instance.SummaryEvent();
-        });
-    }
+    [Header("功能按鈕")]
+    [SerializeField] Button btnReturnToGame; // 回到遊戲繼續進行
+    public UnityAction btnReturnToGameOnClick {set => btnReturnToGame.onClick.AddListener(value);}
+    [SerializeField]  Button btnSetting; // Setting 按鈕
+    public UnityAction btnSettingOnClick {set => btnSetting.onClick.AddListener(value);}
+    [SerializeField]  Button btnBackToMenu; // 回到LoginScene
+    public UnityAction btnBackToMenuOnClick {set => btnBackToMenu.onClick.AddListener(value);}
     
-    public void SetweaponIcons(params Sprite[] weaponIcons) {
-        for(int i = 0; i<gamePauseWeaponsItems.Count; i++) {
+    public void SetWeaponIcons(params Sprite[] weaponIcons) {
+        for(int i = 0; i<imgWeaponsIcons.Count; i++) {
           if(i < weaponIcons.Length){
-            gamePauseWeaponsItems[i].sprite = weaponIcons[i];
-            gamePauseWeaponsItems[i].gameObject.SetActive(true);
+            imgWeaponsIcons[i].sprite = weaponIcons[i];
+            imgWeaponsIcons[i].gameObject.SetActive(true);
           } else {
-            gamePauseWeaponsItems[i].gameObject.SetActive(false);
+            imgWeaponsIcons[i].gameObject.SetActive(false);
           }
         }
     }

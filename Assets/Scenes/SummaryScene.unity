@@ -244,10 +244,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afdf09f27261f494ebdd2b4e53028f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterImage: {fileID: 679170021}
-  BackToMenuButton: {fileID: 972503575}
-  DetailScrollContent: {fileID: 1650406118}
-  DetailScrollItem: {fileID: 1954357812}
+  characterImage: {fileID: 679170021}
+  backToMenuButton: {fileID: 972503575}
+  detailScrollContent: {fileID: 1650406118}
+  detailScrollItem: {fileID: 1954357812}
 --- !u!1 &311873202
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,7 +417,6 @@ MonoBehaviour:
     iPlayerItemLevel_ATK: 0
     iPlayerItemLevel_DEF: 0
     iPlayerItemLevel_moveSpeed: 0
-  sPlayerDataSavingPath: 
   _characterData: {fileID: 0}
   _summaryCharacter: {fileID: -2070282309, guid: 9c9b26db6c5549f409323592a13891c3, type: 3}
   _summaryWeapon:
@@ -809,7 +808,7 @@ GameObject:
   - component: {fileID: 890018098}
   - component: {fileID: 890018097}
   m_Layer: 0
-  m_Name: SummaryScoreManager
+  m_Name: SummaryManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1310,50 +1309,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349203484}
   m_CullTransparentMesh: 1
---- !u!1 &1564123744
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1564123746}
-  - component: {fileID: 1564123745}
-  m_Layer: 0
-  m_Name: SceneManagerScript
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1564123745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1564123744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc9194b4114bc49448a4cefc5bb0f17d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1564123746
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1564123744}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1110.0978, y: 505.4125, z: -1.3198824}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1650406117
 GameObject:
   m_ObjectHideFlags: 0
@@ -1911,5 +1866,4 @@ SceneRoots:
   - {fileID: 2039582635}
   - {fileID: 182248845}
   - {fileID: 890018098}
-  - {fileID: 1564123746}
   - {fileID: 433733776}

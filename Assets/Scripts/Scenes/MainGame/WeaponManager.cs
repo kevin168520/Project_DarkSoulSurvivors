@@ -1,23 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class WeaponManager : MonoBehaviour
+/// <summary> 負責角色武器與添加狀態與畫面等級 </summary>
+public class WeaponManager : ManagerMonoBase
 {
-    Transform playerTransform => GameManager.instance.playerTransform; // 玩家座標資料
-    CharacterScriptable playerData => DataGlobalManager.inst._characterData; // 角色資料
-    CharacterScript playerCharacter => GameManager.instance.playerCharacter; // 玩家角色
-    [SerializeField] WeaponUpgradeUI weaponUpgradeUI; // 玩家升級 UI
-    [SerializeField] List<WeaponHandlerBase> equipWeapon = new List<WeaponHandlerBase>(); // 已裝備武器
-    [SerializeField] WeaponDatabaseScriptable weaponDatabase; // 武器資料庫
-    
+    [Header("武器放置座標")]
+    [SerializeField] Transform weaponTransform;
+    [Header("武器升級 UI")]
+    [SerializeField] WeaponUpgradeUI weaponUpgradeUI;
+    [Header("武器資料庫")]
+    [SerializeField] WeaponDatabaseScriptable weaponDatabase;
+    [Header("已裝備武器")]
+    [SerializeField] List<WeaponHandlerBase> equipWeapon = new List<WeaponHandlerBase>();
+
     void Start()
     {
-        // 添加角色起始武器
-        AddWeapon(playerData.startingWeapon);
-
-        // 註冊角色監聽
-        playerCharacter.dataChangeListener.AddListener(OnCharacterdataChange);
+        // 載入起始武器資料
+        CharacterScriptable characterData = DataGlobalManager._characterData;
+        AddWeapon(characterData.startingWeapon);
     }
     
     // 添加武器物件 透過武器資料
@@ -31,15 +33,15 @@ public class WeaponManager : MonoBehaviour
     public void AddWeapon(WeaponHandlerBase weapon){
       equipWeapon.Add(weapon);
 
-      // 移動玩家座標下
-      weapon.transform.parent = playerTransform;
+      // 移動武器放置座標
+      weapon.transform.parent = weaponTransform;
       weapon.transform.localPosition  = Vector3.zero;
       weapon.gameObject.SetActive(true);
     }
 
     public List<WeaponHandlerBase> GetWeapons() => equipWeapon;
     
-    // 初始化武器升級介面 只會在角色升級時被呼叫
+    // 初始化武器升級介面
     public void InitWeaponUpgradeUI(){
       
       // 篩選武器內容
@@ -89,7 +91,7 @@ public class WeaponManager : MonoBehaviour
       // 開啟武器生級選單
       if(upgradeWeapon.Count > 0) {
         weaponUpgradeUI.Active = true;
-        GameManager.instance.PauseGame();
+        GameManager.PauseGame();
       }
     }
     
@@ -102,7 +104,7 @@ public class WeaponManager : MonoBehaviour
             Debug.Log($"{weaponData.weaponName} Upgrade To ({weaponData.weaponLevel} Level)");
             weapon.LoadWeaponData(weaponData);
             weaponUpgradeUI.Active = false;
-            GameManager.instance.UnPauseGame();
+            GameManager.UnPauseGame();
             return;
           }
         }
@@ -110,23 +112,7 @@ public class WeaponManager : MonoBehaviour
         Debug.Log($"{weaponData.weaponName} New Add");
         AddWeapon(weaponData);
         weaponUpgradeUI.Active = false;
-        GameManager.instance.UnPauseGame();
-      }
-    }
-    
-    // 角色資料監聽
-    public void OnCharacterdataChange(CharacterScript.StatType type){
-      switch (type)
-      {
-        case CharacterScript.StatType.Level:
-          InitWeaponUpgradeUI();
-          break;
-        case CharacterScript.StatType.SpeedMult:
-          break;
-        case CharacterScript.StatType.AttackMult:
-          break;
-        case CharacterScript.StatType.isDead:
-          break;
+        GameManager.UnPauseGame();
       }
     }
 }
