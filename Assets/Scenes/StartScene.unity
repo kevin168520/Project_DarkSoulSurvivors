@@ -966,6 +966,7 @@ GameObject:
   m_Component:
   - component: {fileID: 595246389}
   - component: {fileID: 595246388}
+  - component: {fileID: 595246390}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -980,7 +981,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 595246387}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cae3ce5e4095af245bb2453f82d39590, type: 3}
@@ -1082,8 +1083,38 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1467877773}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &595246390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595246387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a398ad67e62f3c44ac5cc2f373f2459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BGMSetting:
+  - Name: LoginSceneBGM
+    Clip:
+    - {fileID: 8300000, guid: cae3ce5e4095af245bb2453f82d39590, type: 3}
+    Loop: 1
+    ResetTime: 0
+    Volume:
+      Volume: 0
+      IsRandom: 0
+      Max: 0
+      Min: 0
+    Pitch:
+      Pitch: 0
+      IsRandom: 0
+      Max: 0
+      Min: 0
+    MixerGroup: {fileID: 0}
+  SFXSetting: []
 --- !u!1 &642995562
 GameObject:
   m_ObjectHideFlags: 0
@@ -2828,7 +2859,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 595246389}
   - {fileID: 491739243}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9367,4 +9397,5 @@ SceneRoots:
   - {fileID: 1859112721}
   - {fileID: 309092704}
   - {fileID: 1473830676}
+  - {fileID: 595246389}
   - {fileID: 1467877773}
