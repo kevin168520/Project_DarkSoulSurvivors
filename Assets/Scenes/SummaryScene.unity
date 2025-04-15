@@ -417,7 +417,6 @@ MonoBehaviour:
     iPlayerItemLevel_ATK: 0
     iPlayerItemLevel_DEF: 0
     iPlayerItemLevel_moveSpeed: 0
-  sPlayerDataSavingPath: 
   _characterData: {fileID: 0}
   _summaryCharacter: {fileID: -2070282309, guid: 9c9b26db6c5549f409323592a13891c3, type: 3}
   _summaryWeapon:
@@ -1168,7 +1167,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1007018992}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1007018995
 Camera:
   m_ObjectHideFlags: 0

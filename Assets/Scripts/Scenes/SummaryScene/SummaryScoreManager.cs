@@ -10,8 +10,11 @@ public class SummaryScoreManager : MonoBehaviour
     List<ScoreSummary> weaponSummary => DataGlobalManager.inst._summaryWeapon; // 武器結算資料
 
     void Start() {
+
+        AudioGlobalManager.inst.PlayBGM(enAudioDataBGM.SummaryScene_BGM);
+
         // InitSummaryScoreUI()
-        if(characterImage != null){
+        if (characterImage != null){
           summaryScoreUI.characterImage = characterImage;
           summaryScoreUI.backToMenuButton = BackToMenuButton; 
         }

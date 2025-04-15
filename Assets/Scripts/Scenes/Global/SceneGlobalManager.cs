@@ -30,8 +30,9 @@ public class SceneGlobalManager : MonoBehaviour
     /// <param name="sGameSceneState"></param>
     public void StartGameSceneAction(ScenesBuildData sGameSceneState)
     {
+        AudioGlobalManager.inst.BGMStop();
         SceneManager.LoadScene((int)sGameSceneState, LoadSceneMode.Single);  //關卡 Scene
-        SceneManager.LoadScene((int)ScenesBuildData.MainGamePlayer, LoadSceneMode.Additive);   //玩家角色 Scene
+        SceneManager.LoadScene((int)ScenesBuildData.MainGamePlayer, LoadSceneMode.Additive);   //玩家角色 Scene        
     }
 
     /// <summary>
@@ -39,11 +40,16 @@ public class SceneGlobalManager : MonoBehaviour
     /// </summary>
     public void EndGameSceneAction ()
     {
+        AudioGlobalManager.inst.BGMStop();
         SceneManager.LoadScene((int)ScenesBuildData.SummaryScene);  //跳至結算畫面
     }
 
+    /// <summary>
+    /// 返回主選單的場景切換 BackToMenuSceneAction()
+    /// </summary>
     public void BackToMenuSceneAction()
     {
+        AudioGlobalManager.inst.BGMStop();
         SceneManager.LoadScene((int)ScenesBuildData.StartScene);  //回到主畫面
     }
 }

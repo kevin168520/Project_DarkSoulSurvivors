@@ -10,7 +10,7 @@ public class WeaponBehaviour : WeaponBehaviourBase
     protected override void OnAttackStart()
     {
         enemiesHit.Clear();
-        PlaySound();
+        PlaySound(enAudioDataSFX.MagicWeaponFireball);
     }
 
     // 執行攻擊

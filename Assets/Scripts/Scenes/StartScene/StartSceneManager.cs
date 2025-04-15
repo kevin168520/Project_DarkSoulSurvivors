@@ -17,6 +17,11 @@ public class StartSceneManager : MonoBehaviour
         set => DataGlobalManager.inst._characterData = value;
     }
 
+    private void Awake()
+    {
+        AudioGlobalManager.inst.PlayBGM(enAudioDataBGM.StartScene_BGM);
+    }
+
     void Start()
     {
         initial();
