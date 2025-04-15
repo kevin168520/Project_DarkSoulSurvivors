@@ -234,7 +234,7 @@ namespace baseSys.Audio.Method {
             //取得物件
             //GameObject obj;
             //AudioSource aos;
-            
+
 
             //如果有正在播放
             //if (playerCount > 0)
@@ -401,6 +401,10 @@ namespace baseSys.Audio.Method {
             return pitch;
         }
 
+        /// <summary>
+        /// 產生對應的AudioScorce與GameObject並回傳 GetAvailableSource()
+        /// </summary>
+        /// <returns></returns>
         (AudioSource src, GameObject obj) GetAvailableSource()
         {
             foreach (var obj in _nowPlayer)

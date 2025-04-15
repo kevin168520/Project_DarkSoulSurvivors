@@ -2379,7 +2379,7 @@ MonoBehaviour:
     Clip:
     - {fileID: 8300000, guid: 7947e24229c8a33419e1bd3fddb1aed2, type: 3}
     Loop: 0
-    ResetTime: 0
+    ResetTime: 1
     Volume:
       Volume: 1
       IsRandom: 0
@@ -2395,7 +2395,7 @@ MonoBehaviour:
     Clip:
     - {fileID: 8300000, guid: d2b4f69fe15f4f946a487d3ae5ef3f95, type: 3}
     Loop: 0
-    ResetTime: 0
+    ResetTime: 1
     Volume:
       Volume: 1
       IsRandom: 0
