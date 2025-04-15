@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class MapManager : ManagerMonoBase
 {
@@ -24,6 +25,17 @@ public class MapManager : ManagerMonoBase
     {
         FourDirection, // 四個方向生成（第一關）
         Horizontal     // 僅水平生成（第二關）
+    }
+    private void Awake()
+    {
+        if (SceneManager.GetActiveScene().name == ScenesBuildData.MainGameLevel_1.ToString())
+        {
+            AudioGlobalManager.inst.PlayBGM(enAudioDataBGM.MainGameLevel1_BGM);
+        }
+        else
+        {
+            AudioGlobalManager.inst.PlayBGM(enAudioDataBGM.MainGameLevel2_BGM);
+        }
     }
 
     void Start()

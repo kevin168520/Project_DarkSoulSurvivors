@@ -39,7 +39,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2353555887903001833}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7947e24229c8a33419e1bd3fddb1aed2, type: 3}
@@ -297,6 +297,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec1fa36cb60a0db489cf2c19ba00cbfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponName: 
+  weaponIcon: {fileID: 0}
+  totalDamage: 0
   weaponNumber: 0
   weaponLevel: 0
   weaponLevelMax: 0

@@ -10,6 +10,9 @@ public class SummaryScoreManager : ManagerMonoBase
     List<ScoreSummary> weaponSummary => DataGlobalManager._summaryWeapon; // 武器結算資料
 
     void Start() {
+
+        AudioGlobalManager.inst.PlayBGM(enAudioDataBGM.SummaryScene_BGM);
+
         // InitSummaryScoreUI()
         if(characterImage != null){
           summaryScoreUI.CharacterImage = characterImage;

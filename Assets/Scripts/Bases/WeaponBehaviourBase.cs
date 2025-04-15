@@ -13,9 +13,11 @@ public abstract class WeaponBehaviourBase : AttackBehaviourBase
     // 音效
     public AudioSource audioSource;
 
-    // 播放音樂
-    public void PlaySound() {
-        if (audioSource != null) audioSource.Play();
+    //播放音樂
+    public void PlaySound(enAudioDataSFX _enAudioDataSFX)
+    {
+        if (audioSource != null && audioSource.clip != null) 
+            AudioGlobalManager.inst.PlaySFX(_enAudioDataSFX);
     }
 
     // 設置武器能力 透過 WeaponBase
