@@ -17,13 +17,9 @@ public class StartSceneManager : ManagerMonoBase
         set => DataGlobalManager._characterData = value;
     }
 
-    private void Awake()
-    {
-        AudioGlobalManager.inst.PlayBGM(enAudioDataBGM.StartScene_BGM);
-    }
-
     void Start()
     {
+        AudioGlobalManager.inst.PlayBGM(enAudioDataBGM.StartScene_BGM);
         initial();
         BtnCtrlLoginMenu();
         BtnCtrlCharacterMenu();

@@ -26,7 +26,8 @@ public class MapManager : ManagerMonoBase
         FourDirection, // 四個方向生成（第一關）
         Horizontal     // 僅水平生成（第二關）
     }
-    private void Awake()
+
+    void Start()
     {
         if (SceneManager.GetActiveScene().name == ScenesBuildData.MainGameLevel_1.ToString())
         {
@@ -36,10 +37,6 @@ public class MapManager : ManagerMonoBase
         {
             AudioGlobalManager.inst.PlayBGM(enAudioDataBGM.MainGameLevel2_BGM);
         }
-    }
-
-    void Start()
-    {
         if(GameManager != null)
           player = PlayerManager.Player.transform;
         playerGrid = GetPlayerGrid();
