@@ -7,7 +7,7 @@ public class ProjectileWeaponBehaviour : WeaponBehaviourBase
     // 開啟攻擊
     protected override void OnAttackStart()
     {
-        // PlaySound(enAudioDataSFX.PhysicalWeaponArrow); 有問題，可能是播到一半被移除物件出事?
+        PlaySound(enAudioSfxData.PhysicalWeaponArrow);
     }
     
     // 彈丸移動

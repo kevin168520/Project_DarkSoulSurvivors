@@ -16,22 +16,24 @@ public class AudioAutoDestroyScript : MonoBehaviour
 
     void Start()
     {
-        b = !Enum.GetNames(typeof(enAudioDataBGM)).Contains(_audio.name);
+        b = !Enum.GetNames(typeof(enAudioBgmData)).Contains(_audio.name);
     }
 
     void Update()
     {
         //判斷是否為BGM
-        if (b)
+        if (b && !_audio.isPlaying)
         {
+            Destroy(gameObject); // 播放完畢後摧毀物件
+
             //非BGM
-            StartCoroutine(ieDestroyWhenAudioFinished());
+            //StartCoroutine(ieDestroyWhenAudioFinished());
         }
     }
 
     private IEnumerator ieDestroyWhenAudioFinished()
     {
-        yield return new WaitForSeconds(_audio.clip.length + 10f);
+        yield return new WaitForSeconds(_audio.clip.length);
         Destroy(gameObject); // 播放完畢後摧毀物件
     }
 }

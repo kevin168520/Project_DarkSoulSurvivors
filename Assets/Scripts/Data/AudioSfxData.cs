@@ -1,6 +1,6 @@
 
 /// <summary>用於載入SFX音效</summary>
-public enum enAudioDataSFX
+public enum enAudioSfxData
 {
     // 0 ~ 19：預設為其他音效，如：購買道具的音效
 

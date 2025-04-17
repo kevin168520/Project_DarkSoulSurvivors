@@ -11,7 +11,7 @@ public class SummaryScoreManager : ManagerMonoBase
 
     void Start() {
 
-        AudioGlobalManager.inst.PlayBGM(enAudioDataBGM.SummaryScene_BGM);
+        AudioGlobalManager.inst.PlayBGM(enAudioBgmData.SummaryScene_BGM);
 
         // InitSummaryScoreUI()
         if(characterImage != null){

@@ -155,14 +155,14 @@ namespace baseSys.Audio.Method {
             else {
                 obj = new GameObject();
                 obj.AddComponent<AudioSource>();
-                //obj.AddComponent<AudioAutoDestroyScript>();
+                obj.AddComponent<AudioAutoDestroyScript>();
             }
 
             if (obj.GetComponent<AudioSource>() == null)
                 obj.AddComponent<AudioSource>();
 
-            //if (obj.GetComponent<AudioAutoDestroyScript>() == null)
-            //    obj.AddComponent<AudioAutoDestroyScript>();
+            if (obj.GetComponent<AudioAutoDestroyScript>() == null)
+                obj.AddComponent<AudioAutoDestroyScript>();
 
             obj.transform.SetParent(playerObject.transform, false);
 
@@ -403,17 +403,16 @@ namespace baseSys.Audio.Method {
 
         (AudioSource src, GameObject obj) GetAvailableSource()
         {
-            foreach (var obj in _nowPlayer)
-            {
-                AudioSource src = obj.GetComponent<AudioSource>();
-                if (!src.isPlaying)
-                {
-                    return (src, obj);
-                }
-            }
+            //foreach (var obj in _nowPlayer)
+            //{
+            //    AudioSource src = obj.GetComponent<AudioSource>();
+            //    if (!src.isPlaying)
+            //    {
+            //        return (src, obj);
+            //    }
+            //}
 
             //Create new AudioSource
-
             GameObject objNew = create();
             AudioSource newSrc = objNew.GetComponent<AudioSource>();
             _nowPlayer.Add(objNew);
@@ -421,5 +420,4 @@ namespace baseSys.Audio.Method {
             return (newSrc, objNew);
         }
     }
-}
-    
+}    

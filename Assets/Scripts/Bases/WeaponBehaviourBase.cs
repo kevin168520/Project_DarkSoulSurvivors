@@ -10,14 +10,11 @@ public abstract class WeaponBehaviourBase : AttackBehaviourBase
     // 武器能力
     public float FlightSpeed; // 飛行攻擊速度
     public Vector3 FlightDirection; // 飛行攻擊方向
-    // 音效
-    public AudioSource audioSource;
 
     //播放音樂
-    public void PlaySound(enAudioDataSFX _enAudioDataSFX)
+    public void PlaySound(enAudioSfxData enAudioSfxData)
     {
-        if (audioSource != null && audioSource.clip != null) 
-            AudioGlobalManager.inst.PlaySFX(_enAudioDataSFX);
+            AudioGlobalManager.inst.PlaySFX(enAudioSfxData);
     }
 
     // 設置武器能力 透過 WeaponBase
