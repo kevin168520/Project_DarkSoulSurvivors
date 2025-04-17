@@ -1,43 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class PlayerManager : MonoBehaviour
+/// <summary> 負責角色狀態與畫面等級 </summary>
+public class PlayerManager : ManagerMonoBase
 {
-    Transform playerTransform => GameManager.instance.playerTransform; // 玩家座標資料
-    CharacterScriptable playerData => DataGlobalManager.inst._characterData; // 角色資料
-    PlayerStoreData playerStoreData => DataGlobalManager.inst._playerData; // 商店資料
-    CharacterScript playerCharacter => GameManager.instance.playerCharacter; // 玩家角色
-    [SerializeField] private PlayerStatUI playerStatUI; // 遊戲等級 UI
+    UnityAction WeaponUpgrade => WeaponManager.InitWeaponUpgradeUI;
+    [Header("玩家物件")]
+    [SerializeField] private PlayerScript _player;
+    public PlayerScript Player => _player;
+    public static PlayerScript PLAYER; // 暫時用來對接 非 Manager 相關腳本
+    [Header("玩家狀態 UI")]
+    [SerializeField] private PlayerStatUI _playerStatUI;
+
     void Start()
     {
+        // 載入角色資料
+        CharacterScriptable characterData = DataGlobalManager._characterData;
+        PlayerStoreData storeData = DataGlobalManager._playerData;
+        Player.characterData = characterData;
+        Player.storeData = storeData;
+        PlayerManager.PLAYER = _player;
+
         // 載入角色圖片
-        GameObject spritePrefab = Instantiate(playerData.spritePrefab);
-        spritePrefab.transform.position = playerTransform.position;
-        spritePrefab.transform.parent = playerTransform;
+        GameObject spritePrefab = Instantiate(characterData.spritePrefab);
+        spritePrefab.transform.position = Player.trans.position;
+        spritePrefab.transform.parent = Player.trans;
         spritePrefab.SetActive(true);
         
         // 載入角色資料
-        playerCharacter.maxHp = playerData.hp + playerStoreData.iPlayerItemLevel_HP;
-        playerCharacter.def = playerData.def + playerStoreData.iPlayerItemLevel_DEF;
-        playerCharacter.speedMult = playerData.speedMult + playerStoreData.iPlayerItemLevel_moveSpeed;
-        playerCharacter.attackMult = playerData.attackMult;
-        playerCharacter.currentHp = playerCharacter.maxHp;
+        Player.character.maxHp = characterData.hp + storeData.iPlayerItemLevel_HP;
+        Player.character.def = characterData.def + storeData.iPlayerItemLevel_DEF;
+        Player.character.speedMult = characterData.speedMult + storeData.iPlayerItemLevel_moveSpeed;
+        Player.character.attackMult = characterData.attackMult;
+        Player.character.currentHp = Player.character.maxHp;
 
         // 註冊角色監聽
-        playerCharacter.dataChangeListener.AddListener(OnCharacterdataChange);
-    }
-
-    public Sprite GetCharacterImage() => playerData.showImage;
+        Player.character.dataChangeListener.AddListener(OnCharacterdataChange);
+    } 
 
     public void OnCharacterdataChange(CharacterScript.StatType type){
       switch (type)
       {
         case CharacterScript.StatType.Level:
-          playerStatUI.ExpLevel = playerCharacter.level;
+          _playerStatUI.ExpLevel = Player.character.level;
+          WeaponUpgrade();
           break;
         case CharacterScript.StatType.TotalExp:
-          playerStatUI.ExpBar = (float)playerCharacter.totalExp / playerCharacter.levelUpExp;
+          _playerStatUI.ExpBar = (float)Player.character.totalExp / Player.character.levelUpExp;
           break;
         case CharacterScript.StatType.Def:
           break;
@@ -47,10 +58,10 @@ public class PlayerManager : MonoBehaviour
           break;
         case CharacterScript.StatType.MaxHp:
         case CharacterScript.StatType.CurrentHp:
-          playerStatUI.HpBar = (float)playerCharacter.currentHp / playerCharacter.maxHp;
+          _playerStatUI.HpBar = (float)Player.character.currentHp / Player.character.maxHp;
           break;
         case CharacterScript.StatType.isDead:
-          GameManager.instance.GameOver();
+          GameManager.GameOver();
           break;
         case CharacterScript.StatType.Invincibility:
           break;

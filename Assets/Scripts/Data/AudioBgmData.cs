@@ -1,6 +1,6 @@
 
 /// <summary>用於載入BGM音效</summary>
-public enum enAudioDataBGM
+public enum enAudioBgmData
 {
     StartScene_BGM = 0,
     MainGameLevel1_BGM = 1,

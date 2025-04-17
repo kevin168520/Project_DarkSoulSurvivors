@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponScript : WeaponHandlerBase
 {
-    IDirection direction => GameManager.instance.playerDirection; // 方向組件
+    IDirection direction => PlayerManager.PLAYER.move;  // 方向組件
     [SerializeField] private List<WeaponBehaviourBase> weaponBehaviours;
     
     void Start() {

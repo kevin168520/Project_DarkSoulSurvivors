@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ShopItemManager : MonoBehaviour
+public class ShopItemManager : ManagerMonoBase
 {
     public enum enShopAbilityType
     {
@@ -20,28 +20,28 @@ public class ShopItemManager : MonoBehaviour
     public int iMoney_moveSpeed;
 
     int iPlayer_Money { 
-        get => DataGlobalManager.inst._playerData.iPlayer_Money; 
-        set => DataGlobalManager.inst._playerData.iPlayer_Money = value; 
+        get => DataGlobalManager._playerData.iPlayer_Money; 
+        set => DataGlobalManager._playerData.iPlayer_Money = value; 
     }
     int iPlayerItemLevel_HP { 
-        get => DataGlobalManager.inst._playerData.iPlayerItemLevel_HP; 
-        set => DataGlobalManager.inst._playerData.iPlayerItemLevel_HP = value; 
+        get => DataGlobalManager._playerData.iPlayerItemLevel_HP; 
+        set => DataGlobalManager._playerData.iPlayerItemLevel_HP = value; 
     }
     int iPlayerItemLevel_ATK { 
-        get => DataGlobalManager.inst._playerData.iPlayerItemLevel_ATK; 
-        set => DataGlobalManager.inst._playerData.iPlayerItemLevel_ATK = value; 
+        get => DataGlobalManager._playerData.iPlayerItemLevel_ATK; 
+        set => DataGlobalManager._playerData.iPlayerItemLevel_ATK = value; 
     }
     int iPlayerItemLevel_DEF { 
-        get => DataGlobalManager.inst._playerData.iPlayerItemLevel_DEF; 
-        set => DataGlobalManager.inst._playerData.iPlayerItemLevel_DEF = value; 
+        get => DataGlobalManager._playerData.iPlayerItemLevel_DEF; 
+        set => DataGlobalManager._playerData.iPlayerItemLevel_DEF = value; 
     }
     int iPlayerItemLevel_moveSpeed { 
-        get => DataGlobalManager.inst._playerData.iPlayerItemLevel_moveSpeed; 
-        set => DataGlobalManager.inst._playerData.iPlayerItemLevel_moveSpeed = value; 
+        get => DataGlobalManager._playerData.iPlayerItemLevel_moveSpeed; 
+        set => DataGlobalManager._playerData.iPlayerItemLevel_moveSpeed = value; 
     }
     PlayerStoreData _playerData { 
-        get => DataGlobalManager.inst._playerData; 
-        set => DataGlobalManager.inst._playerData = value; 
+        get => DataGlobalManager._playerData; 
+        set => DataGlobalManager._playerData = value; 
     }
 
     void Start()

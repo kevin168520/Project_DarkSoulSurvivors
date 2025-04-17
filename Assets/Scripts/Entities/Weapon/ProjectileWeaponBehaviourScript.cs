@@ -7,7 +7,7 @@ public class ProjectileWeaponBehaviour : WeaponBehaviourBase
     // 開啟攻擊
     protected override void OnAttackStart()
     {
-        PlaySound(enAudioDataSFX.PhysicalWeaponArrow);
+        PlaySound(enAudioSfxData.PhysicalWeaponArrow);
     }
     
     // 彈丸移動

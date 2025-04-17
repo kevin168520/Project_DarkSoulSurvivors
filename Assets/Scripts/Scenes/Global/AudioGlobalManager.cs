@@ -68,7 +68,7 @@ public class AudioGlobalManager : MonoBehaviour {
     /// 播放設定BGM
     /// </summary>
     /// <param name="name"></param>
-    public void PlayBGM(enAudioDataBGM enAudioDataBGM) {
+    public void PlayBGM(enAudioBgmData enAudioDataBGM) {
         BGM.Play(enAudioDataBGM.ToString());
     }
 
@@ -102,8 +102,8 @@ public class AudioGlobalManager : MonoBehaviour {
     /// 播放音效
     /// </summary>
     /// <param name="name"></param>
-    public void PlaySFX(enAudioDataSFX enAudioDataSFX) {
-        SFX.Play(enAudioDataSFX.ToString());
+    public void PlaySFX(enAudioSfxData enAudioSfxData) {
+        SFX.Play(enAudioSfxData.ToString());
     }
 
     /// <summary>

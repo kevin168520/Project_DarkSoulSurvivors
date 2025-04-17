@@ -12,34 +12,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d485fec877c1340afbef91c4abf7d4, type: 3}
   m_Name: StageEvent_001_Data
   m_EditorClassIdentifier: 
-  enemyWaves:
-  - eventType: 0
-    stageTime: 3
-    stageMsg: "\u7B2C\u4E00\u6B21"
-    enemyData: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
-    enemyCount: 50
-  - eventType: 0
-    stageTime: 20
-    stageMsg: "\u7B2C\u4E8C\u6B21"
-    enemyData: {fileID: 11400000, guid: 221c9aab8b0c2af41a94dffbffe195d4, type: 2}
-    enemyCount: 50
-  - eventType: 0
-    stageTime: 30
-    stageMsg: "\u901A\u95DC!!"
-    enemyData: {fileID: 11400000, guid: 728b2fc85c2c050418864e9359ba8c26, type: 2}
-    enemyCount: 50
-  - eventType: 0
-    stageTime: 30
-    stageMsg: "\u901A\u95DC!!"
-    enemyData: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
-    enemyCount: 80
-  - eventType: 0
-    stageTime: 60
-    stageMsg: "\u901A\u95DC!!"
-    enemyData: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
-    enemyCount: 80
-  - eventType: 1
-    stageTime: 600
-    stageMsg: "\u901A\u95DC!!"
-    enemyData: {fileID: 0}
-    enemyCount: 0
+  table:
+  - type: 0
+    time: 3
+    message: 
+    enemy: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
+    enemyCount: 20
+  - type: 0
+    time: 10
+    message: 
+    enemy: {fileID: 11400000, guid: 221c9aab8b0c2af41a94dffbffe195d4, type: 2}
+    enemyCount: 20
+  - type: 0
+    time: 20
+    message: 
+    enemy: {fileID: 11400000, guid: 728b2fc85c2c050418864e9359ba8c26, type: 2}
+    enemyCount: 20
+  - type: 0
+    time: 30
+    message: 
+    enemy: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
+    enemyCount: 20
+  - type: 0
+    time: 35
+    message: 
+    enemy: {fileID: 11400000, guid: 221c9aab8b0c2af41a94dffbffe195d4, type: 2}
+    enemyCount: 15
+  - type: 0
+    time: 40
+    message: 
+    enemy: {fileID: 11400000, guid: 728b2fc85c2c050418864e9359ba8c26, type: 2}
+    enemyCount: 15
+  - type: 0
+    time: 45
+    message: 
+    enemy: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
+    enemyCount: 15
+  - type: 1
+    time: 60
+    message: Stage Clear
+    enemy: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
+    enemyCount: 20

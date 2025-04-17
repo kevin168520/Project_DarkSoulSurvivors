@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-public class MapManager : MonoBehaviour
+public class MapManager : ManagerMonoBase
 {
     [Header("地圖設定")]
     public GameObject[] terrainPrefabs; // 地塊 Prefab 陣列
@@ -26,25 +26,19 @@ public class MapManager : MonoBehaviour
         FourDirection, // 四個方向生成（第一關）
         Horizontal     // 僅水平生成（第二關）
     }
-    private void Awake()
-    {
-        if (GameManager.instance != null)
-        {
-            player = GameManager.instance.playerTransform;
-        }
-
-        if (SceneManager.GetActiveScene().name == ScenesBuildData.MainGameLevel_1.ToString())
-        {
-            AudioGlobalManager.inst.PlayBGM(enAudioDataBGM.MainGameLevel1_BGM);
-        }
-        else
-        {
-            AudioGlobalManager.inst.PlayBGM(enAudioDataBGM.MainGameLevel2_BGM);
-        }
-    }
 
     void Start()
     {
+        if (SceneManager.GetActiveScene().name == ScenesBuildData.MainGameLevel_1.ToString())
+        {
+            AudioGlobalManager.inst.PlayBGM(enAudioBgmData.MainGameLevel1_BGM);
+        }
+        else
+        {
+            AudioGlobalManager.inst.PlayBGM(enAudioBgmData.MainGameLevel2_BGM);
+        }
+        if(GameManager != null)
+          player = PlayerManager.Player.transform;
         playerGrid = GetPlayerGrid();
         UpdateTiles(playerGrid);
     }

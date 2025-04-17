@@ -4,47 +4,35 @@ using UnityEngine;
 
 public class PlayerPickupComponent : MonoBehaviour
 {
-
-    float timeCounter; // 計時器
-    float timeInterval = 0.2f; // 觸發時間
-    [Range(0f, 20f)]public float range = 4f; // 撿拾距離
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("撿拾時間")]
+    [SerializeField] TimeCounter timer = new TimeCounter(0.2f, true);
+    [Header("撿拾範圍")]
+    [SerializeField] TargetDetector detector = new TargetDetector(new Vector2(2f, 2f), false); // 捕抓範圍
 
     void Update(){
-      timeCounter -= Time.deltaTime; // 跳禎觸發撿拾範圍
-      if(timeCounter <= 0){
-        timeCounter = timeInterval;
-        CheckPickup();
+      // 跳禎觸發撿拾範圍
+      if(timer.UpdateDelta()){
+        HandlePickup();
       }
     }
 
-    void CheckPickup(){
+    void HandlePickup(){
       // 捕抓範圍內的碰撞
-      Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, range);
-      
-      // 判定對象是否為撿拾
-      foreach(var collider in collisions){
+      detector.DetectTargets(transform, (collider) => {
         if(collider.CompareTag("Item")){
           if(collider.GetComponent<ItemPickupableComponent>() is ItemPickupableComponent e){
             // 啟動對象的撿拾中
-            e.EnPickupable();
+            e.EnPickupable(transform);
           }
         }
-      }
+      });
     }
 
 
 #if DEBUG
     private void OnDrawGizmosSelected() // 編輯器中繪製
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, range);
+        detector.DrawDetectionGizmo(transform, Color.green);
     }
 #endif
 }

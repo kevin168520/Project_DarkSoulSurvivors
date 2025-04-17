@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour, IDamageable
 {
+    public IDamageable player;
+    public void SetTargetDamageable(IDamageable gb) => player = gb;
   
-    [SerializeField] private GameObject target; // 移動目標
-    public void SetTarget(GameObject gb) => target = gb;
+    [SerializeField] private Transform target; // 移動目標
+    public void SetTarget(Transform gb) => target = gb;
     [SerializeField] private string targetAttack; // 攻擊目標
     [SerializeField] private ItemDropComponent dropItem; // 掉落物
 
@@ -51,7 +53,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
       
         if(collision.gameObject.CompareTag("Player"))
         {
-            Attack(GameManager.instance.playerCharacter);
+            Attack(player);
         }
     }
 

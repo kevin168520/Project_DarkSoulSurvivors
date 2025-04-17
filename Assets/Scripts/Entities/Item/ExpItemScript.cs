@@ -6,7 +6,7 @@ public class ExpItemScript : ItemPickupableComponent
 {
   [SerializeField] int exp = 1;
   override protected void OnPickup(Collider2D collision){
-    GameManager.instance.playerCharacter.AddExp(exp);
+    if(PlayerManager.PLAYER != null) PlayerManager.PLAYER.character.AddExp(exp);
     Destroy(gameObject);
   }
 }

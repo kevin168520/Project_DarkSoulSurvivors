@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SummaryScoreManager : MonoBehaviour
+public class SummaryScoreManager : ManagerMonoBase
 {
     [SerializeField] SummaryScoreUI summaryScoreUI;
-    Sprite characterImage => DataGlobalManager.inst._summaryCharacter; // 角色圖片
-    List<ScoreSummary> weaponSummary => DataGlobalManager.inst._summaryWeapon; // 武器結算資料
+    Sprite characterImage => DataGlobalManager._summaryCharacter; // 角色圖片
+    List<ScoreSummary> weaponSummary => DataGlobalManager._summaryWeapon; // 武器結算資料
 
     void Start() {
 
-        AudioGlobalManager.inst.PlayBGM(enAudioDataBGM.SummaryScene_BGM);
+        AudioGlobalManager.inst.PlayBGM(enAudioBgmData.SummaryScene_BGM);
 
         // InitSummaryScoreUI()
-        if (characterImage != null){
-          summaryScoreUI.characterImage = characterImage;
-          summaryScoreUI.backToMenuButton = BackToMenuButton; 
+        if(characterImage != null){
+          summaryScoreUI.CharacterImage = characterImage;
+          summaryScoreUI.BackToMenuButtonOnClick = BackToMenuButton; 
         }
         // InitWeaponSummary()
         if(weaponSummary != null){
@@ -31,7 +31,7 @@ public class SummaryScoreManager : MonoBehaviour
     }
     
     void BackToMenuButton() {
-        SceneGlobalManager.inst.BackToMenuSceneAction();
+        SceneGlobalManager.LoadStartScene();
     }
     
     [System.Serializable]

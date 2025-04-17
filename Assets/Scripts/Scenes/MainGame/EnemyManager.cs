@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : ManagerMonoBase
 {
-
-    GameObject player => GameManager.instance.player; // 玩家目標
-    [SerializeField] private GameObject enemy; // 敵人物件
+    PlayerScript player => PlayerManager.Player; // 玩家目標
 
     // 內部物件
-    [SerializeField] private Vector2 spawnArea; // 生成範圍 通常螢幕範圍
+    [SerializeField] Vector2 spawnArea; // 生成範圍 通常螢幕範圍
 
     
-    List<EnemyWave> enemyWaves = new List<EnemyWave>(); // 待生成敵人柱列
+    List<StageEvent> enemyWaves = new List<StageEvent>(); // 待生成敵人柱列
 
     void Start()
     {
@@ -28,16 +26,15 @@ public class EnemyManager : MonoBehaviour
     }
 
     // 添加敵人群
-    public void AddEnemyWave(EnemyWave enemyWave) {
+    public void AddEnemyWave(StageEvent enemyWave) {
         enemyWaves.Add(enemyWave.Clone()); // 複製避免更動到資源檔
     }
-
 
     // 判定待生成敵人
     void ProcessSpawn() {
         if(enemyWaves.Count == 0) return; // 沒有待生成
 
-        SpawnEnemy(enemyWaves[0].enemyData);
+        SpawnEnemy(enemyWaves[0].enemy);
         enemyWaves[0].enemyCount -= 1;
 
         if(enemyWaves[0].enemyCount <= 0) // 該敵人群已沒有待生成則移除
@@ -53,12 +50,13 @@ public class EnemyManager : MonoBehaviour
         newEnemy.transform.parent = transform; // 除錯用 保持場景層級
 
         EnemyScript newEnemyScript = newEnemy.GetComponent<EnemyScript>();
-        newEnemyScript.SetTarget(player); // 設置目標
+        newEnemyScript.SetTarget(player.transform); // 設置移動目標
+        newEnemyScript.SetTargetDamageable(player.character); // 設置傷害目標
         if(enemyData) newEnemyScript.SetEnemyData(enemyData); // 設置敵人數據
     }
 
     // 計算隨機生成位置
-    private Vector3 GenerateRandomPosition()
+    Vector3 GenerateRandomPosition()
     {
         // 定位玩家位置
         Vector3 position = new Vector3();

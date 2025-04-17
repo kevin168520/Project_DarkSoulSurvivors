@@ -6,18 +6,15 @@ using UnityEngine.UI;
 
 public class SummaryScoreUI : MonoBehaviour
 {
-    [SerializeField] Image CharacterImage;
-    public Sprite characterImage { set => CharacterImage.sprite = value; }
-    [SerializeField] Button BackToMenuButton;
-    public UnityAction backToMenuButton {set{  // 選項監聽
-      BackToMenuButton.onClick.RemoveAllListeners();
-      BackToMenuButton.onClick.AddListener(value);
-    }}
-    [SerializeField] RectTransform DetailScrollContent;
-    [SerializeField] RectTransform DetailScrollItem;
+    [SerializeField] Image characterImage;
+    public Sprite CharacterImage { set => characterImage.sprite = value; }
+    [SerializeField] Button backToMenuButton;
+    public UnityAction BackToMenuButtonOnClick {set => backToMenuButton.onClick.AddListener(value);}
+    [SerializeField] RectTransform detailScrollContent;
+    [SerializeField] RectTransform detailScrollItem;
 
     public void AddDetailScrollItem(Sprite iconWeapon, string text1, string text2){
-      RectTransform itme = Instantiate(DetailScrollItem, DetailScrollContent);
+      RectTransform itme = Instantiate(detailScrollItem, detailScrollContent);
 
       itme.GetComponentInChildren<Image>().sprite = iconWeapon;
       itme.GetComponentsInChildren<TMPro.TMP_Text>()[0].text = text1;

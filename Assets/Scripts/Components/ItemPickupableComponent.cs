@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ItemPickupableComponent : MonoBehaviour
 {
-    
-    Vector3 target => GameManager.instance.playerTransform.position; // 目標
+    Transform target; // 玩家目標
     bool pickupable; // 啟動是否被撿拾
-    public void EnPickupable() => pickupable = true;
+    public void EnPickupable(Transform trans) {
+      target = trans;
+      pickupable = true;
+    }
 
     void Start()
     {
@@ -16,7 +18,7 @@ public class ItemPickupableComponent : MonoBehaviour
     void Update(){
       if(pickupable){
         // 被撿拾 持續靠近目標
-        transform.position = Vector3.MoveTowards(transform.position, target, 0.1f);
+        transform.position = Vector3.MoveTowards(transform.position, target.position, 0.1f);
       }
     }
     
