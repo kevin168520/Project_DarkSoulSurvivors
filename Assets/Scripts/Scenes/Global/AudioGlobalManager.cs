@@ -50,7 +50,7 @@ public class AudioGlobalManager : MonoBehaviour {
         else
         {
             // 如果已有實例，銷毀當前物件
-            Destroy(this);
+            Destroy(gameObject);
         }
 
         BGM = new AudioPlayer(gameObject, "BGMPlayer", BGMSetting, BGMValue);

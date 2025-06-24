@@ -14,12 +14,12 @@ public class SummaryScoreUI : MonoBehaviour
     [SerializeField] RectTransform detailScrollItem;
 
     public void AddDetailScrollItem(Sprite iconWeapon, string text1, string text2){
-      RectTransform itme = Instantiate(detailScrollItem, detailScrollContent);
+      RectTransform item = Instantiate(detailScrollItem, detailScrollContent);
 
-      itme.GetComponentInChildren<Image>().sprite = iconWeapon;
-      itme.GetComponentsInChildren<TMPro.TMP_Text>()[0].text = text1;
-      itme.GetComponentsInChildren<TMPro.TMP_Text>()[1].text = text2;
+      item.GetComponentInChildren<Image>().sprite = iconWeapon;
+      item.GetComponentsInChildren<TMPro.TMP_Text>()[0].text = text1;
+      item.GetComponentsInChildren<TMPro.TMP_Text>()[1].text = text2;
 
-      itme.gameObject.SetActive(true);
+      item.gameObject.SetActive(true);
     }
 }

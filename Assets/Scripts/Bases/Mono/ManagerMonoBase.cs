@@ -17,8 +17,13 @@ public abstract class ManagerMonoBase : InstanceMonoBase
   protected StageManager StageManager => _StageManager ??= InstanceGlobalManager.Get<StageManager>();
   LevelTimerManager _LevelTimerManager;
   protected LevelTimerManager LevelTimerManager => _LevelTimerManager ??= InstanceGlobalManager.Get<LevelTimerManager>();
-  
+
+  LauncherManager _LauncherManager;
+  protected LauncherManager LauncherManager => _LauncherManager ??= InstanceGlobalManager.Get<LauncherManager>();
+
+
   // 全球管理者成員
   protected DataGlobalManager DataGlobalManager => DataGlobalManager.Instance;
   protected SceneGlobalManager SceneGlobalManager => SceneGlobalManager.Instance;
+  protected AchievementGlobalManager AchievementGlobalManager => AchievementGlobalManager.Instance;
 }
