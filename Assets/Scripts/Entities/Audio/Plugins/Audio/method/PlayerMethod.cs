@@ -3,240 +3,154 @@ using System.Collections.Generic;
 using baseSys.Audio.Sources;
 using DG.Tweening;
 
-namespace baseSys.Audio.Method {
-    public class PlayMethod {
-        /// <summary>
-        /// 播放清單
-        /// </summary>
-        Dictionary<string, Source> _list = new Dictionary<string, Source>();
+namespace baseSys.Audio.Method
+{
+    /// <summary>
+    /// 使用方式如下：
+    /// 1. 事先置入所有曲子 (Source 音樂資料結構)
+    /// 2. 從物件池取得帶有 AudioSource 物件 (物件池沒有空閒物件則生成新物件)
+    /// 3. 撥放完畢時依據是否循環樂曲：
+    ///    a. 循環 同物件重新設置繼續使用
+    ///    b. 不循環 回歸物件池
+    /// </summary>
+    public class PlayMethod
+    {
+        /// <summary> 播放清單 字典型態 音樂名稱作為 Key </summary>
+        Dictionary<string, Source> _sourceDict = new();
 
-        /// <summary>
-        /// 現在播放中
-        /// </summary>
-        List<GameObject> _nowPlayer = new List<GameObject>();
+        /// <summary> 場景物件池 現在似乎沒作用</summary>
+        PlayerMethodPool _pool;
 
-        /// <summary>
-        /// 音量較正值
-        /// </summary>
+        /// <summary> 音量較正值 </summary>
         [Range(0, 1)]
-        float FixValue = 0.5f;
+        float _volume = 0.5f;
 
-        /// <summary>
-        /// 播放父物件
-        /// </summary>
-        GameObject playerObject;
-        /// <summary>
-        /// 物件池
-        /// </summary>
-        GameObject ObjectPool;
-
+        /// <summary> 靜音啟用 </summary>
         bool _mute = false;
 
-        /// <summary>
-        /// 初始化播放清單
-        /// </summary>
-        /// <param name="thisObject"></param>
+        /// <summary> 初始化播放清單 </summary>
+        /// <param name="gameObject"></param>
         /// <param name="type">播放器類型名稱</param>
         /// <param name="playlist">播放清單</param>
         /// <param name="fixValue">初始音量較正值</param>
-        public PlayMethod(GameObject thisObject, string type, Source[] playlist, float fixValue)
+        public PlayMethod(GameObject gameObject, string type, Source[] playlist, float fixValue)
         {
-            for (int i = 0; i < playlist.Length; ++i)
-            {
-                var pl = playlist[i];
-                _list.Add(pl.Name, pl);
-            }
+            // 載入所有樂曲
+            foreach(var source in playlist)
+                _sourceDict.Add(source.Name, source);
 
-            FixValue = fixValue;
+            // 儲存音量
+            _volume = fixValue;
 
-            #region [產生物件]
-            playerObject = new GameObject();
-            playerObject.transform.SetParent(thisObject.transform, false);
-            playerObject.name = type;
-
-            ObjectPool = new GameObject();
-            ObjectPool.transform.SetParent(playerObject.transform, false);
-            ObjectPool.name = "Pool";
-            #endregion
+            // 場景物件分類用物件
+            _pool = new PlayerMethodPool(gameObject, type);
         }
 
-        /// <summary>
-        /// 重設音量
-        /// </summary>
-        /// <param name="newValue">新較正值</param>
-        public void ResetValue(float newValue)
+        /// <summary> 設置音量較正值 </summary>
+        public void ResetValue(float volume)
         {
-            for (int i = 0; i < _nowPlayer.Count; ++i)
+            foreach(var (_, audio) in _pool.GetNowAudio())
+                audio.volume = (audio.volume / _volume) * volume;
+
+            _volume = volume;
+        }
+
+        /// <summary> 靜音 </summary>
+        public void Mute(bool enable)
+        {
+            foreach(var (_, audio) in _pool.GetNowAudio())
+                audio.mute = _mute;
+
+            _mute = enable;
+        }
+
+        /// <summary> 停止所有播放 </summary>
+        public void StopAll()
+        {
+            _pool.RecoverAll();
+        }
+
+        /// <summary> 停止特定聲音 </summary>
+        public void Stop(string name)
+        {
+            _pool.Recover(name);
+        }
+
+        /// <summary> 一般播放 </summary>
+        public void Next(string name)
+        {
+            if (!_sourceDict.ContainsKey(name))
             {
-                var playlist = _nowPlayer[i];
-                float value = playlist.GetComponent<AudioSource>().volume;
-                //重設音量
-                playlist.GetComponent<AudioSource>().volume = (value / FixValue) * newValue;
-            }
-
-            //替換新音量較正值
-            FixValue = newValue;
-        }
-
-        /// <summary>
-        /// 靜音
-        /// </summary>
-        /// <param name="setAct"></param>
-        public void OnMute(bool setAct) {
-            _mute = setAct;
-            for(int i=0; i< _nowPlayer.Count; ++i) {
-                var playlist = _nowPlayer[i];
-                playlist.GetComponent<AudioSource>().mute = _mute;
-            }
-        }
-
-        /// <summary>
-        /// 一般播放
-        /// </summary>
-        /// <param name="name"></param>
-        public void NextPlay(string name) {
-            //如果播放清單有
-            if (_list.ContainsKey(name)) {
-                nextPlay(name);
-            }
-            else {
                 Debug.LogError("Not Find Audio");
+                return;
             }
+
+            OnNextPlay(name);
         }
 
-        /// <summary>
-        /// 產生播放器
-        /// </summary>
-        /// <param name="name"></param>
-        public void ADDPlay(string name) {
-            //如果播放清單有
-            if (_list.ContainsKey(name)) {
-                play(name);
-            }
-            else {
-                Debug.LogError("Not Find Audio");
-            }
-        }
-
-        /// <summary>
-        /// 停止所有播放
-        /// </summary>
-        public void StopAll() {
-            for(int i=0; i< _nowPlayer.Count; ++i) {
-                var stop = _nowPlayer[i];
-                recover(stop);
-            }
-        }
-
-        /// <summary>
-        /// 停止特定聲音
-        /// </summary>
-        /// <param name="name"></param>
-        public void Stop(string name) {
-            for (int i = 0; i < _nowPlayer.Count; ++i)
+        /// <summary> 產生播放器 </summary>
+        public void Add(string name)
+        {
+            if (!_sourceDict.ContainsKey(name))
             {
-                var stop = _nowPlayer[i];
-                if (stop.name == name)
-                    recover(stop);
-            }
-        }
-
-        /// <summary>
-        /// 檢查物件池是否有可用物件，無則產生一個，並返回物件(減少創物件)。
-        /// </summary>
-        /// <returns></returns>
-        GameObject create() {
-            Transform tsf = ObjectPool.transform;
-            GameObject obj;
-
-            if (tsf.childCount > 0) {
-                obj = tsf.GetChild(0).gameObject;                
-            }
-            else {
-                obj = new GameObject();
-                obj.AddComponent<AudioSource>();
-                obj.AddComponent<AudioAutoDestroyScript>();
+                Debug.LogError("Not Find Audio");
+                return;
             }
 
-            if (obj.GetComponent<AudioSource>() == null)
-                obj.AddComponent<AudioSource>();
-
-            if (obj.GetComponent<AudioAutoDestroyScript>() == null)
-                obj.AddComponent<AudioAutoDestroyScript>();
-
-            obj.transform.SetParent(playerObject.transform, false);
-
-            return obj;
+            OnPlay(name);
         }
 
-        /// <summary>
-        /// 回收該物件(減少創物件)
-        /// </summary>
-        /// <param name="obj"></param>
-        void recover(GameObject obj) {
-            //從使用中移除
-            _nowPlayer.Remove(obj);
-            //丟進物件池並關閉
-            obj.transform.SetParent(ObjectPool.transform, false);
-            obj.SetActive(false);
-        }
-
-        /// <summary>
-        /// 播放功能
-        /// </summary>
-        /// <param name="name"></param>
-        void play(string name) {
+        /// <summary> 播放功能 </summary>
+        void OnPlay(string name)
+        {
             //取得物件
-            GameObject obj =
-                create();
-            AudioSource aos =
-                obj.GetComponent<AudioSource>();
+            GameObject obj = _pool.Create();
+            AudioSource aos = obj.GetComponent<AudioSource>();
             obj.name = name;
 
-            bool retrigger = 
-            set(_list[name], ref aos);
+            bool retrigger = SetAudioPlayer(_sourceDict[name], ref aos);
             obj.SetActive(true);
             aos.Play();
 
-            _nowPlayer.Add(obj);
-            float life =
-                aos.clip.length;
+            float life = aos.clip.length;
 
             //判斷是否循環播放，或者重複觸發
-            if (!retrigger) {                
-                if (!_list[name].Loop) {
+            if (!retrigger)
+            {
+                if (!_sourceDict[name].Loop)
+                {
                     Sequence _delayCallback;
                     _delayCallback = DOTween.Sequence();
-                    _delayCallback.InsertCallback(life, delegate {
-                        recover(obj);
+                    _delayCallback.InsertCallback(life, delegate
+                    {
+                        _pool.Recover(obj);
                     });
                 }
             }
-            else {
+            else
+            {
                 Sequence _delayCallback;
                 _delayCallback = DOTween.Sequence();
-                _delayCallback.InsertCallback(life, delegate {
-                    play(name);
+                _delayCallback.InsertCallback(life, delegate
+                {
+                    OnPlay(name);
                 });
             }
-
         }
-        Sequence _delayNextPlay;
-        /// <summary>
-        /// 同個播放器，播放下一首
-        /// </summary>
-        /// <param name="name"></param>
-        void nextPlay(string name)
-        {
-            int playerCount = _nowPlayer.Count;
 
-            var (aos, obj) = GetAvailableSource();
+        Sequence _delayNextPlay;
+        /// <summary> 同個播放器，播放下一首 </summary>
+        void OnNextPlay(string name)
+        {
+
+            var (audio, audioGb) = _pool.GetAvailableSource();
             //取得物件
             //GameObject obj;
             //AudioSource aos;
-            
+
 
             //如果有正在播放
+            // int playerCount = _nowPlayer.Count;
             //if (playerCount > 0)
             //{
             //    Debug.Log("_nowPlayer");
@@ -251,173 +165,51 @@ namespace baseSys.Audio.Method {
             //    aos = _nowPlayer[0].GetComponent<AudioSource>();
             //}
 
-            //移除Delay
-            if (_delayNextPlay != null)
-            {
-                _delayNextPlay.Kill();
-            }
-
-            if (obj.name != name)
-            {
-                obj.name = name;
-            }
+            // 移除 Delay
+            if (_delayNextPlay != null) _delayNextPlay.Kill();
+            
+            // 重新取名
+            if (audioGb.name != name) audioGb.name = name;
 
 
             //是否重置播放時間
-            float time;
-            if (!_list[name].ResetTime)
-            {
-                time = aos.time + 0.01f;
-            }
-            else
-            {
-                time = 0;
-            };
+            float time = (!_sourceDict[name].ResetTime) ? (audio.time + 0.01f) : 0;
 
             //載入設定檔&播放
-            bool retrigger;
-            retrigger = set(_list[name], ref aos);
+            bool retrigger = SetAudioPlayer(_sourceDict[name], ref audio);
 
-            aos.Play();
-            aos.time = time;
-            obj.SetActive(true);
+            audio.Play();
+            audio.time = time;
+            audioGb.SetActive(true);
 
-            if (retrigger && _list[name].Loop)
+            if (retrigger && _sourceDict[name].Loop)
             {
                 float life =
-                aos.clip.length;
-                life -= aos.time;
+                audio.clip.length;
+                life -= audio.time;
 
                 _delayNextPlay = DOTween.Sequence();
                 _delayNextPlay.InsertCallback(life, delegate
                 {
-                    nextPlay(name);
+                    OnNextPlay(name);
                 });
             }
         }
 
-        /// <summary>
-        /// return reTrigger
-        /// </summary>
-        /// <param name="setting"></param>
-        /// <param name="player"></param>
-        /// <returns></returns>
-        bool set(Source setting, ref AudioSource player) {
-            bool reTrigger;
-
-            if (setting.Clip.Length > 1 && setting.Loop)
-                reTrigger = true;
-            else
-                reTrigger = false;
-
+        /// <summary> return reTrigger </summary>
+        bool SetAudioPlayer(Source raw, ref AudioSource audio)
+        {
             //取得播放歌曲
-            AudioClip clip =
-                getClip(setting.Clip);
-            float volume =
-                getVol(setting.Volume);
-            float pitch =
-                getPitch(setting.Pitch);
+            audio.clip = raw.GetClip();
+            audio.volume = raw.GetVolume(_volume);
+            audio.pitch = raw.GetPitch();
+            audio.loop = raw.IsLoop();
+            audio.outputAudioMixerGroup = raw.GetMixer();
+            audio.mute = _mute;
 
-            player.clip = clip;
-            player.loop = setting.Loop;
-            player.volume = volume;
-            player.pitch = pitch;
-            if (setting.MixerGroup)
-                player.outputAudioMixerGroup = setting.MixerGroup;
-            else
-                player.outputAudioMixerGroup = null;
-
-            if (_mute)
-                player.mute = _mute;
-
+            // 是否循環下一曲
+            bool reTrigger = raw.IsLoopNext();
             return reTrigger;
         }
-
-        /// <summary>
-        /// 取得播放音源
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        AudioClip getClip(AudioClip[] data) {
-            AudioClip clip;
-            int rang =
-                data.Length;
-            //陣列範圍0
-            if(rang == 1) {
-                clip = data[0];
-            }
-            //若陣列大於，則亂數選取播放
-            else if(rang > 1) {
-                System.Random ptr =
-                new System.Random(System.Guid.NewGuid().GetHashCode());
-                int num =
-                    ptr.Next(rang);
-                clip = data[num];
-            }
-            else {
-                clip = null;
-                Debug.LogError("out of rang! AudioClip...");
-            }            
-
-            return clip;
-        }
-
-        /// <summary>
-        /// 取得音量
-        /// </summary>
-        /// <param name="vol"></param>
-        /// <returns></returns>
-        float getVol(Source.Vol vol) {
-            float volume;
-
-            if (!vol.IsRandom) {
-                volume = vol.Volume;
-            }
-            else {
-                volume = Random.Range(vol.Max, vol.Min);
-            }
-
-            //音量較正
-            volume *= FixValue;
-
-            return volume;
-        }
-
-        /// <summary>
-        /// 取得pitch
-        /// </summary>
-        /// <param name="pit"></param>
-        /// <returns></returns>
-        float getPitch(Source.AudioPitch pit) {
-            float pitch;
-
-            if (!pit.IsRandom) {
-                pitch = pit.Pitch;
-            }
-            else {
-                pitch = Random.Range(pit.Max, pit.Min);
-            }
-
-            return pitch;
-        }
-
-        (AudioSource src, GameObject obj) GetAvailableSource()
-        {
-            //foreach (var obj in _nowPlayer)
-            //{
-            //    AudioSource src = obj.GetComponent<AudioSource>();
-            //    if (!src.isPlaying)
-            //    {
-            //        return (src, obj);
-            //    }
-            //}
-
-            //Create new AudioSource
-            GameObject objNew = create();
-            AudioSource newSrc = objNew.GetComponent<AudioSource>();
-            _nowPlayer.Add(objNew);
-
-            return (newSrc, objNew);
-        }
     }
-}    
+}

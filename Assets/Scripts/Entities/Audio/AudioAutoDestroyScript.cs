@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
@@ -21,12 +20,12 @@ public class AudioAutoDestroyScript : MonoBehaviour
 
     void Update()
     {
-        //§PÂ_¬O§_¬°BGM
+        //åˆ¤æ–·æ˜¯å¦ç‚ºBGM
         if (b && !_audio.isPlaying)
         {
-            Destroy(gameObject); // ¼½©ñ§¹²¦«áºR·´ª«¥ó
+            Destroy(gameObject); // æ’­æ”¾å®Œç•¢å¾Œæ‘§æ¯€ç‰©ä»¶
 
-            //«DBGM
+            //éBGM
             //StartCoroutine(ieDestroyWhenAudioFinished());
         }
     }
@@ -34,6 +33,6 @@ public class AudioAutoDestroyScript : MonoBehaviour
     private IEnumerator ieDestroyWhenAudioFinished()
     {
         yield return new WaitForSeconds(_audio.clip.length);
-        Destroy(gameObject); // ¼½©ñ§¹²¦«áºR·´ª«¥ó
+        Destroy(gameObject); // æ’­æ”¾å®Œç•¢å¾Œæ‘§æ¯€ç‰©ä»¶
     }
 }
