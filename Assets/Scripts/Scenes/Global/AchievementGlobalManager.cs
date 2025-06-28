@@ -78,6 +78,7 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
         // These need to be reset to get the stats upon an Assembly reload in the Editor.
         m_bRequestedStats = false;
         m_bStatsValid = false;
+        bUnlockAchievement = new bool[Enum.GetValues(typeof(eSteamAchievementApi)).Length];
     }
 
     private void Update()
