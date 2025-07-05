@@ -88,11 +88,11 @@ public class SteamManager : MonoBehaviour {
 		}
 
 		try {
-            /* §PÂ_Steam¬O§_¦³¶}±Ò©Î¬O¹CÀ¸¨Ã«D³z¹LSteam±Ò°Ê */
+            /* åˆ¤æ–·Steamæ˜¯å¦æœ‰é–‹å•Ÿæˆ–æ˜¯éŠæˆ²ä¸¦éé€éSteamå•Ÿå‹• */
             // If Steam is not running or the game wasn't started through Steam, SteamAPI_RestartAppIfNecessary starts the
             // Steam client and also launches this game again if the User owns it. This can act as a rudimentary form of DRM.
 
-            /* ¦b¦¹®M¥ÎSteam¤À°tªºAppID¡A¨Ï¥Îªº§Î¦¡¬°"(AppId_t)¨Ï¥ÎªÌAppID" ©Î¬O "new AppId_t(¨Ï¥ÎªÌAppID)"¨âºØ¤è¦¡ */
+            /* åœ¨æ­¤å¥—ç”¨Steamåˆ†é…çš„AppIDï¼Œä½¿ç”¨çš„å½¢å¼ç‚º"(AppId_t)ä½¿ç”¨è€…AppID" æˆ–æ˜¯ "new AppId_t(ä½¿ç”¨è€…AppID)"å…©ç¨®æ–¹å¼ */
             // Once you get a Steam AppID assigned by Valve, you need to replace AppId_t.Invalid with it and
             // remove steam_appid.txt from the game depot. eg: "(AppId_t)480" or "new AppId_t(480)".
             // See the Valve documentation for more information: https://partner.steamgames.com/doc/sdk/api#initialization_and_shutdown
@@ -108,7 +108,7 @@ public class SteamManager : MonoBehaviour {
 			return;
 		}
 
-		/* Steamworks APIªì©l¤Æ */
+		/* Steamworks APIåˆå§‹åŒ– */
 		// Initializes the Steamworks API.
 		// If this returns false then this indicates one of the following conditions:
 		// [*] The Steam client isn't running. A running Steam client is required to provide implementations of the various Steamworks interfaces.
@@ -128,7 +128,7 @@ public class SteamManager : MonoBehaviour {
 		s_EverInitialized = true;
 	}
 
-    /* ½Ğ¤Å¦Û¦æ¸T¥ÎSteamworks Manager */
+    /* è«‹å‹¿è‡ªè¡Œç¦ç”¨Steamworks Manager */
     // This should only ever get called on first load and after an Assembly reload, You should never Disable the Steamworks Manager yourself.
     protected virtual void OnEnable() {
 		if (s_instance == null) {
@@ -147,7 +147,7 @@ public class SteamManager : MonoBehaviour {
 		}
 	}
 
-	/* Ãö³¬SteamAPI */
+	/* é—œé–‰SteamAPI */
     // OnApplicationQuit gets called too early to shutdown the SteamAPI.
     // Because the SteamManager should be persistent and never disabled or destroyed we can shutdown the SteamAPI here.
     // Thus it is not recommended to perform any Steamworks work in other OnDestroy functions as the order of execution can not be garenteed upon Shutdown. Prefer OnDisable().
