@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using baseSys.Audio.Sources;
 using DG.Tweening;
 
+// 目前發現問題
+// 1. 當 Source 多首時，隨機播放跟循環設定判定有問題，暫時不要設置多首
+// 2. OnNextPlay() 目的是要播放下一首，但是因為上述的原因，導致功能會錯誤，同時 DOTween 計時設置有問題，暫時不要使用這個方法
 namespace baseSys.Audio.Method
 {
     /// <summary>
@@ -101,26 +104,24 @@ namespace baseSys.Audio.Method
             AudioSource aos = obj.GetComponent<AudioSource>();
 
             // 設置樂曲資料
-            bool retrigger = SetAudioPlayer(_sourceDict[name], ref aos);
+            bool loopNext = SetAudioPlayer(_sourceDict[name], ref aos);
             obj.SetActive(true);
             aos.Play();
 
             // 取得樂曲長度
             float life = aos.clip.length;
 
-            // 添加樂曲計時器 結束時自動執行
-            Sequence _delayCallback = DOTween.Sequence();
-            _delayCallback.AppendInterval(life);
-            _delayCallback.InsertCallback(life, delegate
+            // 樂曲不循環 添加計時器 播放結束時自動回歸物件池
+            if(!aos.loop)
             {
-                //判斷是否循環播放，或者重複觸發
-                if (!retrigger) _pool.Recover(obj);
-                else OnPlay(name);
-            });
+                Sequence _delayCallback = DOTween.Sequence();
+                _delayCallback.AppendInterval(life);
+                _delayCallback.InsertCallback(life, () => _pool.Recover(obj));
+            }
         }
 
         Sequence _delayNextPlay;
-        /// <summary> 同個播放器，播放下一首 </summary>
+        /// <summary> 同個播放器，隨機播放一首 </summary>
         void OnNextPlay(string name)
         {
             if (!_sourceDict.ContainsKey(name))
@@ -129,44 +130,21 @@ namespace baseSys.Audio.Method
                 return;
             }
 
-            var (audio, audioGb) = _pool.GetAvailableSource(name);
             //取得物件
-            //GameObject obj;
-            //AudioSource aos;
-
-
-            //如果有正在播放
-            // int playerCount = _nowPlayer.Count;
-            //if (playerCount > 0)
-            //{
-            //    Debug.Log("_nowPlayer");
-            //    obj = _nowPlayer[0];
-            //    aos = obj.GetComponent<AudioSource>();
-            //}
-            //else
-            //{
-            //    Debug.Log("Create Player");
-            //    obj = create();
-            //    _nowPlayer.Add(obj);
-            //    aos = _nowPlayer[0].GetComponent<AudioSource>();
-            //}
+            var (audio, audioGb) = _pool.GetAvailableSource(name);
 
             // 移除 Delay
             if (_delayNextPlay != null) _delayNextPlay.Kill();
             
             // 重新取名
             if (audioGb.name != name) audioGb.name = name;
-
-
+            
             //是否重置播放時間
-            float time = (!_sourceDict[name].ResetTime) ? (audio.time + 0.01f) : 0;
+            audio.time = _sourceDict[name].GetResetTime(audio);
 
             //載入設定檔&播放
             bool retrigger = SetAudioPlayer(_sourceDict[name], ref audio);
-
             audio.Play();
-            audio.time = time;
-            audioGb.SetActive(true);
 
             // 如果下一首則循環撥放
             if (retrigger)
@@ -179,7 +157,6 @@ namespace baseSys.Audio.Method
                 _delayNextPlay.AppendInterval(life);
                 _delayNextPlay.InsertCallback(life, delegate
                 {
-                    Debug.LogError("OnPlay End3");
                     OnNextPlay(name);
                 });
             }
@@ -197,8 +174,8 @@ namespace baseSys.Audio.Method
             audio.mute = _mute;
 
             // 是否循環下一曲
-            bool reTrigger = raw.IsLoopNext();
-            return reTrigger;
+            bool loopNext = raw.IsLoopNext();
+            return loopNext;
         }
     }
 }

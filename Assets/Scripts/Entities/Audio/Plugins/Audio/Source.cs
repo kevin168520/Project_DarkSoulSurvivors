@@ -68,6 +68,12 @@ namespace baseSys.Audio.Sources {
             return Clip[Random.Range(0, Clip.Length)];
         }
 
+        /// <summary> 取得播放音頻值 </summary>
+        public float GetResetTime(AudioSource audio)
+        {
+            return !ResetTime ? (audio.time + 0.01f) : 0;
+        }
+
         /// <summary> 取得音量值 </summary>
         /// <param name="ratio">音量縮放</param>
         public float GetVolume(float ratio)

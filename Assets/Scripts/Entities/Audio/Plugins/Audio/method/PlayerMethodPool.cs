@@ -97,14 +97,13 @@ namespace baseSys.Audio.Method
         /// <summary> 從使用中的去取得物件 不存在則新建 </summary>
         public (AudioSource src, GameObject obj) GetAvailableSource(string name)
         {
-            // foreach (var _obj in _nowPlayer)
-            // {
-            //    AudioSource _src = _obj.GetComponent<AudioSource>();
-            //    if (!_src.isPlaying)
-            //    {
-            //        return (_src, _obj);
-            //    }
-            // }
+            // 從使用中的去取得物件
+            foreach (var _obj in _nowPlayer)
+            {
+                AudioSource _src = _obj.GetComponent<AudioSource>();
+                Debug.Log(_obj.name + ".isPlaying = " + _src.isPlaying);
+                if (_src.isPlaying) return (_src, _obj);
+            }
 
             // 不存在則新建
             GameObject obj = Get(name);
