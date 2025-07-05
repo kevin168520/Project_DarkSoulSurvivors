@@ -77,7 +77,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 668637113, guid: b9fcb776afd7b434ead0ba79563c4388, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -196,6 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   targetAttack: 
+  dropItem: {fileID: 0}
   rgdbd: {fileID: 2385243878837099067}
   data: {fileID: 11400000, guid: 221c9aab8b0c2af41a94dffbffe195d4, type: 2}
   speed: 0

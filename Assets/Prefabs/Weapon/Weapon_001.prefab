@@ -202,7 +202,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 1077666847, guid: e9d40a9777e11724fbfdb34f573a2366, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -250,7 +250,6 @@ MonoBehaviour:
   attackInterval: 0
   FlightSpeed: 0
   FlightDirection: {x: 0, y: 0, z: 0}
-  audioSource: {fileID: 146783172315694056}
 --- !u!1 &7641820963975669417
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,7 +324,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 1077666847, guid: e9d40a9777e11724fbfdb34f573a2366, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -373,7 +372,6 @@ MonoBehaviour:
   attackInterval: 0
   FlightSpeed: 0
   FlightDirection: {x: 0, y: 0, z: 0}
-  audioSource: {fileID: 146783172315694056}
 --- !u!1 &8804694374959994503
 GameObject:
   m_ObjectHideFlags: 0
