@@ -1,11 +1,11 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Steamworks;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
-// ¦¨´N API ©w¸q
+/// <summary> æˆå°±Api_ID å®šç¾©ï¼Œéœ€èˆ‡Steamworksç›¸åŒï¼Œé¿å…å‘¼å«æ™‚ç„¡æ³•å°æ‡‰ </summary>
 #region
 public enum eSteamAchievementApi : int
 {
@@ -20,26 +20,20 @@ public enum eSteamAchievementApi : int
 
 public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
 {
-    private CGameID m_GameID; // Game ID
+    private CGameID m_GameID; // é€™æ¬¾éŠæˆ²çš„IDï¼ŒéSteamUserçš„ID
 
     // Did we get the stats from Steam?
-    private bool m_bRequestedStats; //¬O§_¥i¥H¨ú±oSteam¤WªºStats(²Î­p)
-    private bool m_bStatsValid;  //Steam¤WªºStats¬O§_¦³®Ä
-
-    // Should we store stats this frame?
-    private bool m_bStoreStats;
+    private bool m_bRequestedStats; //æ˜¯å¦å¯ä»¥å–å¾—Steamä¸Šçš„Stats(çµ±è¨ˆ)
+    private bool m_bStatsValid;     //Steamä¸Šçš„Statsæ˜¯å¦æœ‰æ•ˆ
+    private bool m_bStoreStats;     //æ˜¯å¦å‘Steamé€²è¡ŒStats/Achievementçš„å„²å­˜
 
     private bool[] bUnlockAchievement = new bool[Enum.GetNames(typeof(eSteamAchievementApi)).Length];
-
-    private int m_iStats1;
-
-    //public AchievementData _achievementData;
 
     protected Callback<UserStatsReceived_t> m_UserStatsReceived;
     protected Callback<UserStatsStored_t> m_UserStatsStored;
     protected Callback<UserAchievementStored_t> m_UserAchievementStored;
 
-    // «Ø¥ß¹ïÀ³Steamworksªº¦¨´Nªí
+    /// <summary> æˆå°±æ¯”å°è¡¨ </summary>
     private Achievement_t[] m_Achievements = new Achievement_t[] {
         new Achievement_t(eSteamAchievementApi.CharaA_Stage1, "CharaA_Stage1 Success", "Successfully clears the first level using character A"),
         new Achievement_t(eSteamAchievementApi.CharaB_Stage1, "CharaB_Stage1 Success", "Successfully clears the first level using character B"),
@@ -49,15 +43,16 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
         new Achievement_t(eSteamAchievementApi.CharaA_Stage2, "CharaA_Stage2 Success", "Successfully clears the second level using character C"),
     };
 
+    /// <summary> åœ¨LauncherSceneå…ˆå•Ÿå‹•AchievementGlobalManager </summary>
     public void StartAchevement()
     {
-        //ÀË¬d¦¨´N¬O§_¦s¦b©óSteamworks¥B¹CÀ¸¥²¶·¤w¸gµo§G¡A¥¼µo§G«h¦¨´N¦s¦b¤]·|¬Ofalse
+        //æª¢æŸ¥æˆå°±æ˜¯å¦å­˜åœ¨æ–¼Steamworksä¸”éŠæˆ²å¿…é ˆå·²ç¶“ç™¼ä½ˆï¼Œæœªç™¼ä½ˆå‰‡æˆå°±å­˜åœ¨ä¹Ÿæœƒæ˜¯false
         #if UNITY_EDITOR
         foreach (eSteamAchievementApi id in Enum.GetValues(typeof(eSteamAchievementApi)))
         {
             bool exists;
             bool valid = SteamUserStats.GetAchievement(id.ToString(), out exists);
-            Debug.Log($"{id} | ¦s¦b: {valid} | ¤w¸ÑÂê: {exists}");
+            Debug.Log($"{id} | å­˜åœ¨: {valid} | å·²è§£é–: {exists}");
         }
         return;
         #endif
@@ -68,14 +63,13 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
         if (!SteamManager.Initialized)
             return;
 
-        // ±qSteamÀò¨ú GameID ¨Ó¨Ï¥ÎCallbackªºÅv­­
+        // å¾Steamç²å–é€™æ¬¾éŠæˆ²çš„ID (GameID) è®“Callbackå¯ä»¥å°æ‡‰åˆ°æ­£ç¢ºçš„éŠæˆ²é€²è¡Œç›¸é—œè¨­å®š
         m_GameID = new CGameID(SteamUtils.GetAppID());
 
         m_UserStatsReceived = Callback<UserStatsReceived_t>.Create(OnUserStatsReceived);
         m_UserStatsStored = Callback<UserStatsStored_t>.Create(OnUserStatsStored);
         m_UserAchievementStored = Callback<UserAchievementStored_t>.Create(OnAchievementStored);
 
-        // These need to be reset to get the stats upon an Assembly reload in the Editor.
         m_bRequestedStats = false;
         m_bStatsValid = false;
         bUnlockAchievement = new bool[Enum.GetValues(typeof(eSteamAchievementApi)).Length];
@@ -83,11 +77,11 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
 
     private void Update()
     {
-        // ½T«OSteamManager¦s¦b¥Bªì©l¤Æ§¹¦¨
+        // ç¢ºä¿SteamManagerå­˜åœ¨ä¸”åˆå§‹åŒ–å®Œæˆ
         if (!SteamManager.Initialized)
             return;
 
-        // ¬O§_­n¦VSteam½Ğ¨D²Î­p¼Æ¾Ú (Stats)
+        // æ˜¯å¦è¦å‘Steamè«‹æ±‚çµ±è¨ˆæ•¸æ“š (Stats)
         if (!m_bRequestedStats)
         {
             // Is Steam Loaded? if no, can't get stats, done
@@ -97,7 +91,7 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
                 return;
             }
 
-            // ¦VSteam¨ú±o²Î­p¼Æ¾Ú (Stats)¡A¸Ó¶µ·|Ä²µoOnUserStatsRecivedªºCallback
+            // å‘Steamå–å¾—çµ±è¨ˆæ•¸æ“š (Stats)ï¼Œè©²é …æœƒè§¸ç™¼OnUserStatsRecivedçš„Callback
             bool bSuccess = SteamUserStats.RequestCurrentStats();
 
             // This function should only return false if we weren't logged in, and we already checked that.
@@ -105,7 +99,10 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
             m_bRequestedStats = bSuccess;
         }
 
-        // ¦¨´N¸Ñ°£§PÂ_
+        if (!m_bStatsValid)
+            return;
+
+        // æˆå°±è§£é™¤åˆ¤æ–·
         foreach (Achievement_t achievement in m_Achievements)
         {
             if (achievement.m_bAchieved)
@@ -121,12 +118,12 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
                 }
             }
         }
-            //ÀË¬d¬O§_¦³Àx¦s»İ¨D
+            //æª¢æŸ¥æ˜¯å¦æœ‰å„²å­˜éœ€æ±‚
             if (m_bStoreStats)
         {
             Debug.Log("StoreStats Start");
 
-            SteamUserStats.SetStat("", 1f); //¶È½d¨Ò¦]¬°Steam¤è¨S³]©w¦]¦¹µL¹ê»Ú¥\¯à
+            SteamUserStats.SetStat("", 1f); //åƒ…ç¯„ä¾‹å› ç‚ºSteamæ–¹æ²’è¨­å®šå› æ­¤ç„¡å¯¦éš›åŠŸèƒ½
 
             bool bSuccess = SteamUserStats.StoreStats();
 
@@ -135,9 +132,7 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
             m_bStoreStats = !bSuccess;
         }
     }
-    //-----------------------------------------------------------------------------
-    //  ¨ú±o¨Ó¦ÛSteamªº¼Æ¾Ú²Î­p(Stats)
-    //-----------------------------------------------------------------------------
+    /// <summary> å–å¾—ä¾†è‡ªSteamçš„æ•¸æ“šçµ±è¨ˆ(Stats) </summary>
     private void OnUserStatsReceived(UserStatsReceived_t pCallback)
     {
         Debug.Log("OnUserStatsReceived");
@@ -161,12 +156,12 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
                     }
                     else
                     {
-                        Debug.LogWarning("SteamUserStats.GetAchievement failed for Achievement " + ach.m_eAchievementID + "\nIs it registered in the Steam Partner site?");
+                        Debug.Log("SteamUserStats.GetAchievement failed for Achievement " + ach.m_eAchievementID + "\nIs it registered in the Steam Partner site?");
                     }
                 }
 
-                // load stats
-                SteamUserStats.GetStat("Test1", out m_iStats1);
+                // load stats example
+                // SteamUserStats.GetStat("Test1", out m_iStats1);
 
                 // load achievement
                 SteamUserStats.GetAchievement(eSteamAchievementApi.CharaA_Stage1.ToString(), out bool achieved1);
@@ -186,14 +181,11 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
             Debug.Log("Error");
         }
     }
-
-    //-----------------------------------------------------------------------------
-    // ¶i¦æSteamªº¼Æ¾Ú²Î­p(Stats)Àx¦s
-    //-----------------------------------------------------------------------------
+    /// <summary> é€²è¡ŒSteamçš„æ•¸æ“šçµ±è¨ˆ(Stats)å„²å­˜ </summary>
     private void OnUserStatsStored(UserStatsStored_t pCallback)
     {
         Debug.Log("OnUserStatsStored");
-        // ±Æ°£¦¬¨ì¨Ó¦ÛSteamªº¨ä¥L¹CÀ¸²Î­p¸ê®ÆÀx¦sªºCallback¡A¹LÂo¥X¦Û¨­¹CÀ¸ªº¨Ó³B²z
+        // æ’é™¤æ”¶åˆ°ä¾†è‡ªSteamçš„å…¶ä»–éŠæˆ²çµ±è¨ˆè³‡æ–™å„²å­˜çš„Callbackï¼Œéæ¿¾å‡ºè‡ªèº«éŠæˆ²çš„ä¾†è™•ç†
         if ((ulong)m_GameID == pCallback.m_nGameID)
         {
             if (EResult.k_EResultOK == pCallback.m_eResult)
@@ -218,9 +210,7 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
         }
     }
 
-    //-----------------------------------------------------------------------------
-    // ¶i¦æSteamªº¦¨´N(Achievement)Àx¦s
-    //-----------------------------------------------------------------------------
+    /// <summary> é€²è¡ŒSteamçš„æˆå°±(Achievement)å„²å­˜ </summary>
     private void OnAchievementStored(UserAchievementStored_t pCallback)
     {
         Debug.Log("OnAchievementStored");
@@ -239,15 +229,14 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
         }
     }
 
-    /// <summary>
-    /// ¦¨´N¸ÑÂê
-    /// </summary>
+    /// <summary> å¤–éƒ¨å‘¼å«æˆå°±è§£é– </summary>
     public void SteamAchievementUnlock(eSteamAchievementApi id)
     {
         Debug.Log((int)id + " / " + id.ToString());
         bUnlockAchievement[(int)id] = true;
     }
 
+    /// <summary> Steamæœ¬åœ°ç«¯æˆå°±è§£é–ï¼Œå¯¦éš›åœ¨ä¼ºæœå™¨æœ‰é€²è¡Œè§£é–å‹•ä½œéœ€è¦é€²è¡ŒSteamUserStats.StoreStats(); </summary>
     private void UnlockAchievemen(Achievement_t achievement, int i)
     {
         Debug.Log("UnlockAchievement: " + achievement.m_eAchievementID.ToString());
@@ -259,16 +248,17 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
         bool exists;
         if (SteamUserStats.GetAchievement(achievement.m_eAchievementID.ToString(), out exists))
         {
-            Debug.Log("¦¨´N¦s¦b¡A·í«eª¬ºA: " + exists);
+            Debug.Log("æˆå°±å­˜åœ¨ï¼Œç•¶å‰ç‹€æ…‹: " + exists);
         }
         else
         {
-            Debug.LogWarning("¦¨´N ID ¤£¦s¦b¡I");
+            Debug.LogWarning("æˆå°± ID ä¸å­˜åœ¨ï¼");
         }
 
         m_bStoreStats = true;
     }
 
+    /// <summary> æˆå°±åƒæ•¸å®šç¾© </summary>
     private class Achievement_t
     {
         public eSteamAchievementApi m_eAchievementID;
@@ -276,18 +266,12 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
         public string m_strDescription;
         public bool m_bAchieved;
 
-        /// <summary>
-        /// Creates an Achievement. You must also mirror the data provided here in https://partner.steamgames.com/apps/achievements/yourappid
-        /// </summary>
-        /// <param name="achievement">The "API Name Progress Stat" used to uniquely identify the achievement.</param>
-        /// <param name="name">The "Display Name" that will be shown to players in game and on the Steam Community.</param>
-        /// <param name="desc">The "Description" that will be shown to players in game and on the Steam Community.</param>
         public Achievement_t(eSteamAchievementApi api, string name, string desc)
         {
-            m_eAchievementID = api;
-            m_strName = name;
-            m_strDescription = desc;
-            m_bAchieved = false;
+            m_eAchievementID = api;     //æˆå°±ID (Api_ID)
+            m_strName = name;           //æˆå°±çš„é¡¯ç¤ºåç¨± (DisplayName)
+            m_strDescription = desc;    //æˆå°±çš„å…§å®¹æ•˜è¿° (Description)
+            m_bAchieved = false;        //æˆå°±æ˜¯å¦å·²è§£é–
         }
     }
 }

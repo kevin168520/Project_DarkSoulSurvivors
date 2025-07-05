@@ -1,11 +1,11 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Steamworks;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary> 負責遊戲流程管控 暫停 勝利 失敗 跳轉其他場景</summary>    
+/// <summary> 負責遊戲流程管控 暫停 勝利 失敗 跳轉其他場景 </summary>    
 public class GameManager : ManagerMonoBase
 {
   [Header("遊戲場景物件")]
