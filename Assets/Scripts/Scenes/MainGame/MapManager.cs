@@ -31,11 +31,11 @@ public class MapManager : ManagerMonoBase
     {
         if (SceneManager.GetActiveScene().name == ScenesBuildData.MainGameLevel_1.ToString())
         {
-            AudioGlobalManager.inst.PlayBGM(enAudioBgmData.MainGameLevel1_BGM);
+            AudioGlobalManager.PlayBGM(enAudioBgmData.MainGameLevel1_BGM);
         }
         else
         {
-            AudioGlobalManager.inst.PlayBGM(enAudioBgmData.MainGameLevel2_BGM);
+            AudioGlobalManager.PlayBGM(enAudioBgmData.MainGameLevel2_BGM);
         }
         if(GameManager != null)
           player = PlayerManager.Player.transform;

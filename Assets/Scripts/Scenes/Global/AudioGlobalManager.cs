@@ -3,10 +3,8 @@ using System;
 using baseSys.Audio.Sources;
 using baseSys.Audio.Method;
 
-public class AudioGlobalManager : MonoBehaviour {
-
-    public static AudioGlobalManager inst;
-
+public class AudioGlobalManager : GlobalMonoBase<AudioGlobalManager>
+{
     /// <summary> BGM 資源設定 </summary>
     [SerializeField]
     Source[] BGMSetting;
@@ -25,21 +23,10 @@ public class AudioGlobalManager : MonoBehaviour {
     [Range(0, 1)]
     float SFXValue = 0.5f;
 
-    void Awake() 
+    protected override void Awake() 
     {
-        // 檢查是否已經有一個實例
-        if (inst == null)
-        {
-            // 如果沒有實例，設置當前物件為實例並防止銷毀
-            inst = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            // 如果已有實例，銷毀當前物件
-            Destroy(this);
-        }
-
+        base.Awake();
+        
         BGM = new PlayerMethod(gameObject, BGMSetting, BGMValue);
         SFX = new PlayerMethod(gameObject, SFXSetting, SFXValue);
     }
