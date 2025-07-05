@@ -11,7 +11,7 @@ public class AudioGlobalManager : MonoBehaviour {
     [SerializeField]
     Source[] BGMSetting;
     /// <summary> BGM 播放器 </summary>
-    AudioPlayer BGM;
+    PlayerMethod BGM;
     /// <summary> BGM 音量較正值 </summary>
     [Range(0, 1)]
     float BGMValue = 0.5f;
@@ -20,7 +20,7 @@ public class AudioGlobalManager : MonoBehaviour {
     [SerializeField]
     Source[] SFXSetting;
     /// <summary> SFX 播放器 </summary>
-    AudioPlayer SFX;
+    PlayerMethod SFX;
     /// <summary> SFX 音量較正值 </summary>
     [Range(0, 1)]
     float SFXValue = 0.5f;
@@ -40,8 +40,8 @@ public class AudioGlobalManager : MonoBehaviour {
             Destroy(this);
         }
 
-        BGM = new AudioPlayer(gameObject, "BGMPlayer", BGMSetting, BGMValue);
-        SFX = new AudioPlayer(gameObject, "SFXPlayer", SFXSetting, SFXValue);
+        BGM = new PlayerMethod(gameObject, BGMSetting, BGMValue);
+        SFX = new PlayerMethod(gameObject, SFXSetting, SFXValue);
     }
 
     void Start () {

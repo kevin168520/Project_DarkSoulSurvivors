@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,59 +14,52 @@ namespace baseSys.Audio.Method
         public Dictionary<GameObject, AudioSource> GetNowAudio() => new(_nowAudio);
 
         /// <summary> 播放父物件 </summary>
-        GameObject playerObject;
+        GameObject playerRoot;
 
         /// <summary> 物件池 </summary>
-        GameObject PoolObject;
+        GameObject PoolRoot;
         
         /// <summary> 初始化播放清單 </summary>
-        /// <param name="thisObject"></param>
+        /// <param name="root">場景中存根處</param>
         /// <param name="type">播放器類型名稱</param>
         /// <param name="playlist">播放清單</param>
         /// <param name="fixValue">初始音量較正值</param>
-        public PlayerMethodPool(GameObject thisObject, string type)
+        public PlayerMethodPool(GameObject root)
         {
             // 場景物件分類用物件
             #region [產生物件]
-            playerObject = new GameObject();
-            playerObject.transform.SetParent(thisObject.transform, false);
-            playerObject.name = type;
+            playerRoot = root;
 
-            PoolObject = new GameObject();
-            PoolObject.transform.SetParent(playerObject.transform, false);
-            PoolObject.name = "Pool";
+            PoolRoot = new GameObject();
+            PoolRoot.transform.SetParent(playerRoot.transform, false);
+            PoolRoot.name = "Pool";
             #endregion
         }
         
         /// <summary> 檢查物件池是否有可用物件，無則產生一個，並返回物件(減少創物件)。 </summary>
-        public GameObject Create()
+        public GameObject Get(string name)
         {
-            Transform tsf = PoolObject.transform;
-            GameObject obj;
+            // 檢查物件池是否有空閒物件
+            Transform tsf = PoolRoot.transform;
+            GameObject gb = (tsf.childCount > 0) ? tsf.GetChild(0).gameObject : Create();
+            // 重新命名
+            gb.name = name;
+            // 移出物件池
+            gb.transform.SetParent(playerRoot.transform, false);
+            // 添加到使用中柱列
+            _nowPlayer.Add(gb);
+            _nowAudio.Add(gb, gb.GetComponent<AudioSource>());
 
-            if (tsf.childCount > 0)
-            {
-                obj = tsf.GetChild(0).gameObject;
-            }
-            else
-            {
-                obj = new GameObject();
-                obj.AddComponent<AudioSource>();
-                obj.AddComponent<AudioAutoDestroyScript>();
-            }
-
-            if (obj.GetComponent<AudioSource>() == null)
-                obj.AddComponent<AudioSource>();
-
-            if (obj.GetComponent<AudioAutoDestroyScript>() == null)
-                obj.AddComponent<AudioAutoDestroyScript>();
-
-            obj.transform.SetParent(playerObject.transform, false);
-            
-            _nowPlayer.Add(obj);
-            _nowAudio.Add(obj, obj.GetComponent<AudioSource>());
-
-            return obj;
+            return gb;
+        }
+        
+        
+        /// <summary> 創建一個物件 </summary>
+        GameObject Create()
+        {
+            GameObject gb = new GameObject();
+            gb.AddComponent<AudioSource>();
+            return gb;
         }
 
         /// <summary> 回收所有物件 </summary>
@@ -74,7 +68,7 @@ namespace baseSys.Audio.Method
             foreach(var gb in _nowPlayer)
             {
                 //丟進物件池並關閉
-                gb.transform.SetParent(PoolObject.transform, false);
+                gb.transform.SetParent(PoolRoot.transform, false);
                 gb.SetActive(false);
             }
             //從使用中移除
@@ -96,12 +90,12 @@ namespace baseSys.Audio.Method
             _nowPlayer.Remove(obj);
             _nowAudio.Remove(obj);
             //丟進物件池並關閉
-            obj.transform.SetParent(PoolObject.transform, false);
+            obj.transform.SetParent(PoolRoot.transform, false);
             obj.SetActive(false);
         }
 
-        /// <summary> 取得 AudioSource 不存在則新建 </summary>
-        public (AudioSource src, GameObject obj) GetAvailableSource()
+        /// <summary> 從使用中的去取得物件 不存在則新建 </summary>
+        public (AudioSource src, GameObject obj) GetAvailableSource(string name)
         {
             // foreach (var _obj in _nowPlayer)
             // {
@@ -113,7 +107,7 @@ namespace baseSys.Audio.Method
             // }
 
             // 不存在則新建
-            GameObject obj = Create();
+            GameObject obj = Get(name);
             AudioSource src = obj.GetComponent<AudioSource>();
 
             return (src, obj);

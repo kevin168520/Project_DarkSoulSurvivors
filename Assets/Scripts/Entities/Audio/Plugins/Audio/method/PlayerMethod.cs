@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 using baseSys.Audio.Sources;
 using DG.Tweening;
@@ -13,7 +13,7 @@ namespace baseSys.Audio.Method
     ///    a. 循環 同物件重新設置繼續使用
     ///    b. 不循環 回歸物件池
     /// </summary>
-    public class PlayMethod
+    public class PlayerMethod
     {
         /// <summary> 播放清單 字典型態 音樂名稱作為 Key </summary>
         Dictionary<string, Source> _sourceDict = new();
@@ -29,11 +29,10 @@ namespace baseSys.Audio.Method
         bool _mute = false;
 
         /// <summary> 初始化播放清單 </summary>
-        /// <param name="gameObject"></param>
-        /// <param name="type">播放器類型名稱</param>
+        /// <param name="gameObject">場景物件池</param>
         /// <param name="playlist">播放清單</param>
         /// <param name="fixValue">初始音量較正值</param>
-        public PlayMethod(GameObject gameObject, string type, Source[] playlist, float fixValue)
+        public PlayerMethod(GameObject gameObject, Source[] playlist, float fixValue)
         {
             // 載入所有樂曲
             foreach(var source in playlist)
@@ -43,7 +42,7 @@ namespace baseSys.Audio.Method
             _volume = fixValue;
 
             // 場景物件分類用物件
-            _pool = new PlayerMethodPool(gameObject, type);
+            _pool = new PlayerMethodPool(gameObject);
         }
 
         /// <summary> 設置音量較正值 </summary>
@@ -76,74 +75,61 @@ namespace baseSys.Audio.Method
             _pool.Recover(name);
         }
 
-        /// <summary> 一般播放 </summary>
-        public void Next(string name)
+        /// <summary> 連續播放 如果曲目複數音樂時隨機/循序播放 </summary>
+        public void NextPlay(string name)
         {
-            if (!_sourceDict.ContainsKey(name))
-            {
-                Debug.LogError("Not Find Audio");
-                return;
-            }
-
             OnNextPlay(name);
         }
 
-        /// <summary> 產生播放器 </summary>
-        public void Add(string name)
+        /// <summary> 一般播放 如果曲目複數音樂時隨機播放 </summary>
+        public void Play(string name)
         {
-            if (!_sourceDict.ContainsKey(name))
-            {
-                Debug.LogError("Not Find Audio");
-                return;
-            }
-
             OnPlay(name);
         }
 
         /// <summary> 播放功能 </summary>
         void OnPlay(string name)
         {
-            //取得物件
-            GameObject obj = _pool.Create();
-            AudioSource aos = obj.GetComponent<AudioSource>();
-            obj.name = name;
+            if (!_sourceDict.ContainsKey(name))
+            {
+                Debug.LogError("Not Find Audio");
+                return;
+            }
 
+            //取得物件
+            GameObject obj = _pool.Get(name);
+            AudioSource aos = obj.GetComponent<AudioSource>();
+
+            // 設置樂曲資料
             bool retrigger = SetAudioPlayer(_sourceDict[name], ref aos);
             obj.SetActive(true);
             aos.Play();
 
+            // 取得樂曲長度
             float life = aos.clip.length;
 
-            //判斷是否循環播放，或者重複觸發
-            if (!retrigger)
+            // 添加樂曲計時器 結束時自動執行
+            Sequence _delayCallback = DOTween.Sequence();
+            _delayCallback.AppendInterval(life);
+            _delayCallback.InsertCallback(life, delegate
             {
-                if (!_sourceDict[name].Loop)
-                {
-                    Sequence _delayCallback;
-                    _delayCallback = DOTween.Sequence();
-                    _delayCallback.InsertCallback(life, delegate
-                    {
-                        _pool.Recover(obj);
-                    });
-                }
-            }
-            else
-            {
-                Sequence _delayCallback;
-                _delayCallback = DOTween.Sequence();
-                _delayCallback.InsertCallback(life, delegate
-                {
-                    OnPlay(name);
-                });
-            }
+                //判斷是否循環播放，或者重複觸發
+                if (!retrigger) _pool.Recover(obj);
+                else OnPlay(name);
+            });
         }
 
         Sequence _delayNextPlay;
         /// <summary> 同個播放器，播放下一首 </summary>
         void OnNextPlay(string name)
         {
+            if (!_sourceDict.ContainsKey(name))
+            {
+                Debug.LogError("Not Find Audio");
+                return;
+            }
 
-            var (audio, audioGb) = _pool.GetAvailableSource();
+            var (audio, audioGb) = _pool.GetAvailableSource(name);
             //取得物件
             //GameObject obj;
             //AudioSource aos;
@@ -182,15 +168,18 @@ namespace baseSys.Audio.Method
             audio.time = time;
             audioGb.SetActive(true);
 
-            if (retrigger && _sourceDict[name].Loop)
+            // 如果下一首則循環撥放
+            if (retrigger)
             {
-                float life =
-                audio.clip.length;
+                // 樂曲時間
+                float life = audio.clip.length;
                 life -= audio.time;
 
                 _delayNextPlay = DOTween.Sequence();
+                _delayNextPlay.AppendInterval(life);
                 _delayNextPlay.InsertCallback(life, delegate
                 {
+                    Debug.LogError("OnPlay End3");
                     OnNextPlay(name);
                 });
             }
