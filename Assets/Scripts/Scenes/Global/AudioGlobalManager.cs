@@ -26,7 +26,14 @@ public class AudioGlobalManager : GlobalMonoBase<AudioGlobalManager>
     protected override void Awake() 
     {
         base.Awake();
-        
+        Debug.LogError(this);
+        Debug.LogError(Instance);
+        if(this != Instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         BGM = new PlayerMethod(gameObject, BGMSetting, BGMValue);
         SFX = new PlayerMethod(gameObject, SFXSetting, SFXValue);
     }

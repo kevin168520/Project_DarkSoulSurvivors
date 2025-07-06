@@ -13,6 +13,18 @@ public class GameManager : ManagerMonoBase
   bool bGameOver; // 遊戲結束判定
   public bool IsGameOver => bGameOver; // 遊戲結束判定
 
+  void Start() {
+    var level = (ScenesBuildData) UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+    switch(level) {
+      case ScenesBuildData.MainGameLevel_1:
+        AudioGlobalManager.PlayBGM(enAudioBgmData.MainGameLevel1_BGM);
+        break;
+      case ScenesBuildData.MainGameLevel_2:
+        AudioGlobalManager.PlayBGM(enAudioBgmData.MainGameLevel2_BGM);
+        break;
+    }
+  }
+  
   void Update() {
     if (bGameOver && Input.GetKeyDown(KeyCode.Return)) {
         GameEnd();
