@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Character_001_Data
   m_EditorClassIdentifier: 
   showNumber: 1
-  showName: Yuki
-  showImage: {fileID: 1641056278, guid: e087803d19efeab4698db1a2a972bd8e, type: 3}
+  showName: Angel
+  showImage: {fileID: -128689890, guid: 7d7dc5b075c5cf34fa521f932c416893, type: 3}
   spritePrefab: {fileID: 6676319224844049280, guid: dc9f5e93e8b37bc42a319b312dce0c2b, type: 3}
   startingWeapon: {fileID: 11400000, guid: e953efef9ae2e8349a71a96239bfa5c6, type: 2}
   hp: 100
