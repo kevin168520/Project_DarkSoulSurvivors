@@ -19,7 +19,7 @@ public class StartSceneManager : ManagerMonoBase
 
     void Start()
     {
-        AudioGlobalManager.inst.PlayBGM(enAudioBgmData.StartScene_BGM);
+        AudioGlobalManager.PlayBGM(enAudioBgmData.StartScene_BGM);
         initial();
         BtnCtrlLoginMenu();
         BtnCtrlCharacterMenu();

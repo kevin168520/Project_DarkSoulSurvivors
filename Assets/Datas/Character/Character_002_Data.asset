@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Character_002_Data
   m_EditorClassIdentifier: 
   showNumber: 2
-  showName: OldMan
-  showImage: {fileID: -1853965249, guid: fd935ca458794ee459bb7bbc53f43647, type: 3}
+  showName: Girl
+  showImage: {fileID: -1695332724, guid: a7776010430f0e043a2b3e5b369b1b0b, type: 3}
   spritePrefab: {fileID: 6676319224844049280, guid: 7b272e877022adb4f82ae15282c8aa41, type: 3}
   startingWeapon: {fileID: 11400000, guid: 29d49d07c1a6df6468df96dbf46b345c, type: 2}
   hp: 100

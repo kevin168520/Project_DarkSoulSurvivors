@@ -20,5 +20,6 @@ public abstract class ManagerMonoBase : InstanceMonoBase
   
   // 全球管理者成員
   protected DataGlobalManager DataGlobalManager => DataGlobalManager.Instance;
+  protected AudioGlobalManager AudioGlobalManager => AudioGlobalManager.Instance;
   protected SceneGlobalManager SceneGlobalManager => SceneGlobalManager.Instance;
 }
