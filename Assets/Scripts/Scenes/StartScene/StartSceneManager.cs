@@ -63,6 +63,8 @@ public class StartSceneManager : ManagerMonoBase
         _startSceneUI.btnGameState1OnClick = () => OnStageSelect(ScenesBuildData.MainGameLevel_1);
         // State2 按鈕
         _startSceneUI.btnGameState2OnClick = () => OnStageSelect(ScenesBuildData.MainGameLevel_2);
+        // State3 按鈕
+        _startSceneUI.btnGameState3OnClick = () => OnStageSelect(ScenesBuildData.MainGameLevel_3);
         // Back 按鈕
         _startSceneUI.btnBackToMenuOnClick = () => OnUIPanelRenew(enUIPaneltate.Character);
     }

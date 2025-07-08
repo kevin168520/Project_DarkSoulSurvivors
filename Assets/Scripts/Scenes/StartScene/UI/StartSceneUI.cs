@@ -34,6 +34,8 @@ public class StartSceneUI : MonoBehaviour
     public UnityAction btnGameState1OnClick {set => btnGameState1.onClick.AddListener(value);}
     [SerializeField] Button btnGameState2;
     public UnityAction btnGameState2OnClick {set => btnGameState2.onClick.AddListener(value);}
+    [SerializeField] Button btnGameState3;
+    public UnityAction btnGameState3OnClick {set => btnGameState3.onClick.AddListener(value);}
     [SerializeField] Button btnBackToMenu;
     public UnityAction btnBackToMenuOnClick {set => btnBackToMenu.onClick.AddListener(value);}
 }
