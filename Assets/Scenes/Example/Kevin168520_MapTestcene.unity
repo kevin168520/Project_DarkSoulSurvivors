@@ -414,11 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84cebd56c0f25494aaab2245d5fa041e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrainPrefabs:
-  - {fileID: 3919578091396876125, guid: ee705dffc1418684fa8502889f0bef79, type: 3}
-  - {fileID: 6948388765314003718, guid: e3bffed17f829814d9ae0c065378ee5a, type: 3}
-  - {fileID: 6256704093368076490, guid: a68337f846e36f24482b25419fd4ac3f, type: 3}
-  - {fileID: 6256704093368076490, guid: a68337f846e36f24482b25419fd4ac3f, type: 3}
+  terrainPrefabs: []
   player: {fileID: 519420032}
   tileWidth: 22
   tileHeight: 10

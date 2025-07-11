@@ -147,22 +147,22 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 347408426}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84cebd56c0f25494aaab2245d5fa041e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   terrainPrefabs:
-  - {fileID: 7933265258794778441, guid: 8b787a45c593798449b65a51f19259d6, type: 3}
-  - {fileID: 1731884857954820446, guid: 9f21bcd2d2ec6614990fb902a6ddb9d9, type: 3}
-  - {fileID: 4718554919835892069, guid: 0873a1794b27c79449c35265fbe65958, type: 3}
+  - {fileID: 7459531440775163979, guid: 33cd5a88b9dfadf478734f2e43d916ed, type: 3}
+  - {fileID: 7459531440775163979, guid: b26102bef6d96284fa200089e5790a52, type: 3}
+  - {fileID: 7459531440775163979, guid: 50842726fcc1d4444963ce576ede8fa8, type: 3}
   player: {fileID: 347408429}
   tileWidth: 20
   tileHeight: 20
   preloadRange: 2
   updateInterval: 0.2
   itemManager: {fileID: 1408185299}
-  levelType: 1
+  levelType: 0
   enableInfiniteMap: 1
   maxActiveTiles: 100
   useRandomGeneration: 1
