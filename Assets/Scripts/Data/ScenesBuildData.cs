@@ -6,6 +6,7 @@ public enum ScenesBuildData
     StartScene = 1,
     MainGameLevel_1 = 2,
     MainGameLevel_2 = 3,
-    MainGamePlayer = 4,
-    SummaryScene = 5
+    MainGameLevel_3 = 4,
+    MainGamePlayer = 5,
+    SummaryScene = 6
 }
