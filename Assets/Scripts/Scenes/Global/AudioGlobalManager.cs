@@ -26,8 +26,6 @@ public class AudioGlobalManager : GlobalMonoBase<AudioGlobalManager>
     protected override void Awake() 
     {
         base.Awake();
-        Debug.LogError(this);
-        Debug.LogError(Instance);
         if(this != Instance)
         {
             Destroy(gameObject);
