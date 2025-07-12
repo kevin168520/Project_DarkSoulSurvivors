@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Steamworks;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
@@ -20,12 +21,10 @@ public enum eSteamAchievementApi : int
 
 public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
 {
-    private CGameID m_GameID; // 這款遊戲的ID，非SteamUser的ID
+    private CGameID m_GameID;
 
-    // Did we get the stats from Steam?
-    private bool m_bRequestedStats; //是否可以取得Steam上的Stats(統計)
-    private bool m_bStatsValid;     //Steam上的Stats是否有效
-    private bool m_bStoreStats;     //是否向Steam進行Stats/Achievement的儲存
+    private bool m_bStatsValid;
+    private bool m_bStoreStats;
 
     private bool[] bUnlockAchievement = new bool[Enum.GetNames(typeof(eSteamAchievementApi)).Length];
 
@@ -33,14 +32,14 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
     protected Callback<UserStatsStored_t> m_UserStatsStored;
     protected Callback<UserAchievementStored_t> m_UserAchievementStored;
 
-    /// <summary> 成就比對表 </summary>
+    //與Steamworks對應的成就比對表
     private Achievement_t[] m_Achievements = new Achievement_t[] {
         new Achievement_t(eSteamAchievementApi.CharaA_Stage1, "CharaA_Stage1 Success", "Successfully clears the first level using character A"),
         new Achievement_t(eSteamAchievementApi.CharaB_Stage1, "CharaB_Stage1 Success", "Successfully clears the first level using character B"),
         new Achievement_t(eSteamAchievementApi.CharaC_Stage1, "CharaC_Stage1 Success", "Successfully clears the first level using character C"),
         new Achievement_t(eSteamAchievementApi.CharaA_Stage2, "CharaA_Stage2 Success", "Successfully clears the second level using character A"),
-        new Achievement_t(eSteamAchievementApi.CharaA_Stage2, "CharaA_Stage2 Success", "Successfully clears the second level using character B"),
-        new Achievement_t(eSteamAchievementApi.CharaA_Stage2, "CharaA_Stage2 Success", "Successfully clears the second level using character C"),
+        new Achievement_t(eSteamAchievementApi.CharaB_Stage2, "CharaB_Stage2 Success", "Successfully clears the second level using character B"),
+        new Achievement_t(eSteamAchievementApi.CharaC_Stage2, "CharaC_Stage2 Success", "Successfully clears the second level using character C"),
     };
 
     /// <summary> 在LauncherScene先啟動AchievementGlobalManager </summary>
@@ -50,215 +49,164 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
         #if UNITY_EDITOR
         foreach (eSteamAchievementApi id in Enum.GetValues(typeof(eSteamAchievementApi)))
         {
-            bool exists;
+            bool exists; //判斷對應成就是否存在於Steamworks上
             bool valid = SteamUserStats.GetAchievement(id.ToString(), out exists);
             Debug.Log($"{id} | 存在: {valid} | 已解鎖: {exists}");
         }
-        return;
         #endif
+
+        InitStatsAsync().Forget(); // 非同步初始化
     }
 
-    void OnEnable()
+    /// <summary> Steam Stats 與 Achievement 觸發流程 /// </summary>
+    /// <returns></returns>
+    private async UniTask InitStatsAsync()
     {
-        if (!SteamManager.Initialized)
-            return;
-
-        // 從Steam獲取這款遊戲的ID (GameID) 讓Callback可以對應到正確的遊戲進行相關設定
-        m_GameID = new CGameID(SteamUtils.GetAppID());
-
-        m_UserStatsReceived = Callback<UserStatsReceived_t>.Create(OnUserStatsReceived);
-        m_UserStatsStored = Callback<UserStatsStored_t>.Create(OnUserStatsStored);
-        m_UserAchievementStored = Callback<UserAchievementStored_t>.Create(OnAchievementStored);
-
-        m_bRequestedStats = false;
-        m_bStatsValid = false;
-        bUnlockAchievement = new bool[Enum.GetValues(typeof(eSteamAchievementApi)).Length];
-    }
-
-    private void Update()
-    {
-        // 確保SteamManager存在且初始化完成
-        if (!SteamManager.Initialized)
-            return;
-
-        // 是否要向Steam請求統計數據 (Stats)
-        if (!m_bRequestedStats)
+        try
         {
-            // Is Steam Loaded? if no, can't get stats, done
             if (!SteamManager.Initialized)
             {
-                m_bRequestedStats = true;
+                Debug.LogWarning("SteamManager初始化未完成");
                 return;
             }
 
-            // 向Steam取得統計數據 (Stats)，該項會觸發OnUserStatsRecived的Callback
-            bool bSuccess = SteamUserStats.RequestCurrentStats();
+            m_GameID = new CGameID(SteamUtils.GetAppID());
 
-            // This function should only return false if we weren't logged in, and we already checked that.
-            // But handle it being false again anyway, just ask again later.
-            m_bRequestedStats = bSuccess;
-        }
+            m_UserStatsReceived = Callback<UserStatsReceived_t>.Create(OnUserStatsReceived);
+            m_UserStatsStored = Callback<UserStatsStored_t>.Create(OnUserStatsStored);
+            m_UserAchievementStored = Callback<UserAchievementStored_t>.Create(OnAchievementStored);
 
-        if (!m_bStatsValid)
-            return;
-
-        // 成就解除判斷
-        foreach (Achievement_t achievement in m_Achievements)
-        {
-            if (achievement.m_bAchieved)
-                continue;
-
-            for (int i = 0; i < Enum.GetNames(typeof(eSteamAchievementApi)).Length; i++)
+            bool success = SteamUserStats.RequestCurrentStats();
+            if (!success)
             {
-                if (bUnlockAchievement[i] && (int)achievement.m_eAchievementID == i)
+                Debug.LogError("SteamStats資訊取得失敗");
+                return;
+            }
+
+            // 等待直到 Stats 被 Steam 回傳並成功解析
+            await UniTask.WaitUntil(() => m_bStatsValid);
+
+            // 判斷成就是否解鎖
+            foreach (Achievement_t achievement in m_Achievements)
+            {
+                if (achievement.m_bAchieved)
+                    continue;
+
+                int i = (int)achievement.m_eAchievementID;
+                if (bUnlockAchievement[i])
                 {
-                    Debug.Log(achievement.m_eAchievementID.ToString() + " / " + i);
-                    UnlockAchievemen(achievement, i);
-                    break;
+                    UnlockAchievement(achievement, i);
                 }
             }
-        }
-            //檢查是否有儲存需求
+
             if (m_bStoreStats)
+            {
+                //SteamUserStats.SetStat("DummyStat", 1f); // 範例測試
+                //bool storeSuccess = SteamUserStats.StoreStats();
+                //m_bStoreStats = !storeSuccess;
+                //Debug.Log("嘗試儲存成就：" + storeSuccess);
+                Debug.Log("成就儲存");
+            }
+        }
+        catch (Exception ex)
         {
-            Debug.Log("StoreStats Start");
-
-            SteamUserStats.SetStat("", 1f); //僅範例因為Steam方沒設定因此無實際功能
-
-            bool bSuccess = SteamUserStats.StoreStats();
-
-            // If this failed, we never sent anything to the server, try
-            // again later.
-            m_bStoreStats = !bSuccess;
+            Debug.LogError("成就儲存 InitStatsAsync 發生例外: " + ex.Message + "\n" + ex.StackTrace);
         }
     }
+
     /// <summary> 取得來自Steam的數據統計(Stats) </summary>
     private void OnUserStatsReceived(UserStatsReceived_t pCallback)
     {
-        Debug.Log("OnUserStatsReceived");
-        // we may get callbacks for other games' stats arriving, ignore them
-        if ((ulong)m_GameID == pCallback.m_nGameID)
+        if ((ulong)m_GameID != pCallback.m_nGameID)
+            return;
+
+        if (pCallback.m_eResult != EResult.k_EResultOK)
         {
-            if (EResult.k_EResultOK == pCallback.m_eResult)
+            Debug.LogError("SteamStats資訊取得失敗: " + pCallback.m_eResult);
+            return;
+        }
+
+        m_bStatsValid = true;
+
+        foreach (var ach in m_Achievements)
+        {
+            bool result = SteamUserStats.GetAchievement(ach.m_eAchievementID.ToString(), out ach.m_bAchieved);
+            if (result)
             {
-                Debug.Log("Received stats and achievements from Steam\n");
-
-                m_bStatsValid = true;
-
-                // load achievements
-                foreach (Achievement_t ach in m_Achievements)
-                {
-                    bool ret = SteamUserStats.GetAchievement(ach.m_eAchievementID.ToString(), out ach.m_bAchieved);
-                    if (ret)
-                    {
-                        ach.m_strName = SteamUserStats.GetAchievementDisplayAttribute(ach.m_eAchievementID.ToString(), "name");
-                        ach.m_strDescription = SteamUserStats.GetAchievementDisplayAttribute(ach.m_eAchievementID.ToString(), "desc");
-                    }
-                    else
-                    {
-                        Debug.Log("SteamUserStats.GetAchievement failed for Achievement " + ach.m_eAchievementID + "\nIs it registered in the Steam Partner site?");
-                    }
-                }
-
-                // load stats example
-                // SteamUserStats.GetStat("Test1", out m_iStats1);
-
-                // load achievement
-                SteamUserStats.GetAchievement(eSteamAchievementApi.CharaA_Stage1.ToString(), out bool achieved1);
-                SteamUserStats.GetAchievement(eSteamAchievementApi.CharaB_Stage1.ToString(), out bool achieved2);
-                SteamUserStats.GetAchievement(eSteamAchievementApi.CharaC_Stage1.ToString(), out bool achieved3);
-                SteamUserStats.GetAchievement(eSteamAchievementApi.CharaA_Stage2.ToString(), out bool achieved4);
-                SteamUserStats.GetAchievement(eSteamAchievementApi.CharaB_Stage2.ToString(), out bool achieved5);
-                SteamUserStats.GetAchievement(eSteamAchievementApi.CharaC_Stage2.ToString(), out bool achieved6);
+                ach.m_strName = SteamUserStats.GetAchievementDisplayAttribute(ach.m_eAchievementID.ToString(), "name");
+                ach.m_strDescription = SteamUserStats.GetAchievementDisplayAttribute(ach.m_eAchievementID.ToString(), "desc");
             }
             else
             {
-                Debug.Log("RequestStats - failed, " + pCallback.m_eResult);
+                Debug.LogWarning("SteamAchievement資訊取得失敗: " + ach.m_eAchievementID);
             }
         }
-        else
-        {
-            Debug.Log("Error");
-        }
     }
+
     /// <summary> 進行Steam的數據統計(Stats)儲存 </summary>
     private void OnUserStatsStored(UserStatsStored_t pCallback)
     {
-        Debug.Log("OnUserStatsStored");
-        // 排除收到來自Steam的其他遊戲統計資料儲存的Callback，過濾出自身遊戲的來處理
-        if ((ulong)m_GameID == pCallback.m_nGameID)
+        if ((ulong)m_GameID != pCallback.m_nGameID)
+            return;
+
+        if (pCallback.m_eResult == EResult.k_EResultInvalidParam)
         {
-            if (EResult.k_EResultOK == pCallback.m_eResult)
+            Debug.LogWarning("SteamAchievement資訊取得失敗");
+            OnUserStatsReceived(new UserStatsReceived_t
             {
-                Debug.Log("StoreStats - success");
-            }
-            else if (EResult.k_EResultInvalidParam == pCallback.m_eResult)
-            {
-                // One or more stats we set broke a constraint. They've been reverted,
-                // and we should re-iterate the values now to keep in sync.
-                Debug.Log("StoreStats - some failed to validate");
-                // Fake up a callback here so that we re-load the values.
-                UserStatsReceived_t callback = new UserStatsReceived_t();
-                callback.m_eResult = EResult.k_EResultOK;
-                callback.m_nGameID = (ulong)m_GameID;
-                OnUserStatsReceived(callback);
-            }
-            else
-            {
-                Debug.Log("StoreStats - failed, " + pCallback.m_eResult);
-            }
+                m_eResult = EResult.k_EResultOK,
+                m_nGameID = (ulong)m_GameID
+            });
         }
     }
 
     /// <summary> 進行Steam的成就(Achievement)儲存 </summary>
     private void OnAchievementStored(UserAchievementStored_t pCallback)
     {
-        Debug.Log("OnAchievementStored");
+        if ((ulong)m_GameID != pCallback.m_nGameID)
+            return;
 
-        // We may get callbacks for other games' stats arriving, ignore them
-        if ((ulong)m_GameID == pCallback.m_nGameID)
+        if (pCallback.m_nMaxProgress == 0)
         {
-            if (0 == pCallback.m_nMaxProgress)
-            {
-                Debug.Log("Achievement '" + pCallback.m_rgchAchievementName + "' unlocked!");
-            }
-            else
-            {
-                Debug.Log("Achievement '" + pCallback.m_rgchAchievementName + "' progress callback, (" + pCallback.m_nCurProgress + "," + pCallback.m_nMaxProgress + ")");
-            }
+            Debug.Log("成就已解鎖: " + pCallback.m_rgchAchievementName);
+        }
+        else
+        {
+            Debug.Log("成就資料更新: " + pCallback.m_rgchAchievementName +
+                      $" ({pCallback.m_nCurProgress}/{pCallback.m_nMaxProgress})");
         }
     }
 
     /// <summary> 外部呼叫成就解鎖 </summary>
     public void SteamAchievementUnlock(eSteamAchievementApi id)
     {
-        Debug.Log((int)id + " / " + id.ToString());
+        Debug.Log("解鎖請求: " + id);
         bUnlockAchievement[(int)id] = true;
+        InitStatsAsync().Forget(); // 重新判斷並嘗試解鎖
     }
 
     /// <summary> Steam本地端成就解鎖，實際在伺服器有進行解鎖動作需要進行SteamUserStats.StoreStats(); </summary>
-    private void UnlockAchievemen(Achievement_t achievement, int i)
+    private void UnlockAchievement(Achievement_t achievement, int i)
     {
-        Debug.Log("UnlockAchievement: " + achievement.m_eAchievementID.ToString());
+        Debug.Log("解鎖成就: " + achievement.m_eAchievementID);
         achievement.m_bAchieved = true;
         bUnlockAchievement[i] = false;
-        // mark it down
+
         SteamUserStats.SetAchievement(achievement.m_eAchievementID.ToString());
 
-        bool exists;
-        if (SteamUserStats.GetAchievement(achievement.m_eAchievementID.ToString(), out exists))
+        if (SteamUserStats.GetAchievement(achievement.m_eAchievementID.ToString(), out bool exists))
         {
-            Debug.Log("成就存在，當前狀態: " + exists);
+            Debug.Log("解鎖成就成功");
         }
         else
         {
-            Debug.LogWarning("成就 ID 不存在！");
+            Debug.LogWarning("解鎖成就失敗 - 成就ID不存在");
         }
 
         m_bStoreStats = true;
     }
 
-    /// <summary> 成就參數定義 </summary>
+    /// <summary> 建構式-成就參數定義 </summary>
     private class Achievement_t
     {
         public eSteamAchievementApi m_eAchievementID;

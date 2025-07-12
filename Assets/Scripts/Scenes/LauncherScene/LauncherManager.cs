@@ -17,28 +17,33 @@ public class LauncherManager : ManagerMonoBase
     }
 
     /// <summary> 判斷登入的Launcher類型 </summary>
-    private async UniTaskVoid LauncherSelectAsync(LoginPlatform login)
+    private async UniTask LauncherSelectAsync(LoginPlatform login)
     {
-        switch (login)
+        try
         {
-            case LoginPlatform.Steam:
-                bool isSuccess = await TrySteamLoginAsync();
+            switch (login)
+            {
+                case LoginPlatform.Steam:
+                    bool isSuccess = await TrySteamLoginAsync();
 
-                if (isSuccess)
-                {
-                    Debug.Log("Steam 登入成功");
-                    AchievementGlobalManager.StartAchevement(); // 呼叫你原本的成就初始化邏輯
-                    SceneGlobalManager.LauncherLoadStartScene(); // 進入主場景
-                }
-                else
-                {
-                    Debug.LogError("Steam 登入失敗，請確認是否由 Steam 啟動遊戲");
-                }
-                break;
+                    if (isSuccess)
+                    {
+                        Debug.Log("Steam 登入成功");
+                        AchievementGlobalManager.StartAchevement(); // 成就初始化
+                        SceneGlobalManager.LauncherLoadStartScene(); // 進入主場景
+                    }
+                    else
+                    {
+                        Debug.LogError("Steam 登入失敗，請確認是否由 Steam 啟動遊戲");
+                    }
+                    break;
 
-                // 可擴充其他平台
-                // case LoginPlatform.EA:
-                // case LoginPlatform.Custom:
+                    // 可擴充其他平台
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogException(ex); // 為 fire-and-forget 加入安全網
         }
     }
 
