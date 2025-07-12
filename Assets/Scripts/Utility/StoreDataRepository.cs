@@ -68,10 +68,7 @@ public class StoreDataRepository : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 使用者設定儲存的方法 UserDataSaving(ref UserStoreSetting _userSetting)
-    /// </summary>
-    /// <param name="_userData"></param>
+    /// <summary> 使用者設定儲存的方法 </summary>
     static public void UserDataSaving(ref UserStoreSetting _userSetting)
     {
         //寫入Json Data
@@ -80,10 +77,7 @@ public class StoreDataRepository : MonoBehaviour
         Debug.Log("Serialized JSON : " + json);
     }
 
-    /// <summary>
-    /// 使用者設定載入的方法 UserDataLoading(ref UserStoreSetting _userSetting)
-    /// </summary>
-    /// <param name="_userData"></param>
+    /// <summary> 使用者設定載入的方法 </summary>
     static public void UserDataLoading(ref UserStoreSetting _userSetting)
     {
         //判別是否有存檔資料sPlayerDataSavingPath

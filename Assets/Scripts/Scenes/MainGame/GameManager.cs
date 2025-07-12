@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Steamworks;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary> 負責遊戲流程管控 暫停 勝利 失敗 跳轉其他場景</summary>    
+/// <summary> 負責遊戲流程管控 暫停 勝利 失敗 跳轉其他場景 </summary>    
 public class GameManager : ManagerMonoBase
 {
   [Header("遊戲場景物件")]
@@ -29,6 +30,24 @@ public class GameManager : ManagerMonoBase
     if (bGameOver && Input.GetKeyDown(KeyCode.Return)) {
         GameEnd();
     }
+
+    if (Input.GetKeyDown(KeyCode.F1)){
+            Debug.Log("SteamAchievementId CharaA_Stage1 Success - Start to Unlock Achievement");
+            AchievementGlobalManager.SteamAchievementUnlock(eSteamAchievementApi.CharaA_Stage1);
+    }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            Debug.Log("SteamAchievementId CharaA_Stage2 Success - Start to Unlock Achievement");
+            AchievementGlobalManager.SteamAchievementUnlock(eSteamAchievementApi.CharaA_Stage2);
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            bool achieved;
+            SteamUserStats.GetAchievement(eSteamAchievementApi.CharaA_Stage1.ToString(), out achieved);
+            Debug.Log($"Achievement already unlocked? {achieved}");
+        }
   }
 
   // 暫停

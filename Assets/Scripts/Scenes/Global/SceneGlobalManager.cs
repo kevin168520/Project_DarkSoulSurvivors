@@ -21,10 +21,16 @@ public class SceneGlobalManager : GlobalMonoBase<SceneGlobalManager>
         SceneManager.LoadScene((int)ScenesBuildData.SummaryScene); //跳至結算畫面
     }
 
-    /// <summary> 載入開始選單場景 </summary>
+    /// <summary> 載入遊戲實際開始的選單場景 </summary>
     public void LoadStartScene()
     {
         AudioGlobalManager.Instance.BGMStop();
         SceneManager.LoadScene((int)ScenesBuildData.StartScene); //回到主畫面
+    }
+
+    /// <summary> 由Launcher進入遊戲實際開始的選單場景 </summary>
+    public void LauncherLoadStartScene()
+    {
+        SceneManager.LoadScene((int)ScenesBuildData.StartScene); //進入主畫面
     }
 }
