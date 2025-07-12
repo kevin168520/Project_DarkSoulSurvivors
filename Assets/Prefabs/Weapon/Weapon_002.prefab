@@ -122,6 +122,8 @@ MonoBehaviour:
   attackInterval: 0
   FlightSpeed: 0
   FlightDirection: {x: 0, y: 0, z: 0}
+  animator: {fileID: 5596752467593587058}
+  ammunitionCount: 13
 --- !u!1 &8804694374959994503
 GameObject:
   m_ObjectHideFlags: 0
