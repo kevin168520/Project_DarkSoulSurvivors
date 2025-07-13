@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class ProjectileWeaponBehaviour : WeaponBehaviourBase
 {
+    [SerializeField] private Animator animator;
+    [SerializeField] private int ammunitionCount;
+
     // 開啟攻擊
     protected override void OnAttackStart()
     {
+        animator.SetInteger("Ammunition", Random.Range(1, ammunitionCount));
         PlaySound(enAudioSfxData.PhysicalWeaponArrow);
     }
     
