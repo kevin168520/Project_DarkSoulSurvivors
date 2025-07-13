@@ -14,6 +14,13 @@
       "dependencies": {},
       "hash": "a2fc889ab2672981ec3e6225d551d86ce6923121"
     },
+    "com.starasgames.tmpro-dynamic-data-cleaner": {
+      "version": "https://github.com/STARasGAMES/tmpro-dynamic-data-cleaner.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "3016fca9cfdebe8c5aa04102195d4fed7947dee2"
+    },
     "com.tayx.graphy": {
       "version": "https://github.com/Tayx94/graphy.git",
       "depth": 0,
@@ -257,7 +264,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.7",
+      "version": "3.2.0-pre.12",
       "depth": 0,
       "source": "registry",
       "dependencies": {
