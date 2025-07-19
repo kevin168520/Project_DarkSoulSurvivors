@@ -24,6 +24,8 @@ public class StartSceneUI : MonoBehaviour
     public UnityAction btnCharacter1OnClick {set => btnCharacter1.onClick.AddListener(value);}
     [SerializeField] Button btnCharacter2;
     public UnityAction btnCharacter2OnClick {set => btnCharacter2.onClick.AddListener(value);}
+    [SerializeField] Button btnCharacter3;
+    public UnityAction btnCharacter3OnClick {set => btnCharacter3.onClick.AddListener(value);}
     [SerializeField] Button btnBackToState;
     public UnityAction btnBackToStateOnClick {set => btnBackToState.onClick.AddListener(value);}
 
