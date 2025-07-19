@@ -5,7 +5,7 @@ using UnityEngine;
 public class StartSceneManager : ManagerMonoBase
 {
     enum enUIPaneltate {
-        Start, Shop, Character, Stage
+        Start, Shop, Character, Stage, Option
     }
     public ShopItemManager _shopItemManager;
     public StartSceneUI _startSceneUI;
@@ -22,6 +22,7 @@ public class StartSceneManager : ManagerMonoBase
         AudioGlobalManager.PlayBGM(enAudioBgmData.StartScene_BGM);
         initial();
         BtnCtrlLoginMenu();
+        BtnCtrlOptionMenu();
         BtnCtrlCharacterMenu();
         BtnCtrlGameStartMenu();
     }
@@ -34,18 +35,28 @@ public class StartSceneManager : ManagerMonoBase
         _shopItemManager.ShopExitOnClick(() => OnUIPanelRenew(enUIPaneltate.Start));
     }
 
-    /// <summary>遊戲開始選擇 BtnCtrlLoginMenu()</summary>
+    /// <summary> 遊戲開始選擇 </summary>
     private void BtnCtrlLoginMenu()
     {
         // Play 按鈕
         _startSceneUI.btnGameStartOnClick = () => OnUIPanelRenew(enUIPaneltate.Character);
+        // Option 按鈕
+        _startSceneUI.btnOptionOnClick = () => OnOptionSelect();
         // Shop 按鈕
         _startSceneUI.btnShopOnClick = () => OnShopGame();
         // Exit 按鈕
         _startSceneUI.btnExitOnClick = () => OnExitGame();
     }
+    /// <summary> 控制選單 </summary>
+    private void BtnCtrlOptionMenu()
+    {
+        _startSceneUI.btnVolumeSettingOnclick = () => OnValumeSetting();
+        _startSceneUI.btnWindowResolutionSettingOnclick = () => OnWindowResolutionSetting();
+        _startSceneUI.btnLanguageSettingOnclick = () => OnLanguageSetting();
+        _startSceneUI.btnOptionCloseOnclick = () => OnUIPanelRenew(enUIPaneltate.Start);
+    }
 
-    /// <summary>遊戲角色選擇 BtnCtrlCharacterMenu()</summary>
+    /// <summary> 遊戲角色選擇 </summary>
     private void BtnCtrlCharacterMenu()
     {
         // 角色 1 按鈕
@@ -56,7 +67,7 @@ public class StartSceneManager : ManagerMonoBase
         _startSceneUI.btnBackToStateOnClick = () => OnUIPanelRenew(enUIPaneltate.Start);
     }
 
-    /// <summary>遊戲場景切換 BtnCtrlGameStartMenu()</summary>
+    /// <summary> 遊戲場景切換 </summary>
     private void BtnCtrlGameStartMenu()
     {
         // State1 按鈕
@@ -69,7 +80,29 @@ public class StartSceneManager : ManagerMonoBase
         _startSceneUI.btnBackToMenuOnClick = () => OnUIPanelRenew(enUIPaneltate.Character);
     }
 
-    /// <summary>選擇角色</summary>
+    /// <summary> 選擇設定 </summary>
+    void OnOptionSelect()
+    {
+        OnUIPanelRenew(enUIPaneltate.Option);
+    }
+    /// <summary> 音效設定 </summary>
+    void OnValumeSetting()
+    {
+        Debug.Log("OnValumeSetting");
+    }
+
+    /// <summary> 解析度設定 </summary>
+    void OnWindowResolutionSetting()
+    {
+        Debug.Log("OnWindowResolutionSetting");
+    }
+
+    /// <summary> 語言設定 </summary>
+    void OnLanguageSetting()
+    {
+        Debug.Log("OnLanguageSetting");
+    }
+    /// <summary> 選擇角色 </summary>
     void OnCharacterSelect(int index) {
         _character = _characterDatabase.Search(index);
         OnUIPanelRenew(enUIPaneltate.Stage);
@@ -77,20 +110,20 @@ public class StartSceneManager : ManagerMonoBase
         Debug.Log($"OnCharacterSelect({index})");
     }
 
-    /// <summary>選擇關卡</summary>
+    /// <summary> 選擇關卡 </summary>
     void OnStageSelect(ScenesBuildData stageScene) {
         SceneGlobalManager.LoadMainGameScene(stageScene);
 
         Debug.Log($"OnStateSelect({stageScene.ToString()})");
     }
 
-    /// <summary>開啟商店</summary>
+    /// <summary> 開啟商店 </summary>
     void OnShopGame() {
         _shopItemManager.AbiDesRenew();
         OnUIPanelRenew(enUIPaneltate.Shop);
     }
 
-    /// <summary>離開遊戲</summary>
+    /// <summary> 離開遊戲 </summary>
     void OnExitGame() {
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
@@ -100,10 +133,11 @@ public class StartSceneManager : ManagerMonoBase
 #endif
     }
 
-    /// <summary>UI面板 顯示</summary>
+    /// <summary> UI面板 顯示 </summary>
     void OnUIPanelRenew(enUIPaneltate state) {
         // 顯示對應的 UI 面板
         _startSceneUI.objLoginMenuShow = state == enUIPaneltate.Start;
+        _startSceneUI.objOptionMenuShow = state == enUIPaneltate.Option;
         _shopItemManager.UIPanelShow(state == enUIPaneltate.Shop);
         _startSceneUI.objCharacterMenuShow = state == enUIPaneltate.Character;
         _startSceneUI.objGameStartMenuShow = state == enUIPaneltate.Stage;
