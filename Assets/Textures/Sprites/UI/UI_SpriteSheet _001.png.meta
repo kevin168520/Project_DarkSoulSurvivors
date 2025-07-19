@@ -971,7 +971,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FreeHorrorUi_41
+      name: GameOver
       rect:
         serializedVersion: 2
         x: 130
@@ -2047,7 +2047,6 @@ TextureImporter:
       FreeHorrorUi_39: 625926481
       FreeHorrorUi_4: 1892087999
       FreeHorrorUi_40: -411008186
-      FreeHorrorUi_41: -214785245
       FreeHorrorUi_42: -2010507813
       FreeHorrorUi_43: -1269604198
       FreeHorrorUi_44: 355930060
@@ -2099,6 +2098,7 @@ TextureImporter:
       FreeHorrorUi_88: -1982567220
       FreeHorrorUi_89: -842352367
       FreeHorrorUi_9: -2001509375
+      GameOver: -214785245
       Hp_Image: 452882495
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
