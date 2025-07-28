@@ -19,18 +19,6 @@ public class StartSceneUI : MonoBehaviour
     [SerializeField] Button btnExit;
     public UnityAction btnExitOnClick {set => btnExit.onClick.AddListener(value);}
 
-    [Header("OptionMenu")]
-    [SerializeField] GameObject objOptionMenu;
-    public bool objOptionMenuShow { set => objOptionMenu.SetActive(value);}
-    [SerializeField] Button btnVolumeSetting;
-    public UnityAction btnVolumeSettingOnclick { set => btnVolumeSetting.onClick.AddListener(value);}
-    [SerializeField] Button btnWindowResolutionSetting;
-    public UnityAction btnWindowResolutionSettingOnclick { set => btnWindowResolutionSetting.onClick.AddListener(value);}
-    [SerializeField] Button btnLanguageSetting;
-    public UnityAction btnLanguageSettingOnclick { set => btnLanguageSetting.onClick.AddListener(value);}
-    [SerializeField] Button btnOptionClose;
-    public UnityAction btnOptionCloseOnclick { set => btnOptionClose.onClick.AddListener(value);}
-
     [Header("CharacterMenu")]
     [SerializeField] GameObject objCharacterMenu;
     public bool objCharacterMenuShow {set => objCharacterMenu.SetActive(value);}

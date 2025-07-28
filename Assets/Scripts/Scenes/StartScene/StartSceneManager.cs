@@ -9,6 +9,7 @@ public class StartSceneManager : ManagerMonoBase
     }
     public ShopItemManager _shopItemManager;
     public StartSceneUI _startSceneUI;
+    public OptionMenuUI _optionMenuUI;
     
     [Header("CharacterData")]
     public CharacterDatabaseScriptable _characterDatabase;
@@ -22,7 +23,6 @@ public class StartSceneManager : ManagerMonoBase
         AudioGlobalManager.PlayBGM(enAudioBgmData.StartScene_BGM);
         initial();
         BtnCtrlLoginMenu();
-        BtnCtrlOptionMenu();
         BtnCtrlCharacterMenu();
         BtnCtrlGameStartMenu();
     }
@@ -46,14 +46,6 @@ public class StartSceneManager : ManagerMonoBase
         _startSceneUI.btnShopOnClick = () => OnShopGame();
         // Exit 按鈕
         _startSceneUI.btnExitOnClick = () => OnExitGame();
-    }
-    /// <summary> 控制選單 </summary>
-    private void BtnCtrlOptionMenu()
-    {
-        _startSceneUI.btnVolumeSettingOnclick = () => OnValumeSetting();
-        _startSceneUI.btnWindowResolutionSettingOnclick = () => OnWindowResolutionSetting();
-        _startSceneUI.btnLanguageSettingOnclick = () => OnLanguageSetting();
-        _startSceneUI.btnOptionCloseOnclick = () => OnUIPanelRenew(enUIPaneltate.Start);
     }
 
     /// <summary> 遊戲角色選擇 </summary>
@@ -83,25 +75,11 @@ public class StartSceneManager : ManagerMonoBase
     /// <summary> 選擇設定 </summary>
     void OnOptionSelect()
     {
-        OnUIPanelRenew(enUIPaneltate.Option);
-    }
-    /// <summary> 音效設定 </summary>
-    void OnValumeSetting()
-    {
-        Debug.Log("OnValumeSetting");
+        //直接開啟 OptionMenu 其餘Option相關動作由OptionMenuManager控制
+        _optionMenuUI.objOptionMenuShow = true;
+        //OnUIPanelRenew(enUIPaneltate.Option);
     }
 
-    /// <summary> 解析度設定 </summary>
-    void OnWindowResolutionSetting()
-    {
-        Debug.Log("OnWindowResolutionSetting");
-    }
-
-    /// <summary> 語言設定 </summary>
-    void OnLanguageSetting()
-    {
-        Debug.Log("OnLanguageSetting");
-    }
     /// <summary> 選擇角色 </summary>
     void OnCharacterSelect(int index) {
         _character = _characterDatabase.Search(index);
@@ -137,7 +115,6 @@ public class StartSceneManager : ManagerMonoBase
     void OnUIPanelRenew(enUIPaneltate state) {
         // 顯示對應的 UI 面板
         _startSceneUI.objLoginMenuShow = state == enUIPaneltate.Start;
-        _startSceneUI.objOptionMenuShow = state == enUIPaneltate.Option;
         _shopItemManager.UIPanelShow(state == enUIPaneltate.Shop);
         _startSceneUI.objCharacterMenuShow = state == enUIPaneltate.Character;
         _startSceneUI.objGameStartMenuShow = state == enUIPaneltate.Stage;
