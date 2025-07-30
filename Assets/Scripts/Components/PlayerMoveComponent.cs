@@ -18,7 +18,7 @@ public class PlayerMoveComponent : MonoBehaviour, IDirection
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        currentPosition = transform.position; //add
+        currentPosition = transform.position;
     }
 
     void Update()
