@@ -16,6 +16,7 @@ public abstract class AttackBehaviourBase : MonoBehaviour
     }
     TimeCounter activeCounter = new TimeCounter(1f); // 攻擊持續計時
     // 功能
+    [SerializeField]
     TargetDetector targetDetector = new TargetDetector(new Vector2(1, 1)); // 捕抓範圍
     TimeCounter frameCounter = new TimeCounter(6f, true); // 跳偵優化處理
 

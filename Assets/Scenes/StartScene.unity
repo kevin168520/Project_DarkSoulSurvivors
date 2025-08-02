@@ -3171,6 +3171,7 @@ MonoBehaviour:
   objCharacterMenu: {fileID: 1882064191}
   btnCharacter1: {fileID: 85556418}
   btnCharacter2: {fileID: 1172915882}
+  btnCharacter3: {fileID: 672551354}
   btnBackToState: {fileID: 338686706}
   objGameStartMenu: {fileID: 95762114}
   btnGameState1: {fileID: 1390287956}

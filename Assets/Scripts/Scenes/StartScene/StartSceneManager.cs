@@ -55,6 +55,8 @@ public class StartSceneManager : ManagerMonoBase
         _startSceneUI.btnCharacter1OnClick = () => OnCharacterSelect(1);
         // 角色 2 按鈕
         _startSceneUI.btnCharacter2OnClick = () => OnCharacterSelect(2);
+        // 角色 3 按鈕
+        _startSceneUI.btnCharacter3OnClick = () => OnCharacterSelect(3);
         // Back 按鈕
         _startSceneUI.btnBackToStateOnClick = () => OnUIPanelRenew(enUIPaneltate.Start);
     }
