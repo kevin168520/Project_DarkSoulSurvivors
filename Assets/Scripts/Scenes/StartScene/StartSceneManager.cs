@@ -103,12 +103,12 @@ public class StartSceneManager : ManagerMonoBase
 
     /// <summary> 離開遊戲 </summary>
     void OnExitGame() {
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-#else
+    #else
         _shopItemManager.PlayerShopStatusSaving();
         Application.Quit();
-#endif
+    #endif
     }
 
     /// <summary> UI面板 顯示 </summary>
