@@ -7,6 +7,7 @@ public class PauseMenuManager : ManagerMonoBase
 {
   // 內部成員
   [SerializeField] GamePauseUI _gamePauseUI;
+  [SerializeField] OptionMenuUI _optionMenuUI;
 
   void Start() {
     // 返回遊戲 按鈕
@@ -16,7 +17,8 @@ public class PauseMenuManager : ManagerMonoBase
     };
     // 遊戲設定 按鈕
     _gamePauseUI.btnSettingOnClick = () =>{
-      Debug.Log("Not Finish");
+        //直接開啟 OptionMenu 其餘Option相關動作由OptionMenuManager控制
+        _optionMenuUI.objOptionMenuShow = true;
     };
     // 返回開始 按鈕
     _gamePauseUI.btnBackToMenuOnClick = () =>{

@@ -1,9 +1,10 @@
 
-/// <summary>¥Î©ó¸ü¤JBGM­µ®Ä</summary>
+/// <summary>ç”¨æ–¼è¼‰å…¥BGMéŸ³æ•ˆ</summary>
 public enum enAudioBgmData
 {
     StartScene_BGM = 0,
     MainGameLevel1_BGM = 1,
     MainGameLevel2_BGM = 2,
-    SummaryScene_BGM = 3,
+    MainGameLevel3_BGM = 3,
+    SummaryScene_BGM = 4,
 }
