@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponNumber: 1
   weaponName: Fireball
-  weaponIcon: {fileID: 1077666847, guid: e9d40a9777e11724fbfdb34f573a2366, type: 3}
+  weaponIcon: {fileID: 21300000, guid: 0f4671a27953f2c48b08fbf7eb1b3302, type: 3}
   weaponPrefab: {fileID: 8804694374959994503, guid: dae5271b4d0b2ff47a7dc78f1746bdd3, type: 3}
   weaponLevel: 0
   weaponDatas:
