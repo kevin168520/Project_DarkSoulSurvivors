@@ -12,6 +12,14 @@ public class OptionMenuManager : ManagerMonoBase
         BtnCtrlOptionMenu();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            OptionMenuSetClose();
+        }
+    }
+
     /// <summary> 控制選單 </summary>
     private void BtnCtrlOptionMenu()
     {

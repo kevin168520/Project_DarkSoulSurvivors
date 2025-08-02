@@ -5,11 +5,13 @@ using UnityEngine;
 public class StartSceneManager : ManagerMonoBase
 {
     enum enUIPaneltate {
-        Start, Shop, Character, Stage, Option
+        Start, Shop, Character, Stage, Credit
     }
     public ShopItemManager _shopItemManager;
     public StartSceneUI _startSceneUI;
     public OptionMenuUI _optionMenuUI;
+
+    private enUIPaneltate enNowPanel;
     
     [Header("CharacterData")]
     public CharacterDatabaseScriptable _characterDatabase;
@@ -27,6 +29,14 @@ public class StartSceneManager : ManagerMonoBase
         BtnCtrlGameStartMenu();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && enNowPanel != enUIPaneltate.Start)
+        {
+            OnUIPanelRenew(enUIPaneltate.Start);
+        }
+    }
+
     private void initial()
     {
         // 更新初始畫面
@@ -42,6 +52,8 @@ public class StartSceneManager : ManagerMonoBase
         _startSceneUI.btnGameStartOnClick = () => OnUIPanelRenew(enUIPaneltate.Character);
         // Option 按鈕
         _startSceneUI.btnOptionOnClick = () => OnOptionSelect();
+        // Credit按鈕
+        _startSceneUI.btnCreditOnClick = () => OnCreditSelect();
         // Shop 按鈕
         _startSceneUI.btnShopOnClick = () => OnShopGame();
         // Exit 按鈕
@@ -79,7 +91,12 @@ public class StartSceneManager : ManagerMonoBase
     {
         //直接開啟 OptionMenu 其餘Option相關動作由OptionMenuManager控制
         _optionMenuUI.objOptionMenuShow = true;
-        //OnUIPanelRenew(enUIPaneltate.Option);
+    }
+
+    /// <summary> 選擇製作者名單 </summary>
+    void OnCreditSelect()
+    {
+        OnUIPanelRenew(enUIPaneltate.Credit);
     }
 
     /// <summary> 選擇角色 </summary>
@@ -115,8 +132,11 @@ public class StartSceneManager : ManagerMonoBase
 
     /// <summary> UI面板 顯示 </summary>
     void OnUIPanelRenew(enUIPaneltate state) {
+        // 紀錄當前頁面，Option頁面例外
+        enNowPanel = state;
         // 顯示對應的 UI 面板
         _startSceneUI.objLoginMenuShow = state == enUIPaneltate.Start;
+        _startSceneUI.objCreditMenuShow = state == enUIPaneltate.Credit;
         _shopItemManager.UIPanelShow(state == enUIPaneltate.Shop);
         _startSceneUI.objCharacterMenuShow = state == enUIPaneltate.Character;
         _startSceneUI.objGameStartMenuShow = state == enUIPaneltate.Stage;

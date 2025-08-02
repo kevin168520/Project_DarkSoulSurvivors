@@ -14,6 +14,10 @@ public class StartSceneUI : MonoBehaviour
     public UnityAction btnGameStartOnClick {set => btnGameStart.onClick.AddListener(value);}
     [SerializeField] Button btnOption;
     public UnityAction btnOptionOnClick {set => btnOption.onClick.AddListener(value);}
+    [SerializeField] GameObject objCreditMenu;
+    public bool objCreditMenuShow {set => objCreditMenu.SetActive(value);}
+    [SerializeField] Button btnCredit;
+    public UnityAction btnCreditOnClick {set => btnCredit.onClick.AddListener(value);}
     [SerializeField] Button btnShop;
     public UnityAction btnShopOnClick {set => btnShop.onClick.AddListener(value);}
     [SerializeField] Button btnExit;
