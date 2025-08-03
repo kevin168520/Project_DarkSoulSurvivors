@@ -5,8 +5,9 @@ public enum enAudioSfxData
     // 0 ~ 19：預設為其他音效，如：購買道具的音效
 
     // 20 ~ 39：預設為物理武器音效
-    PhysicalWeaponArrow = 20,
+    PhysicalWeaponArrow = 20,   //發射體
 
     // 40 ~ 59：預設為魔法武器音效
-    MagicWeaponFireball = 40,
+    MagicWeaponFireball = 40,   //火球
+    MagicWeaponHalo = 41,       //光環
 }

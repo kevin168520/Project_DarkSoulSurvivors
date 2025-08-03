@@ -3680,7 +3680,7 @@ MonoBehaviour:
       Max: 1
       Min: 1
     MixerGroup: {fileID: 24350938, guid: c3600fc3feaac3f458220849880b6289, type: 2}
-  - Name: SummaryScene_BGM
+  - Name: MainGameLevel3_BGM
     Clip:
     - {fileID: 8300000, guid: cae3ce5e4095af245bb2453f82d39590, type: 3}
     Loop: 1
@@ -3690,6 +3690,22 @@ MonoBehaviour:
       IsRandom: 1
       Max: 1
       Min: 0.3
+    Pitch:
+      Pitch: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    MixerGroup: {fileID: 24350938, guid: c3600fc3feaac3f458220849880b6289, type: 2}
+  - Name: SummaryScene_BGM
+    Clip:
+    - {fileID: 0}
+    Loop: 0
+    ResetTime: 1
+    Volume:
+      Volume: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
     Pitch:
       Pitch: 1
       IsRandom: 0

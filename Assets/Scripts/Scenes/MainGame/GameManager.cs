@@ -18,11 +18,14 @@ public class GameManager : ManagerMonoBase
         var level = (ScenesBuildData) UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
         switch(level) {
             case ScenesBuildData.MainGameLevel_1:
-            AudioGlobalManager.PlayBGM(enAudioBgmData.MainGameLevel1_BGM);
-            break;
+                AudioGlobalManager.PlayBGM(enAudioBgmData.MainGameLevel1_BGM);
+                break;
             case ScenesBuildData.MainGameLevel_2:
-            AudioGlobalManager.PlayBGM(enAudioBgmData.MainGameLevel2_BGM);
-            break;
+                AudioGlobalManager.PlayBGM(enAudioBgmData.MainGameLevel2_BGM);
+                break;
+            case ScenesBuildData.MainGameLevel_3:
+                AudioGlobalManager.PlayBGM(enAudioBgmData.MainGameLevel3_BGM);
+                break;
         }
     }
   
