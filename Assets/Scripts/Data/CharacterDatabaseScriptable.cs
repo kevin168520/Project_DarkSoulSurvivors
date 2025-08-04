@@ -9,22 +9,21 @@ public class CharacterDatabaseScriptable : ScriptableObject, IEnumerable<Charact
 
     // 搜尋武器 透過武器編號
     public CharacterScriptable Search(int characterNumber) {
-      foreach(CharacterScriptable c in table){
+        foreach(CharacterScriptable c in table){
         if(c.showNumber == characterNumber) return c;
-      }
+        }
 
-      Debug.LogWarning($"can't Search characterNumber {characterNumber}");
-      return null;
+        Debug.LogWarning($"can't Search characterNumber {characterNumber}");
+        return null;
     }
     
     // 隨機取得一件武器
     public CharacterScriptable Random() {
-      return table[UnityEngine.Random.Range(0, table.Count)];
+        return table[UnityEngine.Random.Range(0, table.Count)];
     }
 
     // 隨機排序 用於抽選升級武器
-    public void Shuffle()
-    {
+    public void Shuffle() {
         for (int i = table.Count - 1; i > 0; i--)
         {
             int randomIndex = UnityEngine.Random.Range(0, i + 1);

@@ -25,15 +25,15 @@ public abstract class WeaponHandlerBase : MonoBehaviour
 
     // 設置武器資料
     public void LoadWeaponData(WeaponScriptable weaponData) {
-      weaponIcon = weaponData.weaponIcon;
-      weaponName = weaponData.weaponName;
-      weaponNumber = weaponData.weaponNumber;
-      weaponLevel = weaponData.weaponLevel;
-      weaponLevelMax = weaponData.weaponDatas.Count;
-      attack = weaponData.attack;
-      attackInterval = weaponData.attackInterval;
-      activeInterval = weaponData.activeInterval;
-      flightSpeed = weaponData.flightSpeed;
+        weaponIcon = weaponData.weaponIcon;
+        weaponName = weaponData.weaponName;
+        weaponNumber = weaponData.weaponNumber;
+        weaponLevel = weaponData.weaponLevel;
+        weaponLevelMax = weaponData.weaponDatas.Count;
+        attack = weaponData.attack;
+        attackInterval = weaponData.attackInterval;
+        activeInterval = weaponData.activeInterval;
+        flightSpeed = weaponData.flightSpeed;
     }
     
     // 判定武器可升級
@@ -48,10 +48,10 @@ public abstract class WeaponHandlerBase : MonoBehaviour
     
     // 計時攻擊頻率
     void Update(){
-      if(attackCounter.UpdateDelta())
-      {
-        HandleAttack();
-      }
+        if(attackCounter.UpdateDelta())
+        {
+            HandleAttack();
+        }
     }
 
     // 子類實作攻擊

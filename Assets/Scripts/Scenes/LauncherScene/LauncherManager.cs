@@ -11,8 +11,31 @@ public class LauncherManager : ManagerMonoBase
 {
     public LoginPlatform loginPlatform;
 
+    private float fVolumeALL;
+    private float fVolumeBGM;
+    private float fVolumeSFX;
+    private int iWindowResolution;
+    private int iLanguage;
+    UserStoreData _userData
+    {
+        get => DataGlobalManager._userData;
+        set => DataGlobalManager._userData = value;
+    }
+
     private void Start()
     {
+        // UserData載入
+        UserStoreData data = new UserStoreData();
+        StoreDataRepository.UserDataLoading(ref data);
+        _userData = data;
+
+        // 載入使用者環境設定資訊
+        UserStoreData userStoreData = DataGlobalManager._userData;
+        fVolumeALL = userStoreData.fVolumeALL;
+        fVolumeBGM = userStoreData.fVolumeBGM;
+        fVolumeSFX = userStoreData.fVolumeSFX;
+        iWindowResolution = userStoreData.iWondowsResolution;
+        iLanguage = userStoreData.iLanguage;
         LauncherSelectAsync(loginPlatform).Forget();
     }
 
@@ -30,7 +53,7 @@ public class LauncherManager : ManagerMonoBase
                     {
                         Debug.Log("Steam 登入成功");
                         AchievementGlobalManager.StartAchevement(); // 成就初始化
-                        SceneGlobalManager.LauncherLoadStartScene(); // 進入主場景
+                        UserEnvironmentLoad(fVolumeALL, fVolumeBGM, fVolumeSFX, iWindowResolution, iLanguage);
                     }
                     else
                     {
@@ -62,5 +85,24 @@ public class LauncherManager : ManagerMonoBase
         Debug.Log("Steam ID: " + steamID);
 
         return true;
+    }
+
+    /// <summary> 使用者環境設定帶入後進入主場景 </summary>
+    private void UserEnvironmentLoad(float VolumeALL, float VolumeBGM, float VolumeSFX,int WindowResolution, int Language)
+    {
+        switch (WindowResolution)
+        {
+            case 0:
+                Screen.SetResolution(1024, 768, FullScreenMode.Windowed);
+                break;
+            case 1:
+                Screen.SetResolution(1920, 1080, FullScreenMode.Windowed);
+                break;
+            default: //預設值
+                Screen.SetResolution(1920, 1080, FullScreenMode.Windowed);
+                break;
+        }
+
+        SceneGlobalManager.LauncherLoadStartScene(); // 進入主場景
     }
 }

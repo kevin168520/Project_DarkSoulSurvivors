@@ -545,9 +545,69 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1190874522}
     m_Modifications:
+    - target: {fileID: 2187711791780556676, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187711791780556676, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187711791780556676, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187711791780556676, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2187711791780556676, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2233364924987665230, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3609742313850291277, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5052352365315982845, guid: 699be1339d4706b42877195146cb0b83, type: 3}
       propertyPath: m_Name
       value: objOptionMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 5295886411123864131, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5295886411123864131, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554151721731060979, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554151721731060979, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554151721731060979, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554151721731060979, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554151721731060979, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6048731324728662050, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6147314157295289933, guid: 699be1339d4706b42877195146cb0b83, type: 3}
       propertyPath: m_Pivot.x
@@ -627,6 +687,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6147314157295289933, guid: 699be1339d4706b42877195146cb0b83, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6831282120692013483, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7611601408776557304, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7781350109960916085, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7781350109960916085, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7781350109960916085, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7781350109960916085, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7781350109960916085, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8091216901074804729, guid: 699be1339d4706b42877195146cb0b83, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -3647,7 +3739,7 @@ MonoBehaviour:
       IsRandom: 0
       Max: 1
       Min: 1
-    MixerGroup: {fileID: 24350938, guid: c3600fc3feaac3f458220849880b6289, type: 2}
+    MixerGroup: {fileID: 24310216, guid: c3600fc3feaac3f458220849880b6289, type: 2}
   - Name: MainGameLevel1_BGM
     Clip:
     - {fileID: 8300000, guid: 67b51997e389c6f4e94ebcfb2279b7b0, type: 3}
@@ -3679,10 +3771,10 @@ MonoBehaviour:
       IsRandom: 0
       Max: 1
       Min: 1
-    MixerGroup: {fileID: 24350938, guid: c3600fc3feaac3f458220849880b6289, type: 2}
+    MixerGroup: {fileID: 24310216, guid: c3600fc3feaac3f458220849880b6289, type: 2}
   - Name: MainGameLevel3_BGM
     Clip:
-    - {fileID: 8300000, guid: cae3ce5e4095af245bb2453f82d39590, type: 3}
+    - {fileID: 8300000, guid: 2d6feacb2c9b5b54ebe53d53c5b14060, type: 3}
     Loop: 1
     ResetTime: 0
     Volume:
@@ -3695,10 +3787,10 @@ MonoBehaviour:
       IsRandom: 0
       Max: 1
       Min: 1
-    MixerGroup: {fileID: 24350938, guid: c3600fc3feaac3f458220849880b6289, type: 2}
-  - Name: SummaryScene_BGM
+    MixerGroup: {fileID: 24310216, guid: c3600fc3feaac3f458220849880b6289, type: 2}
+  - Name: SummarySceneWin_BGM
     Clip:
-    - {fileID: 0}
+    - {fileID: 8300000, guid: a35d6f7ceeeb5344982190ac2a342f40, type: 3}
     Loop: 0
     ResetTime: 1
     Volume:
@@ -3711,8 +3803,40 @@ MonoBehaviour:
       IsRandom: 0
       Max: 1
       Min: 1
-    MixerGroup: {fileID: 24350938, guid: c3600fc3feaac3f458220849880b6289, type: 2}
+    MixerGroup: {fileID: 24310216, guid: c3600fc3feaac3f458220849880b6289, type: 2}
+  - Name: SummarySceneLose_BGM
+    Clip:
+    - {fileID: 8300000, guid: bdf763f325d2781498fd6bb314746adb, type: 3}
+    Loop: 0
+    ResetTime: 1
+    Volume:
+      Volume: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    Pitch:
+      Pitch: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    MixerGroup: {fileID: 24310216, guid: c3600fc3feaac3f458220849880b6289, type: 2}
   SFXSetting:
+  - Name: ButtonSFX
+    Clip:
+    - {fileID: 8300000, guid: 1a553a65807867941a5072c82651c7bb, type: 3}
+    Loop: 0
+    ResetTime: 1
+    Volume:
+      Volume: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    Pitch:
+      Pitch: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    MixerGroup: {fileID: 24306790, guid: 1e7de879870601a4eb74ee858a6feccd, type: 2}
   - Name: PhysicalWeaponArrow
     Clip:
     - {fileID: 8300000, guid: 7947e24229c8a33419e1bd3fddb1aed2, type: 3}
@@ -3727,6 +3851,22 @@ MonoBehaviour:
       Pitch: 1
       IsRandom: 0
       Max: 0
+      Min: 1
+    MixerGroup: {fileID: 24306790, guid: 1e7de879870601a4eb74ee858a6feccd, type: 2}
+  - Name: PhysicalWeaponWhip
+    Clip:
+    - {fileID: 8300000, guid: 71c19831e203ce74eb5e1ceb1df76a15, type: 3}
+    Loop: 0
+    ResetTime: 1
+    Volume:
+      Volume: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    Pitch:
+      Pitch: 1
+      IsRandom: 0
+      Max: 1
       Min: 1
     MixerGroup: {fileID: 24306790, guid: 1e7de879870601a4eb74ee858a6feccd, type: 2}
   - Name: MagicWeaponFireball

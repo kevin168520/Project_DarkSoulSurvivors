@@ -6,5 +6,6 @@ public enum enAudioBgmData
     MainGameLevel1_BGM = 1,
     MainGameLevel2_BGM = 2,
     MainGameLevel3_BGM = 3,
-    SummaryScene_BGM = 4,
+    SummarySceneWin_BGM = 4,
+    SummarySceneLose_BGM = 5,
 }

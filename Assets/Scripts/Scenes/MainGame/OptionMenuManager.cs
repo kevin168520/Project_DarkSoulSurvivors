@@ -3,8 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class OptionMenuManager : ManagerMonoBase
-{
+{    enum enSettingPanelState
+    {
+        Volume, WindowResolution, Language
+    }
+
     public OptionMenuUI _optionMenuUI;
+
+
+    private void OnEnable()
+    {
+        OnUIPanelRenew(enSettingPanelState.Volume);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -33,18 +43,21 @@ public class OptionMenuManager : ManagerMonoBase
     void OnValumeSetting()
     {
         Debug.Log("OnValumeSetting");
+        OnUIPanelRenew(enSettingPanelState.Volume);
     }
 
     /// <summary> 解析度設定 </summary>
     void OnWindowResolutionSetting()
     {
         Debug.Log("OnWindowResolutionSetting");
+        OnUIPanelRenew(enSettingPanelState.WindowResolution);
     }
 
     /// <summary> 語言設定 </summary>
     void OnLanguageSetting()
     {
         Debug.Log("OnLanguageSetting");
+        OnUIPanelRenew(enSettingPanelState.Language);
     }
 
     /// <summary> UI面板 顯示 </summary>
@@ -53,4 +66,14 @@ public class OptionMenuManager : ManagerMonoBase
         // 顯示對應的 UI 面板
         _optionMenuUI.objOptionMenuShow = false;
     }
+
+    /// <summary> UI面板 顯示 </summary>
+    void OnUIPanelRenew(enSettingPanelState state)
+    {
+        // 顯示對應的 UI 面板
+        _optionMenuUI.objVolumeSettingShow = state == enSettingPanelState.Volume;
+        _optionMenuUI.objWindowResolutionSettingShow = state == enSettingPanelState.WindowResolution;
+        _optionMenuUI.objLanguageSettingShow = state == enSettingPanelState.Language;
+    }
+
 }

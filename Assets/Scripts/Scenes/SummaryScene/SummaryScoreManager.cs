@@ -11,7 +11,7 @@ public class SummaryScoreManager : ManagerMonoBase
 
     void Start() {
 
-        AudioGlobalManager.PlayBGM(enAudioBgmData.SummaryScene_BGM);
+        AudioGlobalManager.PlayBGM(enAudioBgmData.SummarySceneWin_BGM);
 
         // InitSummaryScoreUI()
         if(characterImage != null){
@@ -20,13 +20,13 @@ public class SummaryScoreManager : ManagerMonoBase
         }
         // InitWeaponSummary()
         if(weaponSummary != null){
-          foreach(var item in weaponSummary) {
-              summaryScoreUI.AddDetailScrollItem(
-                  item.weaponIcon,
-                  item.weaponName,
-                  item.weaponScore
-            );
-          }
+            foreach(var item in weaponSummary) {
+                summaryScoreUI.AddDetailScrollItem(
+                    item.weaponIcon,
+                    item.weaponName,
+                    item.weaponScore
+                    );
+            }
         }
     }
     

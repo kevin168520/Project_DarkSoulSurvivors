@@ -69,30 +69,30 @@ public class StoreDataRepository : MonoBehaviour
     }
 
     /// <summary> 使用者設定儲存的方法 </summary>
-    static public void UserDataSaving(ref UserStoreSetting _userSetting)
+    static public void UserDataSaving(ref UserStoreData _userData)
     {
         //寫入Json Data
-        string json = JsonUtility.ToJson(_userSetting);
+        string json = JsonUtility.ToJson(_userData);
         File.WriteAllText(UserSettingPath, json);
         Debug.Log("Serialized JSON : " + json);
     }
 
     /// <summary> 使用者設定載入的方法 </summary>
-    static public void UserDataLoading(ref UserStoreSetting _userSetting)
+    static public void UserDataLoading(ref UserStoreData _userData)
     {
         //判別是否有存檔資料sPlayerDataSavingPath
         if (File.Exists(UserSettingPath))
         {
             //帶入路徑資料
             string json = File.ReadAllText(UserSettingPath);
-            _userSetting = JsonUtility.FromJson<UserStoreSetting>(json);
+            _userData = JsonUtility.FromJson<UserStoreData>(json);
             Debug.Log("Player data loaded: " + json);
         }
         else
         {
             //因為路徑下沒有對應資料，因此產生一個新的並自動存檔
             Debug.Log("Player data not found");
-            StoreDataRepository.UserDataSaving(ref _userSetting);
+            StoreDataRepository.UserDataSaving(ref _userData);
         }
     }
 

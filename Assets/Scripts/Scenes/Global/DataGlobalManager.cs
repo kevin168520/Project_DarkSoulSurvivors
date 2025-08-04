@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class DataGlobalManager : GlobalMonoBase<DataGlobalManager>
 {
+    [Header("使用者資料")]
+    public UserStoreData _userData; // 使用者資料
+
     [Header("玩家商店資料")]
     public PlayerStoreData _playerData; // 商店資料
     
