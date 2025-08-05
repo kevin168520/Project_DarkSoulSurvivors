@@ -1,51 +1,43 @@
 using UnityEngine;
 
-public class ItemManager : MonoBehaviour
+/// <summary>
+/// 道具管理器：負責按照統一的機率，在指定地塊隨機生成所有道具（包含回血寶箱）
+/// </summary>
+public class ItemManager : ManagerMonoBase
 {
-    [Header("物品 Prefabs")]
-    public GameObject[] itemPrefabs; // 可生成的物品 Prefab 陣列
+    [Header("所有道具 Prefabs (含回血寶箱)")]
+    public GameObject[] itemPrefabs;         // 把一般道具＋回血寶箱 Prefab 全部放在這裡
 
-    [Header("生成機率設定")]
+    [Header("道具生成機率")]
     [Range(0f, 1f)]
-    public float spawnProbability = 0.5f; // 生成機率 (0.0 ~ 1.0，預設 50%)
+    public float spawnProbability = 0.5f;    // 總生成機率
 
     [Header("物品生成範圍")]
-    public Vector2 spawnAreaSize = new Vector2(5f, 5f); // 物品生成範圍大小
+    public Vector2 spawnAreaSize = new Vector2(5f, 5f);
 
     /// <summary>
-    /// 嘗試在指定地塊中心位置生成物品
+    /// 嘗試生成道具 (若隨機機率未通過則回傳 null)
     /// </summary>
-    /// <param name="tileCenterPosition">地塊的中心位置</param>
-    /// <returns>生成的物品物件，若未生成則返回 null</returns>
+    /// <param name="tileCenterPosition">地塊中心點世界座標</param>
+    /// <returns>生成的物件或 null</returns>
     public GameObject CreateItem(Vector3 tileCenterPosition)
     {
-        // 根據機率判斷是否生成物品
-        if (Random.value > spawnProbability)
-        {
-            return null; // 不生成物品
-        }
+        // 1. 機率檢查
+        if (itemPrefabs == null || itemPrefabs.Length == 0) return null;
+        if (Random.value > spawnProbability) return null;
 
-        // 確保物品 Prefabs 有設定
-        if (itemPrefabs == null || itemPrefabs.Length == 0)
-        {
-            Debug.LogWarning("ItemManager: 沒有設定物品 Prefabs！");
-            return null;
-        }
-
-        // 計算隨機生成位置（在地塊範圍內）
-        Vector3 randomOffset = new Vector3(
-            Random.Range(-spawnAreaSize.x / 2f, spawnAreaSize.x / 2f),
-            Random.Range(-spawnAreaSize.y / 2f, spawnAreaSize.y / 2f),
-            0
+        // 2. 隨機偏移
+        Vector3 offset = new Vector3(
+            Random.Range(-spawnAreaSize.x * 0.5f, spawnAreaSize.x * 0.5f),
+            Random.Range(-spawnAreaSize.y * 0.5f, spawnAreaSize.y * 0.5f),
+            0f
         );
 
-        Vector3 spawnPosition = tileCenterPosition + randomOffset;
+        // 3. 隨機選一個 Prefab 實例化
+        GameObject prefab = itemPrefabs[Random.Range(0, itemPrefabs.Length)];
+        GameObject spawned = Instantiate(prefab, tileCenterPosition + offset, Quaternion.identity);
 
-        // 隨機選擇一個物品 Prefab
-        GameObject itemPrefab = itemPrefabs[Random.Range(0, itemPrefabs.Length)];
-
-        // 實例化物品
-        GameObject spawnedItem = Instantiate(itemPrefab, spawnPosition, Quaternion.identity);
-        return spawnedItem;
+       
+        return spawned;
     }
 }

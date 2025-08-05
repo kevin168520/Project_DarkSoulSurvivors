@@ -174,7 +174,7 @@ public class MapManager : ManagerMonoBase
 
     private void Update()
     {
-        // 如果沒有啟用無限地圖，使用傳統更新方式
+        
         if (!enableInfiniteMap && isInitialized && player != null)
         {
             Vector2Int newGrid = GetPlayerGrid();
@@ -215,7 +215,7 @@ public class MapManager : ManagerMonoBase
             }
         }
 
-        // 回收超出範圍的地塊與物品
+        
         if (enableInfiniteMap)
         {
             CleanupDistantTiles(centerGrid);
@@ -310,25 +310,23 @@ public class MapManager : ManagerMonoBase
 
     // 生成地塊上的物品
     private void SpawnItems(Vector2Int gridPos)
+{
+    if (itemManager == null) return;
+
+    Vector3 centerPos = new Vector3(
+        gridPos.x * tileWidth,
+        gridPos.y * tileHeight,
+        0f
+    );
+
+    GameObject obj = itemManager.CreateItem(centerPos);
+    if (obj != null)
     {
-        if (itemManager == null) return;
-        
-        try
-        {
-            Vector3 centerPos = new Vector3(gridPos.x * tileWidth, gridPos.y * tileHeight, 0);
-            GameObject item = itemManager.CreateItem(centerPos);
-            if (item != null)
-            {
-                if (!tileItems.ContainsKey(gridPos))
-                    tileItems[gridPos] = new List<GameObject>();
-                tileItems[gridPos].Add(item);
-            }
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogWarning($"MapManager: 生成物品時發生錯誤: {e.Message}");
-        }
+        if (!tileItems.ContainsKey(gridPos))
+            tileItems[gridPos] = new List<GameObject>();
+        tileItems[gridPos].Add(obj);
     }
+}
 
     // 移除地塊上的物品
     private void RemoveItems(Vector2Int gridPos)

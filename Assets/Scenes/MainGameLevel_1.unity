@@ -377,7 +377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPrefabs:
   - {fileID: 3830086398344983685, guid: 0ac8fa34c2097374bbd61bd7f460a72f, type: 3}
-  spawnProbability: 0.225
+  spawnProbability: 0.5
   spawnAreaSize: {x: 10, y: 10}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
