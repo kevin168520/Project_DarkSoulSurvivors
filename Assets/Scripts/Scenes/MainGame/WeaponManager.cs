@@ -75,13 +75,13 @@ public class WeaponManager : ManagerMonoBase
         for(int i = 0; i < weaponUpgradeUI.options.Count; i++){
             UpgradeOptions op = weaponUpgradeUI.options[i];
             if(i < upgradeWeapon.Count) {
-            WeaponScriptable weaponData = upgradeWeapon[i];
-            op.IconImage = weaponData.weaponIcon;
-            op.TitleText = weaponData.weaponName;
-            op.DescriptionText = weaponData.description;
-            op.Active = true;
-            op.Listener = OnUpgradeWeapons;
-            op.ReturnValue = weaponData;
+                WeaponScriptable weaponData = upgradeWeapon[i];
+                op.IconImage = weaponData.weaponIcon;
+                op.TitleText = weaponData.weaponName;
+                op.DescriptionText = weaponData.description;
+                op.Active = true;
+                op.Listener = OnUpgradeWeapons;
+                op.ReturnValue = weaponData;
             } else {
                 op.Active = false;
             }
