@@ -12,27 +12,27 @@ public class OptionMenuUI : MonoBehaviour
     [SerializeField] GameObject objWindowResolutionSetting;
     [SerializeField] GameObject objLanguageSetting;
 
-    [SerializeField] Slider sliVolumeALL;
-    [SerializeField] Slider sliVolumeBGM;
-    [SerializeField] Slider sliVolumeSFX;
+    public Slider sliVolumeALL;
+    public Slider sliVolumeBGM;
+    public Slider sliVolumeSFX;
 
     public bool objOptionMenuShow {set => objOptionMenu.SetActive(value);}
     public bool objVolumeSettingShow {set => objVolumeSetting.SetActive(value);}
     public bool objWindowResolutionSettingShow {set => objWindowResolutionSetting.SetActive(value);}
     public bool objLanguageSettingShow {set => objLanguageSetting.SetActive(value);}
 
-    public float fVolumeALL {
-        get => sliVolumeALL.value;
-        set => sliVolumeALL.value = value;
-    }
-    public float fVolumeBGM {
-        get => sliVolumeBGM.value;
-        set => sliVolumeBGM.value = value;
-    }
-    public float fVolumeSFX {
-        get => sliVolumeSFX.value;
-        set => sliVolumeSFX.value = value;
-    }
+    //public float fVolumeALL {
+    //    get => sliVolumeALL.value;
+    //    set => sliVolumeALL.value = value;
+    //}
+    //public float fVolumeBGM {
+    //    get => sliVolumeBGM.value;
+    //    set => sliVolumeBGM.value = value;
+    //}
+    //public float fVolumeSFX {
+    //    get => sliVolumeSFX.value;
+    //    set => sliVolumeSFX.value = value;
+    //}
 
     [SerializeField] Button btnVolumeSetting;
     public UnityAction btnVolumeSettingOnclick {set => btnVolumeSetting.onClick.AddListener(value);}

@@ -51,10 +51,13 @@ namespace baseSys.Audio.Method
         /// <summary> 設置音量較正值 </summary>
         public void ResetValue(float volume)
         {
-            foreach(var (_, audio) in _pool.GetNowAudio())
-                audio.volume = (audio.volume / _volume) * volume;
-
             _volume = volume;
+            foreach (var (_, audio) in _pool.GetNowAudio()) {
+                string name = audio.gameObject.name; // 或 clip.name
+
+                if (_sourceDict.TryGetValue(name, out var source))
+                    audio.volume = source.GetVolume(_volume); // 原始音量乘上新的 _volume
+            }
         }
 
         /// <summary> 靜音 </summary>
