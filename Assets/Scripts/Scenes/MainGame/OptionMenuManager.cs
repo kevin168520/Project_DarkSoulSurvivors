@@ -10,29 +10,30 @@ public class OptionMenuManager : ManagerMonoBase
     public OptionMenuUI _optionMenuUI;
     private UserStoreData data;
 
-    private float _volumeALL;
-    private float _volumeBGM;
-    private float _volumeSFX;
+    // UserStoreData用餐數
+    private int _volumeALL;
+    private int _volumeBGM;
+    private int _volumeSFX;
+    private bool _isFullScreen;
+    private int _iWindowResolution;
+    private int _iLanguage;
+
+    private FullScreenMode mode;
+    private int iResolutionDropdownValue;
+    private int iLanguageDropdownValue;
 
     private void OnEnable()
     {
-        _volumeBGM = DataGlobalManager._userData.fVolumeBGM;
-        _volumeSFX = DataGlobalManager._userData.fVolumeSFX;
-
+        Debug.Log("Enable");
+        OptionMenuInformationRenew();
         OnUIPanelRenew(enSettingPanelState.Volume); // 設定預設畫面在Volume
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        data = DataGlobalManager._userData;
-
-        _volumeALL = data.fVolumeALL;
-        _volumeBGM = data.fVolumeBGM;
-        _volumeSFX = data.fVolumeSFX;
-
-        BtnCtrlOptionMenu();
-        SliderValueChange();
+        CtrlOptionMenu();
+        OnSetupSlider();
     }
 
     private void Update()
@@ -43,41 +44,69 @@ public class OptionMenuManager : ManagerMonoBase
         }
     }
 
-    /// <summary> 控制選單 </summary>
-    private void BtnCtrlOptionMenu()
+    /// <summary> UI控制選單 </summary>
+    private void CtrlOptionMenu()
     {
         _optionMenuUI.btnVolumeSettingOnclick = () => OnUIPanelRenew(enSettingPanelState.Volume);
         _optionMenuUI.btnWindowResolutionSettingOnclick = () => OnUIPanelRenew(enSettingPanelState.WindowResolution);
         _optionMenuUI.btnLanguageSettingOnclick = () => OnUIPanelRenew(enSettingPanelState.Language);
         _optionMenuUI.btnOptionCloseOnclick = () => OptionMenuSetClose();
+
+        _optionMenuUI.btnFullSreenOnclick = () => OnWindowFullScreenSetting(_isFullScreen, true);
+        _optionMenuUI.iDropdownValueChange = (int index) => OnResolutionSetting(_isFullScreen, index);
+        _optionMenuUI.iLanguageChange = (int index) => OnLanguageSetting(index);
     }
 
-    /// <summary> 將VolumeMenu中各個Slider的變化值套入對應的參數 </summary>
-    private void SliderValueChange()
+    /// <summary> Option介面資訊更新 - 載入UserStoreData 與 起始畫面初始化 </summary>
+    private void OptionMenuInformationRenew()
     {
-        AddReleaseListener(_optionMenuUI.sliVolumeALL, "ALL");
-        AddReleaseListener(_optionMenuUI.sliVolumeBGM, "BGM");
-        AddReleaseListener(_optionMenuUI.sliVolumeSFX, "SFX");
+        // 將數值從UserStoreData讀出
+        data = DataGlobalManager._userData;
+
+        _volumeALL = data.iVolumeALL;
+        _volumeBGM = data.iVolumeBGM;
+        _volumeSFX = data.iVolumeSFX;
+        _isFullScreen = data.bFullScreen;
+        _iWindowResolution = data.iWondowsResolution;
+        _iLanguage = data.iLanguage;
+
+        // 畫面參數套值
+        iResolutionDropdownValue = _iWindowResolution;
+        iLanguageDropdownValue = _iLanguage;
+
+        _optionMenuUI.sliVolumeALL.value = _volumeALL;
+        _optionMenuUI.sliVolumeBGM.value = _volumeBGM;
+        _optionMenuUI.sliVolumeSFX.value = _volumeSFX;
+
+        OnWindowFullScreenSetting(_isFullScreen, false); // FullScreeng按鈕初始化
+        _optionMenuUI.iWindowResolutionRenew = iResolutionDropdownValue;
+        _optionMenuUI.iLanguageRenew = iLanguageDropdownValue;
     }
 
     /// <summary> 建立Slider的監聽事件 </summary>
-    private void AddReleaseListener(Slider slider, string key)
+    private void OnSetupSlider()
+    {
+        AddValumeSliderListener(_optionMenuUI.sliVolumeALL, "ALL");
+        AddValumeSliderListener(_optionMenuUI.sliVolumeBGM, "BGM");
+        AddValumeSliderListener(_optionMenuUI.sliVolumeSFX, "SFX");
+    }
+
+    #region AudioVloume設定
+    private void AddValumeSliderListener(Slider slider, string key)
     {
         // 取得或添加 EventTrigger 元件
         EventTrigger trigger = slider.GetComponent<EventTrigger>();
         if (trigger == null)
             trigger = slider.gameObject.AddComponent<EventTrigger>();        
 
-        // 建立 PointerUp 事件
-        EventTrigger.Entry entry = new EventTrigger.Entry
-        {
+        // 建立滑竿放開事件
+        EventTrigger.Entry entry = new EventTrigger.Entry {
             eventID = EventTriggerType.PointerUp
         };
 
         // 當放開滑桿時觸發
-        entry.callback.AddListener((eventData) =>
-        {
-            float value = slider.value;
+        entry.callback.AddListener((eventData) => {
+            int value = Mathf.RoundToInt(slider.value);
             Debug.Log(key + " : " + value);
             VolumeSetting(key, value);
         });
@@ -85,34 +114,89 @@ public class OptionMenuManager : ManagerMonoBase
         trigger.triggers.Add(entry);    // 加入事件到 EventTrigger
     }
 
-    private void VolumeSetting(string key, float value)
+    private void VolumeSetting(string key, int value)
     {
         switch (key) {
             case "ALL":
-                _volumeALL = value / 100;
+                _volumeALL = value;
                 break;
             case "BGM":
-                _volumeBGM = value / 100;
+                _volumeBGM = value;
                 break;
             case "SFX":
-                _volumeSFX = value / 100;
+                _volumeSFX = value;
                 break;
         }
 
-        float fBGM = _volumeALL * _volumeBGM;
-        float fSFX = _volumeALL * _volumeSFX;
+        float fBGM = (_volumeALL * _volumeBGM) / 10000f;
+        float fSFX = (_volumeALL * _volumeSFX) / 10000f;
 
+        Debug.Log(fBGM);
         AudioGlobalManager.BGMReset(fBGM);
         AudioGlobalManager.SFXReset(fSFX);
     }
+    #endregion
 
+    #region WindowResolution設定
+    /// <summary> FullScreen是否被開啟 </summary>
+    private void OnWindowFullScreenSetting(bool FullScreen, bool Onclick)
+    {
+        if (Onclick)
+            _isFullScreen = !FullScreen; // 有被點擊才改變狀態
 
-    /// <summary> UI面板 顯示 </summary>
+        _optionMenuUI.objFullScreen = _isFullScreen; // 開啟/關閉勾選
+        OnResolutionSetting(_isFullScreen, _iWindowResolution); // 觸發解析度調整以便確認解析度是否合適
+    }
+
+    /// <summary> 解析度調整 </summary>
+    private void OnResolutionSetting(bool FullScreen, int IndexWindowResolution)
+    {
+        mode = (FullScreen) ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.MaximizedWindow;
+        switch (IndexWindowResolution) {
+            case 0:
+                Screen.SetResolution(1920, 1080, mode);                
+                break;
+            case 1:
+                Screen.SetResolution(2560, 1440, mode);
+                break;
+            default:
+                Screen.SetResolution(1920, 1080, mode);
+                IndexWindowResolution = 0;
+                break;
+        }
+        iResolutionDropdownValue = IndexWindowResolution;
+    }
+    #endregion
+
+    #region Language設定
+    private void OnLanguageSetting(int IndexLanguage)
+    {
+        switch (IndexLanguage)
+        {
+            case 0:
+                //Language English
+                break;
+            default:
+                //Language English
+                break;
+        }
+        iLanguageDropdownValue = IndexLanguage;
+    }
+    #endregion
+
+    /// <summary> Option關閉 </summary>
     private void OptionMenuSetClose()
     {
-        data.fVolumeALL = _volumeALL;
-        data.fVolumeBGM = _volumeBGM;
-        data.fVolumeSFX = _volumeSFX;
+        Debug.Log(iResolutionDropdownValue + " / " + iLanguageDropdownValue);
+        _iWindowResolution = iResolutionDropdownValue;
+        _iLanguage = iLanguageDropdownValue;
+
+        data.iVolumeALL = _volumeALL;
+        data.iVolumeBGM = _volumeBGM;
+        data.iVolumeSFX = _volumeSFX;
+        data.bFullScreen = _isFullScreen;
+        data.iWondowsResolution = _iWindowResolution;
+        data.iLanguage = _iLanguage;
 
         StoreDataRepository.UserDataSaving(ref data);
 
@@ -120,7 +204,7 @@ public class OptionMenuManager : ManagerMonoBase
         _optionMenuUI.objOptionMenuShow = false;
     }
 
-    /// <summary> UI面板 顯示 </summary>
+    /// <summary> Option面板 顯示 </summary>
     void OnUIPanelRenew(enSettingPanelState state)
     {
         // 顯示對應的 UI 面板
