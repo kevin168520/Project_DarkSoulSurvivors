@@ -1,0 +1,217 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1676545989630528499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7090580737658615787}
+  - component: {fileID: 3666703534785588684}
+  - component: {fileID: 4849884793923147307}
+  m_Layer: 0
+  m_Name: AudioGlobolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7090580737658615787
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676545989630528499}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -716.4629, y: -563.41583, z: 5.9274144}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3666703534785588684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676545989630528499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a398ad67e62f3c44ac5cc2f373f2459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BGMSetting:
+  - Name: StartScene_BGM
+    Clip:
+    - {fileID: 8300000, guid: cae3ce5e4095af245bb2453f82d39590, type: 3}
+    Loop: 1
+    ResetTime: 0
+    Volume:
+      Volume: 1
+      IsRandom: 1
+      Max: 1
+      Min: 0.3
+    Pitch:
+      Pitch: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    MixerGroup: {fileID: 24310216, guid: c3600fc3feaac3f458220849880b6289, type: 2}
+  - Name: MainGameLevel1_BGM
+    Clip:
+    - {fileID: 8300000, guid: 67b51997e389c6f4e94ebcfb2279b7b0, type: 3}
+    Loop: 1
+    ResetTime: 0
+    Volume:
+      Volume: 1
+      IsRandom: 1
+      Max: 1
+      Min: 0.3
+    Pitch:
+      Pitch: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    MixerGroup: {fileID: 24310216, guid: c3600fc3feaac3f458220849880b6289, type: 2}
+  - Name: MainGameLevel2_BGM
+    Clip:
+    - {fileID: 8300000, guid: a282ee4ff5e12be4592f740e5d45fef9, type: 3}
+    Loop: 1
+    ResetTime: 0
+    Volume:
+      Volume: 1
+      IsRandom: 1
+      Max: 1
+      Min: 0.3
+    Pitch:
+      Pitch: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    MixerGroup: {fileID: 24310216, guid: c3600fc3feaac3f458220849880b6289, type: 2}
+  - Name: MainGameLevel3_BGM
+    Clip:
+    - {fileID: 8300000, guid: 2d6feacb2c9b5b54ebe53d53c5b14060, type: 3}
+    Loop: 1
+    ResetTime: 0
+    Volume:
+      Volume: 1
+      IsRandom: 1
+      Max: 1
+      Min: 0.3
+    Pitch:
+      Pitch: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    MixerGroup: {fileID: 24310216, guid: c3600fc3feaac3f458220849880b6289, type: 2}
+  - Name: SummarySceneWin_BGM
+    Clip:
+    - {fileID: 8300000, guid: a35d6f7ceeeb5344982190ac2a342f40, type: 3}
+    Loop: 0
+    ResetTime: 1
+    Volume:
+      Volume: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    Pitch:
+      Pitch: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    MixerGroup: {fileID: 24310216, guid: c3600fc3feaac3f458220849880b6289, type: 2}
+  - Name: SummarySceneLose_BGM
+    Clip:
+    - {fileID: 8300000, guid: bdf763f325d2781498fd6bb314746adb, type: 3}
+    Loop: 0
+    ResetTime: 1
+    Volume:
+      Volume: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    Pitch:
+      Pitch: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    MixerGroup: {fileID: 24310216, guid: c3600fc3feaac3f458220849880b6289, type: 2}
+  SFXSetting:
+  - Name: ButtonSFX
+    Clip:
+    - {fileID: 8300000, guid: 1a553a65807867941a5072c82651c7bb, type: 3}
+    Loop: 0
+    ResetTime: 1
+    Volume:
+      Volume: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    Pitch:
+      Pitch: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    MixerGroup: {fileID: 24306790, guid: 1e7de879870601a4eb74ee858a6feccd, type: 2}
+  - Name: PhysicalWeaponArrow
+    Clip:
+    - {fileID: 8300000, guid: 7947e24229c8a33419e1bd3fddb1aed2, type: 3}
+    Loop: 0
+    ResetTime: 1
+    Volume:
+      Volume: 1
+      IsRandom: 0
+      Max: 1
+      Min: 0.3
+    Pitch:
+      Pitch: 1
+      IsRandom: 0
+      Max: 0
+      Min: 1
+    MixerGroup: {fileID: 24306790, guid: 1e7de879870601a4eb74ee858a6feccd, type: 2}
+  - Name: PhysicalWeaponWhip
+    Clip:
+    - {fileID: 8300000, guid: 71c19831e203ce74eb5e1ceb1df76a15, type: 3}
+    Loop: 0
+    ResetTime: 1
+    Volume:
+      Volume: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    Pitch:
+      Pitch: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    MixerGroup: {fileID: 24306790, guid: 1e7de879870601a4eb74ee858a6feccd, type: 2}
+  - Name: MagicWeaponFireball
+    Clip:
+    - {fileID: 8300000, guid: d2b4f69fe15f4f946a487d3ae5ef3f95, type: 3}
+    Loop: 0
+    ResetTime: 1
+    Volume:
+      Volume: 1
+      IsRandom: 0
+      Max: 1
+      Min: 0.3
+    Pitch:
+      Pitch: 1
+      IsRandom: 0
+      Max: 0
+      Min: 1
+    MixerGroup: {fileID: 24306790, guid: 1e7de879870601a4eb74ee858a6feccd, type: 2}
+--- !u!81 &4849884793923147307
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676545989630528499}
+  m_Enabled: 1

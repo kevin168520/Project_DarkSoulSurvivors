@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System;
 using baseSys.Audio.Sources;
 using baseSys.Audio.Method;
@@ -39,10 +39,10 @@ public class AudioGlobalManager : GlobalMonoBase<AudioGlobalManager>
     void Start () {
         //清空省記憶體
         BGMSetting = null;
-        SFXSetting = null;    
+        SFXSetting = null;
     }
 
-#region [BGM播放]
+    #region [BGM播放]
     /// <summary> 播放指定 BGM </summary>
     public void PlayBGM(enAudioBgmData enAudioDataBGM) => BGM.Play(enAudioDataBGM.ToString());
 
@@ -57,9 +57,9 @@ public class AudioGlobalManager : GlobalMonoBase<AudioGlobalManager>
 
     /// <summary> 設置靜音 BGM </summary>
     public void BGMMute(bool mute) => BGM.Mute(mute);
-#endregion
+    #endregion
 
-#region [SFX播放]
+    #region [SFX播放]
     /// <summary> 播放指定 SFX </summary>
     public void PlaySFX(enAudioSfxData enAudioSfxData) => SFX.Play(enAudioSfxData.ToString());
 
@@ -74,9 +74,9 @@ public class AudioGlobalManager : GlobalMonoBase<AudioGlobalManager>
 
     /// <summary> 設置靜音 SFX </summary>
     public void SFXMute(bool mute) => SFX.Mute(mute);
-#endregion
+    #endregion
 
-#region [ALL播放]
+    #region [ALL播放]
     /// <summary> 停止所有</summary>
     public void Stop() {
         SFX.StopAll();
@@ -100,5 +100,5 @@ public class AudioGlobalManager : GlobalMonoBase<AudioGlobalManager>
         BGM.Mute(mute);
         SFX.Mute(mute);
     }
-#endregion
+    #endregion
 }

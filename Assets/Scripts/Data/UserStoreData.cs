@@ -8,9 +8,10 @@ using UnityEngine;
 /// </summary>
 public class UserStoreData
 {
-    public float fVolumeALL;
-    public float fVolumeBGM;
-    public float fVolumeSFX;
+    public int iVolumeALL;
+    public int iVolumeBGM;
+    public int iVolumeSFX;
+    public bool bFullScreen;
     public int iWondowsResolution;
     public int iLanguage;
 }
