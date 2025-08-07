@@ -29,16 +29,6 @@ public class EnemyScript : MonoBehaviour, IDamageable
         speed = data.speed;
         dropItem = GetComponent<ItemDropComponent>();
     }
-
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-        
-    }
-
     
     void FixedUpdate()
     {
@@ -49,12 +39,9 @@ public class EnemyScript : MonoBehaviour, IDamageable
     }
 
     void OnCollisionStay2D(Collision2D collision)
-    {
-      
+    {      
         if(collision.gameObject.CompareTag("Player"))
-        {
             Attack(player);
-        }
     }
 
     // 攻擊動作
@@ -71,8 +58,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
         Debug.Log($"Enemy TakeDamage: {damage}, HP: {hp}");
         
         // 血量歸零 死亡處理
-        if(hp < 1) 
-        {
+        if(hp < 1) {
           Destroy(gameObject);
           dropItem.HandleDropItem();
           Debug.Log($"Enemy is Dead!!!");
