@@ -46,10 +46,17 @@ public class PlayerAnimationComponent : MonoBehaviour, ICharacterVisual
         Vector2 currentPosition = direction.Normalized;
 
         bool isFacingLeftNow = currentPosition.x < 0f;
-        if (isFacingLeftNow != isFacingLeft) {
+        if (isFacingLeftNow != isFacingLeft)
+        {
             isFacingLeft = isFacingLeftNow;
 
-            SpriteRenderer.flipX = isFacingLeft; // 僅翻轉 sprite，無需操作 scale
+            if (SpriteRenderer != null)
+            {
+                // 不用 flipX，改用 localScale
+                var scale = Animator.transform.localScale;
+                scale.x = isFacingLeft ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
+                Animator.transform.localScale = scale;
+            }
         }
     }
 }
