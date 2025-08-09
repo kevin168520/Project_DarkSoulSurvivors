@@ -24,6 +24,11 @@ public class CharacterScript : MonoBehaviour, IDamageable {
     bool isDead = false; // 死亡判定
     [SerializeField] TimeCounter invincibilityCounter = new TimeCounter(1f); // 無敵時間
 
+    void Update()
+    {
+        invincibilityCounter.UpdateDelta();
+    }
+
     public void AddHp(int hp) {
         currentHp += hp;
 
@@ -49,26 +54,23 @@ public class CharacterScript : MonoBehaviour, IDamageable {
         dataChangeListener.Invoke(StatType.Level);
     }
 
+    /// <summary> 死亡檢查 </summary>
     public bool CheckDead() {
         if(currentHp <= 0) {
             isDead = true;
-        dataChangeListener.Invoke(StatType.isDead);
-        }
-    
+            dataChangeListener.Invoke(StatType.isDead);
+        }    
         return isDead;
     }
 
+    /// <summary> 無敵時間啟用 </summary>
     public void OnHitInvincibility() {
         invincibilityCounter.Reset();
 
         dataChangeListener.Invoke(StatType.Invincibility);
     }
 
-    void Update() {
-        invincibilityCounter.UpdateDelta();
-    }
-
-    // 執行受傷
+    /// <summary> 傷害判斷執行 </summary>
     public void TakeDamage(int damage) {
         // 如果已死亡 則不動作
         if (isDead) {

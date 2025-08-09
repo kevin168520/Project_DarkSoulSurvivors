@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2177929373070949285}
   - component: {fileID: 6598760610706135806}
   m_Layer: 0
-  m_Name: Character_001
+  m_Name: Character_001 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,7 +53,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1f1359be4798263438122d2f8af13d9b, type: 2}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

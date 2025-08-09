@@ -14,29 +14,10 @@ public class PlayerMoveComponent : MonoBehaviour, IDirection
     public Vector3 Length {get; private set;} = Vector3.zero; // 移動的向量長度
     public Vector3 Normalized {get; private set;} = Vector3.right; // 最終的方向，預定定義為right，設為zero武器在角色未移動時會無法射出
 
-    [Header("Animation")]
-    [SerializeField] private Animator ani; // Animator元件
-    [SerializeField] private SpriteRenderer spriteRenderer; // 角色圖像
-    [SerializeField] private bool isFacingLeft = false; // 紀錄動畫面向
-
     void Start() {
         rb = GetComponent<Rigidbody2D>();
+    }
 
-        StartCoroutine(WaitForCharacterModel());
-    }
-    /// <summary> 撈取Charater身上的Animator與SpriteRender資訊 </summary>
-    private IEnumerator WaitForCharacterModel() {
-        while (true) {
-            foreach (Transform child in transform) {
-                if (child.name.StartsWith("Character_")) {
-                    spriteRenderer = child.GetComponent<SpriteRenderer>();
-                    ani = child.GetComponent<Animator>();
-                    yield break;    // 找到後結束
-                }
-            }
-            yield return null;      // 等下一幀再檢查
-        }
-    }
 
     void Update() {
         bool bDirX = Mathf.Approximately(moveDir.x, prevMoveDir.x);
@@ -74,15 +55,6 @@ public class PlayerMoveComponent : MonoBehaviour, IDirection
                 currentPosition = new Vector3(moveX, 0f, 0f).normalized;
         }
         Normalized = currentPosition;
-
-        // Animator鏡像處理
-        bool isFacingLeftNow = currentPosition.x < 0f;
-        if (isFacingLeftNow != isFacingLeft) {
-            isFacingLeft = isFacingLeftNow;
-
-            if (spriteRenderer != null)
-                spriteRenderer.flipX = isFacingLeft;    // 向左為true
-        }
     }
 
     private void Move() {

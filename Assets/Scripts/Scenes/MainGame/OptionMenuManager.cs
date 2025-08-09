@@ -24,7 +24,6 @@ public class OptionMenuManager : ManagerMonoBase
 
     private void OnEnable()
     {
-        Debug.Log("Enable");
         OptionMenuInformationRenew();
         OnUIPanelRenew(enSettingPanelState.Volume); // 設定預設畫面在Volume
     }
@@ -107,7 +106,6 @@ public class OptionMenuManager : ManagerMonoBase
         // 當放開滑桿時觸發
         entry.callback.AddListener((eventData) => {
             int value = Mathf.RoundToInt(slider.value);
-            Debug.Log(key + " : " + value);
             VolumeSetting(key, value);
         });
 
@@ -131,7 +129,6 @@ public class OptionMenuManager : ManagerMonoBase
         float fBGM = (_volumeALL * _volumeBGM) / 10000f;
         float fSFX = (_volumeALL * _volumeSFX) / 10000f;
 
-        Debug.Log(fBGM);
         AudioGlobalManager.BGMReset(fBGM);
         AudioGlobalManager.SFXReset(fSFX);
     }
@@ -171,13 +168,12 @@ public class OptionMenuManager : ManagerMonoBase
     #region Language設定
     private void OnLanguageSetting(int IndexLanguage)
     {
-        switch (IndexLanguage)
-        {
+        switch (IndexLanguage) {
             case 0:
                 //Language English
                 break;
             default:
-                //Language English
+                //Language Else
                 break;
         }
         iLanguageDropdownValue = IndexLanguage;
@@ -187,7 +183,6 @@ public class OptionMenuManager : ManagerMonoBase
     /// <summary> Option關閉 </summary>
     private void OptionMenuSetClose()
     {
-        Debug.Log(iResolutionDropdownValue + " / " + iLanguageDropdownValue);
         _iWindowResolution = iResolutionDropdownValue;
         _iLanguage = iLanguageDropdownValue;
 
