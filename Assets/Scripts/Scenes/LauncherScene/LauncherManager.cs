@@ -12,12 +12,6 @@ public class LauncherManager : ManagerMonoBase
 {
     public LoginPlatform loginPlatform;
 
-    private int iVolumeALL;
-    private int iVolumeBGM;
-    private int iVolumeSFX;
-    private bool isFullScreen;
-    private int iWindowResolution;
-    private int iLanguage;
     UserStoreData _userData
     {
         get => DataGlobalManager._userData;
@@ -27,23 +21,8 @@ public class LauncherManager : ManagerMonoBase
     private void Start()
     {
         // UserData載入
-        UserStoreData data = new UserStoreData();
-        StoreDataRepository.UserDataLoading(ref data);
-        _userData = data;
-
-        UserDataLoading();
+        StoreDataRepository.UserDataLoading(ref DataGlobalManager._userData);
         LauncherSelectAsync(loginPlatform).Forget();
-    }
-
-    /// <summary> 載入使用者環境設定資訊 </summary>
-    private void UserDataLoading() {
-        UserStoreData userStoreData = DataGlobalManager._userData;
-        iVolumeALL = userStoreData.iVolumeALL;
-        iVolumeBGM = userStoreData.iVolumeBGM;
-        iVolumeSFX = userStoreData.iVolumeSFX;
-        isFullScreen = userStoreData.bFullScreen;
-        iWindowResolution = userStoreData.iWondowsResolution;
-        iLanguage = userStoreData.iLanguage;
     }
 
     /// <summary> 判斷登入的Launcher類型 </summary>
@@ -57,7 +36,7 @@ public class LauncherManager : ManagerMonoBase
                     if (isSuccess) {
                         Debug.Log("Steam 登入成功");
                         AchievementGlobalManager.StartAchevement(); // 成就初始化
-                        UserEnvironmentLoad(iVolumeALL, iVolumeBGM, iVolumeSFX, isFullScreen, iWindowResolution, iLanguage);
+                        UserEnvironmentLoad(_userData);
                     }
                     else {
                         Debug.LogError("Error001:Steam 初始化失敗，請透過 Steam 啟動遊戲");
@@ -86,13 +65,14 @@ public class LauncherManager : ManagerMonoBase
     }
 
     /// <summary> 使用者環境設定帶入後進入主場景 </summary>
-    private void UserEnvironmentLoad(int VolumeALL, int VolumeBGM, int VolumeSFX, bool FullScreen,int WindowResolution, int Language)
+    private void UserEnvironmentLoad(UserStoreData userdata)
     {
         FullScreenMode mode;
-        mode = (FullScreen) ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.MaximizedWindow;
+        mode = (userdata.bFullScreen) ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.MaximizedWindow;
 
         // 解析度依照使用者設定(UserStoreData)調整
-        switch (WindowResolution) {
+        switch (userdata.iWondowsResolution)
+        {
             case 0:
                 Screen.SetResolution(1920, 1080, mode);
                 break;
@@ -105,8 +85,8 @@ public class LauncherManager : ManagerMonoBase
         }
 
         // 音量大小依照使用者設定(UserStoreData)調整
-        float fBGM = (VolumeALL * VolumeBGM) / 10000f;
-        float fSFX = (VolumeALL * VolumeSFX) / 10000f;
+        float fBGM = (userdata.iVolumeALL * userdata.iVolumeBGM) / 10000f;
+        float fSFX = (userdata.iVolumeALL * userdata.iVolumeSFX) / 10000f;
 
         AudioGlobalManager.BGMReset(fBGM);
         AudioGlobalManager.SFXReset(fSFX);
