@@ -193,17 +193,14 @@ public class ItemManager : ManagerMonoBase
 
         // 訂閱撿取事件（補位）
         var hc = chest.GetComponent<HealthChest>();
-        if (hc != null) hc.onPickedUp = OnChestPickedUp;
+        hc.PickedUp += OnChestPickedUp;
 
         activeChests.Add(chest);
     }
 
-    /// <summary>
-    /// 玩家撿起寶箱的回呼：移除並立刻補新的（維持上限）
-    /// </summary>
-    private void OnChestPickedUp(GameObject chest)
+    
+    private void OnChestPickedUp()
     {
-        activeChests.Remove(chest);
         CleanupNullChests();
 
         if (activeChests.Count < maxActiveChests)

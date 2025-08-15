@@ -3,7 +3,7 @@
 public enum enAudioSfxData
 {
     // 0 ~ 19：預設為其他音效，如：購買道具的音效
-
+    ItemPickup = 0,         // 拾取物品
     // 20 ~ 39：預設為物理武器音效
     PhysicalWeaponArrow = 20,   // 發射體
     PhysicalWeaponWhip = 21,    // 鞭子

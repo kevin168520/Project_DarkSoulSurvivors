@@ -564,6 +564,22 @@ MonoBehaviour:
       Max: 0
       Min: 1
     MixerGroup: {fileID: 24306790, guid: 1e7de879870601a4eb74ee858a6feccd, type: 2}
+  - Name: ItemPickup
+    Clip:
+    - {fileID: 8300000, guid: 1a553a65807867941a5072c82651c7bb, type: 3}
+    Loop: 0
+    ResetTime: 1
+    Volume:
+      Volume: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    Pitch:
+      Pitch: 1
+      IsRandom: 0
+      Max: 1
+      Min: 1
+    MixerGroup: {fileID: 24306790, guid: 1e7de879870601a4eb74ee858a6feccd, type: 2}
 --- !u!81 &4849884794690867512
 AudioListener:
   m_ObjectHideFlags: 0
