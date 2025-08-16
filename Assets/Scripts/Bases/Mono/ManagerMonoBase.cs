@@ -27,4 +27,5 @@ public abstract class ManagerMonoBase : InstanceMonoBase
   protected AudioGlobalManager AudioGlobalManager => AudioGlobalManager.Instance;
   protected SceneGlobalManager SceneGlobalManager => SceneGlobalManager.Instance;
   protected AchievementGlobalManager AchievementGlobalManager => AchievementGlobalManager.Instance;
+  protected EventGlobalManager EventGlobalManager => EventGlobalManager.Instance;
 }
