@@ -65,6 +65,9 @@ public class PlayerManager : ManagerMonoBase
           break;
         case CharacterScript.StatType.Invincibility:
           break;
+        case CharacterScript.StatType.Gold:
+          _playerStatUI.GoldCount = Player.character.gold;
+          break;
       }
     }
 }
