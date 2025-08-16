@@ -1692,7 +1692,7 @@ MonoBehaviour:
   _HpBar: {fileID: 6638068143961816844}
   _ExpBar: {fileID: 5599111627591376043}
   _ExpLevel: {fileID: 474042499565415338}
-  _GoldCount: {fileID: 0}
+  _GoldCount: {fileID: 195343147}
 --- !u!1 &1179702897
 GameObject:
   m_ObjectHideFlags: 0
