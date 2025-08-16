@@ -18,5 +18,9 @@ public class PlayerStatUI : MonoBehaviour
     public int ExpLevel {set{
       _ExpLevel.text = $"Level:{value}";
     }}
+    [SerializeField] TextMeshProUGUI _GoldCount;
+    public int GoldCount {set{
+      _GoldCount.text = $"Gold:{value}";
+    }}
 
 }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CharacterScript : MonoBehaviour, IDamageable {
+public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent> {
     // 角色資料監聽用型態
     public enum StatType {
-        Level, TotalExp, ExpToLevelUp, MaxHp, Def, SpeedMult, AttackMult, CurrentHp, isDead, Invincibility
+        Level, TotalExp, ExpToLevelUp, MaxHp, Def, SpeedMult, AttackMult, CurrentHp, isDead, Invincibility, Gold
     }
 
     // 資料變更監聽者
@@ -21,8 +21,19 @@ public class CharacterScript : MonoBehaviour, IDamageable {
     [SerializeField] public float speedMult = 1; // 速度倍率
     [SerializeField] public float attackMult = 1; // 攻擊倍率
     [SerializeField] public int currentHp = 100; // 當前血量
+    [SerializeField] public int gold = 0; // 當前金幣
     bool isDead = false; // 死亡判定
     [SerializeField] TimeCounter invincibilityCounter = new TimeCounter(1f); // 無敵時間
+
+    void OnEnable()
+    {
+        EventGlobalManager.Instance.RegisterEvent(this);
+    }
+
+    void OnDisable()
+    {
+        EventGlobalManager.Instance.DeregisterEvent(this);
+    }
 
     void Update()
     {
@@ -101,5 +112,10 @@ public class CharacterScript : MonoBehaviour, IDamageable {
 
     Debug.Log($"Character TakeDamage: {damage} - {def}, currentHp: {currentHp}, CharacterIsDead: {isDead}");
     }
-  
+
+    public void Execute(GoldEvent parameters)
+    {
+        gold += parameters.gold;
+        dataChangeListener.Invoke(StatType.Gold);
+    }
 }
