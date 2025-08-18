@@ -10,7 +10,7 @@ public class OptionMenuManager : ManagerMonoBase
     public OptionMenuUI _optionMenuUI;
     private UserStoreData data;
 
-    // UserStoreData用餐數
+    // OptioMenu用的參數
     private int _volumeALL;
     private int _volumeBGM;
     private int _volumeSFX;
@@ -18,6 +18,7 @@ public class OptionMenuManager : ManagerMonoBase
     private int _iWindowResolution;
     private int _iLanguage;
 
+    // 選單UI用的參數
     private FullScreenMode mode;
     private int iResolutionDropdownValue;
     private int iLanguageDropdownValue;
@@ -148,18 +149,12 @@ public class OptionMenuManager : ManagerMonoBase
     /// <summary> 解析度調整 </summary>
     private void OnResolutionSetting(bool FullScreen, int IndexWindowResolution)
     {
-        mode = (FullScreen) ? FullScreenMode.ExclusiveFullScreen : FullScreenMode.MaximizedWindow;
-        switch (IndexWindowResolution) {
-            case 0:
-                Screen.SetResolution(1920, 1080, mode);                
-                break;
-            case 1:
-                Screen.SetResolution(2560, 1440, mode);
-                break;
-            default:
-                Screen.SetResolution(1920, 1080, mode);
-                IndexWindowResolution = 0;
-                break;
+        mode = (FullScreen) ? FullScreenMode.MaximizedWindow : FullScreenMode.Windowed;
+        switch (IndexWindowResolution)
+        {
+            case 0: Screen.SetResolution(1920, 1080, mode); break;
+            case 1: Screen.SetResolution(2560, 1440, mode); break;
+            default: Screen.SetResolution(1920, 1080, mode); break;
         }
         iResolutionDropdownValue = IndexWindowResolution;
     }
