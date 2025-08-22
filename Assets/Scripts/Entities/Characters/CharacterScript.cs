@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent> {
+public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>,IEvent<ExpEvent> {
     // 角色資料監聽用型態
     public enum StatType {
         Level, TotalExp, ExpToLevelUp, MaxHp, Def, SpeedMult, AttackMult, CurrentHp, isDead, Invincibility, Gold
@@ -46,23 +46,14 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent> {
         dataChangeListener.Invoke(StatType.CurrentHp);
     }
 
-    public void AddExp(int exp) {
-        totalExp += exp;
-
-        // 檢查經驗值達到升級
-        if (totalExp >= levelUpExp) {
-            totalExp -= levelUpExp;
-            LevelUp();
-        }
-
-        dataChangeListener.Invoke(StatType.TotalExp);
-    }
+    
 
     public void LevelUp() {
-        level++;
-        levelUpExp = level * 10;
+         level++;
+    levelUpExp = level * 10;
 
-        dataChangeListener.Invoke(StatType.Level);
+    dataChangeListener.Invoke(StatType.Level);
+    dataChangeListener.Invoke(StatType.ExpToLevelUp);
     }
 
     /// <summary> 死亡檢查 </summary>
@@ -117,5 +108,19 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent> {
     {
         gold += parameters.gold;
         dataChangeListener.Invoke(StatType.Gold);
+    }
+
+    public void Execute(ExpEvent parameters)
+    {
+       totalExp += parameters.exp;
+
+    // 檢查經驗值達到升級
+    if (totalExp >= levelUpExp) {
+        totalExp -= levelUpExp;
+        LevelUp();
+    }
+
+    dataChangeListener.Invoke(StatType.TotalExp);
+    dataChangeListener.Invoke(StatType.ExpToLevelUp);
     }
 }

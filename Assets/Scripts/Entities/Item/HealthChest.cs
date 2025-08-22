@@ -6,7 +6,7 @@ public class HealthChest : MonoBehaviour
 {
     public int healAmount = 20;
 
-    // 新增事件（避免與方法同名）
+    // 新增事件
     public event Action PickedUp;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -26,7 +26,7 @@ public class HealthChest : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // 保留你之前需要的「可被外部直接呼叫」的方法
+    
     public void onPickedUp()
     {
         if (AudioGlobalManager.Instance != null)
