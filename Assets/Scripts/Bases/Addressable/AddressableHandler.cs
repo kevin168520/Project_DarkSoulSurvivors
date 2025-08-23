@@ -29,6 +29,14 @@ public class AssetsManager
 
     private async UniTask<T> Load<T>(string keyValue, string addressablePath)
     {
+        // 檢查的資源存在
+        var checkHandle = Addressables.LoadResourceLocationsAsync(addressablePath, typeof(T));
+        await checkHandle;
+        if (checkHandle.Status == AsyncOperationStatus.Failed || checkHandle.Result.Count == 0)
+        {
+            Debug.LogError($"Load asset {addressablePath} not found.");
+            return default;
+        }
         // 載入指定的資源
         var handle = Addressables.LoadAssetAsync<T>(addressablePath);
         await handle;
