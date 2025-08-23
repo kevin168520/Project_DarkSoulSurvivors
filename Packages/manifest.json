@@ -4,6 +4,7 @@
     "com.rlabrecque.steamworks.net": "https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net#2024.8.0",
     "com.starasgames.tmpro-dynamic-data-cleaner": "https://github.com/STARasGAMES/tmpro-dynamic-data-cleaner.git#upm",
     "com.tayx.graphy": "https://github.com/Tayx94/graphy.git",
+    "com.unity.addressables": "1.22.3",
     "com.unity.cinemachine": "2.10.3",
     "com.unity.collab-proxy": "2.6.0",
     "com.unity.feature.2d": "2.0.1",
