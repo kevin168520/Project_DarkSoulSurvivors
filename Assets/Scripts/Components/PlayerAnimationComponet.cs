@@ -1,14 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerAnimationComponent : MonoBehaviour, ICharacterVisual
+public class PlayerAnimationComponent : MonoBehaviour
 {
     // 從全域 PlayerManager.PLAYER 取得方向元件 (IDirection)
     private IDirection direction => PlayerManager.PLAYER.move;
 
-    // ICharacterVisual 介面實作
-    public Animator Animator {get; private set;}
-    public SpriteRenderer SpriteRenderer {get; private set;}
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     private Vector3 originalScale;
     private bool isFacingLeft = false;
@@ -23,10 +22,11 @@ public class PlayerAnimationComponent : MonoBehaviour, ICharacterVisual
         while (true) {
             foreach (Transform child in transform) {
                 if (child.name.StartsWith("Character_")) {
-                    Animator = child.GetComponent<Animator>();
-                    SpriteRenderer = child.GetComponent<SpriteRenderer>();
-                    if (Animator != null)
-                        originalScale = Animator.transform.localScale;
+                    animator = child.GetComponent<Animator>();
+                    spriteRenderer = child.GetComponent<SpriteRenderer>();
+                    if (animator != null)
+                        originalScale = animator.transform.localScale;
+
                     yield break;
                 }
             }
@@ -36,8 +36,8 @@ public class PlayerAnimationComponent : MonoBehaviour, ICharacterVisual
 
     private void Update()
     {
-        if (direction != null && Animator != null)
-            AnimatorAction();        
+        if (direction != null && animator != null)
+            AnimatorAction();
     }
 
     /// <summary> Animator動作處理 </summary>
@@ -50,12 +50,12 @@ public class PlayerAnimationComponent : MonoBehaviour, ICharacterVisual
         {
             isFacingLeft = isFacingLeftNow;
 
-            if (SpriteRenderer != null)
+            if (spriteRenderer != null)
             {
                 // 不用 flipX，改用 localScale
-                var scale = Animator.transform.localScale;
+                var scale = animator.transform.localScale;
                 scale.x = isFacingLeft ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x);
-                Animator.transform.localScale = scale;
+                animator.transform.localScale = scale;
             }
         }
     }
