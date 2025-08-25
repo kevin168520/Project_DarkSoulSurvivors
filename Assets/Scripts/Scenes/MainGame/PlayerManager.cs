@@ -64,6 +64,7 @@ public class PlayerManager : ManagerMonoBase
           GameManager.GameOver();
           break;
         case CharacterScript.StatType.Invincibility:
+          Player.anim.PlayHitFlicker();
           break;
       }
     }
