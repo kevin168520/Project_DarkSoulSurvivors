@@ -64,6 +64,7 @@ public class PlayerManager : ManagerMonoBase
           GameManager.GameOver();
           break;
         case CharacterScript.StatType.Invincibility:
+          Player.anim.PlayHitFlicker();
           break;
         case CharacterScript.StatType.Gold:
           _playerStatUI.GoldCount = Player.character.gold;
