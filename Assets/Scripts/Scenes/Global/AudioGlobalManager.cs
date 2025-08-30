@@ -1,48 +1,44 @@
 using UnityEngine;
 using System;
 using System.Linq;
-using baseSys.Audio.Sources;
 using baseSys.Audio.Method;
 using Cysharp.Threading.Tasks;
 
 public class AudioGlobalManager : GlobalMonoBase<AudioGlobalManager>
 {
-    /// <summary> BGM 資源設定 </summary>
-    [SerializeField]
-    Source[] BGMSetting;
     /// <summary> BGM 播放器 </summary>
     PlayerMethod BGM;
     /// <summary> BGM 音量較正值 </summary>
     [Range(0, 1)]
     float BGMValue = 0.5f;
 
-    /// <summary> SFX 資源設定 </summary>
-    [SerializeField]
-    Source[] SFXSetting;
     /// <summary> SFX 播放器 </summary>
     PlayerMethod SFX;
     /// <summary> SFX 音量較正值 </summary>
     [Range(0, 1)]
     float SFXValue = 0.5f;
 
-    protected override void Awake() 
-    private AssetsManager AssetsManager = new();
+    /// <summary> Addressable 載入器 </summary>
+    AssetsManager AssetsManager = new();
+    /// <summary> 音樂資料庫 </summary>
+    AudioDatabaseScriptable audioDatabase;
+    /// <summary> 判定初始化 </summary>
+    bool initialized = false;
 
-    private AudioDatabaseScriptable audioDatabase;
-
-    private bool initialized = false;
-
+    protected override void Awake()
     {
         base.Awake();
-        if(this != Instance)
+        if (this != Instance)
         {
             Destroy(gameObject);
             return;
         }
+
         if (!initialized)
         {
+            // 靜態生成需要主動添加音樂播放器
             gameObject.AddComponent<AudioListener>();
-            // 有載入尚未完成風險
+            // 異步載入 有尚未載入風險
             UniTask.Void(async () =>
             {
                 audioDatabase = await AssetsManager.Get<AudioDatabaseScriptable>("AudioDatabase");
@@ -56,19 +52,9 @@ public class AudioGlobalManager : GlobalMonoBase<AudioGlobalManager>
         }
     }
 
-    void Start () {
-        //清空省記憶體
-        BGMSetting = null;
-        SFXSetting = null;
-    }
-
     void OnDestroy()
     {
-        // 釋放資源
-        if (audioDatabase != null)
-        {
-            AssetsManager.Release(audioDatabase);
-        }
+        if (audioDatabase != null) AssetsManager.Release(audioDatabase);
     }
 
     #region [BGM播放]
