@@ -1,7 +1,9 @@
 using UnityEngine;
 using System;
+using System.Linq;
 using baseSys.Audio.Sources;
 using baseSys.Audio.Method;
+using Cysharp.Threading.Tasks;
 
 public class AudioGlobalManager : GlobalMonoBase<AudioGlobalManager>
 {
@@ -24,6 +26,12 @@ public class AudioGlobalManager : GlobalMonoBase<AudioGlobalManager>
     float SFXValue = 0.5f;
 
     protected override void Awake() 
+    private AssetsManager AssetsManager = new();
+
+    private AudioDatabaseScriptable audioDatabase;
+
+    private bool initialized = false;
+
     {
         base.Awake();
         if(this != Instance)
@@ -31,15 +39,36 @@ public class AudioGlobalManager : GlobalMonoBase<AudioGlobalManager>
             Destroy(gameObject);
             return;
         }
+        if (!initialized)
+        {
+            gameObject.AddComponent<AudioListener>();
+            // 有載入尚未完成風險
+            UniTask.Void(async () =>
+            {
+                audioDatabase = await AssetsManager.Get<AudioDatabaseScriptable>("AudioDatabase");
 
-        BGM = new PlayerMethod(gameObject, BGMSetting, BGMValue);
-        SFX = new PlayerMethod(gameObject, SFXSetting, SFXValue);
+                var BGMSetting = audioDatabase?.BGMSetting.Select(t => t.source).ToArray();
+                var SFXSetting = audioDatabase?.SFXSetting.Select(t => t.source).ToArray();
+                BGM = new PlayerMethod(gameObject, BGMSetting, BGMValue);
+                SFX = new PlayerMethod(gameObject, SFXSetting, SFXValue);
+                initialized = true;
+            });
+        }
     }
 
     void Start () {
         //清空省記憶體
         BGMSetting = null;
         SFXSetting = null;
+    }
+
+    void OnDestroy()
+    {
+        // 釋放資源
+        if (audioDatabase != null)
+        {
+            AssetsManager.Release(audioDatabase);
+        }
     }
 
     #region [BGM播放]
