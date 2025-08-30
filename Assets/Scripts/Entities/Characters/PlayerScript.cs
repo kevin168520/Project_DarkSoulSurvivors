@@ -9,6 +9,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] public CharacterScript character; // 玩家狀態
     [SerializeField] public PlayerMoveComponent move; // 玩家移動
     [SerializeField] public PlayerPickupComponent pickup; // 玩家撿拾
+    [SerializeField] public PlayerAnimationComponent anim; // 玩家Aniamte & Shader控制
     public CharacterScriptable characterData;
     public PlayerStoreData storeData;
 
@@ -23,6 +24,8 @@ public class PlayerScript : MonoBehaviour
             move = GetComponent<PlayerMoveComponent>();
         if (pickup == null)
             pickup = GetComponent<PlayerPickupComponent>();
+        if (anim == null)
+            anim = GetComponent<PlayerAnimationComponent>();
     }
     #endif
 }
