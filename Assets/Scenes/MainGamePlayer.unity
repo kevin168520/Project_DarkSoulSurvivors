@@ -862,7 +862,6 @@ GameObject:
   - component: {fileID: 400678534}
   - component: {fileID: 400678533}
   - component: {fileID: 400678532}
-  - component: {fileID: 400678541}
   - component: {fileID: 400678540}
   - component: {fileID: 400678537}
   - component: {fileID: 400678538}
@@ -1032,6 +1031,7 @@ MonoBehaviour:
   character: {fileID: 400678532}
   move: {fileID: 400678533}
   pickup: {fileID: 400678537}
+  anim: {fileID: 400678540}
   characterData: {fileID: 0}
   storeData:
     iPlayer_Money: 0
@@ -1051,18 +1051,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d61ef723e41d2dc45b2269aaf6f4daf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &400678541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 400678529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7890f20b03fa28945b6eb16420e3b7a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  flickerColor: {r: 1, g: 1, b: 1, a: 1}
+  flickerStep: 0.25
+  flickerCount: 3
+  flickStrengthSetting: 0.5
 --- !u!1 &434837875
 GameObject:
   m_ObjectHideFlags: 0
