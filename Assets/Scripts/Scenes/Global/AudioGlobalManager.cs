@@ -72,62 +72,114 @@ public class AudioGlobalManager : GlobalMonoBase<AudioGlobalManager>
     }
 
     #region [BGM播放]
-    /// <summary> 播放指定 BGM </summary>
-    public void PlayBGM(enAudioBgmData enAudioDataBGM) => BGM.Play(enAudioDataBGM.ToString());
+    public void PlayBGM(enAudioBgmData enAudioDataBGM) =>
+        UniTask.Void(async () =>
+        {
+            await UniTask.WaitUntil(() => initialized);
+            BGM.Play(enAudioDataBGM.ToString());
+        });
 
-    /// <summary> 停止所有 BGM </summary>
-    public void BGMStop() => BGM.StopAll();
+    public void BGMStop() =>
+        UniTask.Void(async () =>
+        {
+            await UniTask.WaitUntil(() => initialized);
+            BGM.StopAll();
+        });
 
-    /// <summary> 停止指定 BGM </summary>
-    public void BGMStop(string name) => BGM.Stop(name);
+    public void BGMStop(string name) =>
+        UniTask.Void(async () =>
+        {
+            await UniTask.WaitUntil(() => initialized);
+            BGM.Stop(name);
+        });
 
-    /// <summary> 設置音量 BGM </summary>
-    public void BGMReset(float value) => BGM.ResetValue(value);
+    public void BGMReset(float value) =>
+        UniTask.Void(async () =>
+        {
+            await UniTask.WaitUntil(() => initialized);
+            BGM.ResetValue(value);
+        });
 
-    /// <summary> 設置靜音 BGM </summary>
-    public void BGMMute(bool mute) => BGM.Mute(mute);
+    public void BGMMute(bool mute) =>
+        UniTask.Void(async () =>
+        {
+            await UniTask.WaitUntil(() => initialized);
+            BGM.Mute(mute);
+        });
     #endregion
 
     #region [SFX播放]
-    /// <summary> 播放指定 SFX </summary>
-    public void PlaySFX(enAudioSfxData enAudioSfxData) => SFX.Play(enAudioSfxData.ToString());
+    public void PlaySFX(enAudioSfxData enAudioSfxData) =>
+        UniTask.Void(async () =>
+        {
+            await UniTask.WaitUntil(() => initialized);
+            SFX.Play(enAudioSfxData.ToString());
+        });
 
-    /// <summary> 停止所有 SFX </summary>
-    public void SFXStop() => SFX.StopAll();
+    public void SFXStop() =>
+        UniTask.Void(async () =>
+        {
+            await UniTask.WaitUntil(() => initialized);
+            SFX.StopAll();
+        });
 
-    /// <summary> 停止指定 SFX </summary>
-    public void SFXStop(string name) => SFX.Stop(name);
+    public void SFXStop(string name) =>
+        UniTask.Void(async () =>
+        {
+            await UniTask.WaitUntil(() => initialized);
+            SFX.Stop(name);
+        });
 
-    /// <summary> 設置音量 SFX </summary>
-    public void SFXReset(float value) => SFX.ResetValue(value);
+    public void SFXReset(float value) =>
+        UniTask.Void(async () =>
+        {
+            await UniTask.WaitUntil(() => initialized);
+            SFX.ResetValue(value);
+        });
 
-    /// <summary> 設置靜音 SFX </summary>
-    public void SFXMute(bool mute) => SFX.Mute(mute);
+    public void SFXMute(bool mute) =>
+        UniTask.Void(async () =>
+        {
+            await UniTask.WaitUntil(() => initialized);
+            SFX.Mute(mute);
+        });
     #endregion
 
     #region [ALL播放]
     /// <summary> 停止所有</summary>
-    public void Stop() {
-        SFX.StopAll();
-        BGM.StopAll();
-    }
+    public void Stop() =>
+        UniTask.Void(async () =>
+        {
+            await UniTask.WaitUntil(() => initialized);
+            SFX.StopAll();
+            BGM.StopAll();
+        });
 
     /// <summary> 停止所有</summary>
-    public void Stop(string name) {
-        SFX.Stop(name);
-        BGM.Stop(name);
-    }
+    public void Stop(string name) =>
+        UniTask.Void(async () =>
+        {
+            await UniTask.WaitUntil(() => initialized);
+            SFX.Stop(name);
+            BGM.Stop(name);
+        });
 
     /// <summary> 設置音量 </summary>
-    public void Reset(float value) {
-        BGM.ResetValue(value);
-        SFX.ResetValue(value);
-    }
+    public void Reset(float value) =>
+        UniTask.Void(async () =>
+        {
+            await UniTask.WaitUntil(() => initialized);
+            BGM.ResetValue(value);
+            SFX.ResetValue(value);
+        });
 
     /// <summary> 設置靜音 </summary>
-    public void Mute(bool mute) {        
-        BGM.Mute(mute);
-        SFX.Mute(mute);
-    }
+    public void Mute(bool mute) =>
+        UniTask.Void(async () =>
+        {
+            await UniTask.WaitUntil(() => initialized);
+            BGM.Mute(mute);
+            SFX.Mute(mute);
+        });
     #endregion
 }
