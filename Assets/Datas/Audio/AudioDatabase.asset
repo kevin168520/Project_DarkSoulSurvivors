@@ -12,5 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c608087876f305847aa939b2f79b01e1, type: 3}
   m_Name: AudioDatabase
   m_EditorClassIdentifier: 
-  BGMSetting: []
-  SFXSetting: []
+  BGMSetting:
+  - {fileID: 11400000, guid: d6516df8c92801c4d90a891ed7a95121, type: 2}
+  - {fileID: 11400000, guid: e7588e94ad967994a8259a0b33c7bab2, type: 2}
+  - {fileID: 11400000, guid: d02b75763d0d29341b208860bd0d8656, type: 2}
+  - {fileID: 11400000, guid: 331934d7e393e0c4ea00a273f7938496, type: 2}
+  - {fileID: 11400000, guid: 4d32d808028babb47882460e2f3a395f, type: 2}
+  - {fileID: 11400000, guid: d3defc2de43ee2b40ad73edfe81406a9, type: 2}
+  SFXSetting:
+  - {fileID: 11400000, guid: 88f020abe6f11a24e9177ed6174c91f5, type: 2}
+  - {fileID: 11400000, guid: e3aa921350e050142b2ff5d95b06dbc5, type: 2}
+  - {fileID: 11400000, guid: 24cd88cc70b39944a8f630642b5cda49, type: 2}
+  - {fileID: 11400000, guid: 04b03b5c6e68dde42a5dc838969b4cb8, type: 2}
