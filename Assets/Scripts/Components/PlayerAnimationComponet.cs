@@ -6,7 +6,9 @@ public class PlayerAnimationComponent : MonoBehaviour
     // 從全域 PlayerManager.PLAYER 取得方向元件 (IDirection)
     private IDirection direction => PlayerManager.PLAYER.move;
 
+    [SerializeField]
     private Animator animator;
+    [SerializeField]
     private SpriteRenderer spriteRenderer;
 
     private Vector3 originalScale;
@@ -22,29 +24,9 @@ public class PlayerAnimationComponent : MonoBehaviour
     private int flickerColorID;
     private bool isFlicker = false; // 當前材質是否具備 flicker 參數
 
-    private void Awake()
+    private void Start()
     {
-        StartCoroutine(WaitForCharacterModel());
-    }
-
-    private IEnumerator WaitForCharacterModel()
-    {
-        while (true) {
-            foreach (Transform child in transform) {
-                if (child.name.StartsWith("Character_")) {
-                    animator = child.GetComponent<Animator>();
-                    spriteRenderer = child.GetComponent<SpriteRenderer>();
-                    if (animator != null)
-                        originalScale = animator.transform.localScale;
-                    if (spriteRenderer != null && spriteRenderer.material != null)
-                    {
-                        SetMaterial(spriteRenderer.material);
-                    }
-                    yield break;
-                }
-            }
-            yield return null;
-        }
+        SetMaterial(spriteRenderer.material);
     }
 
     public void SetMaterial(Material material)
