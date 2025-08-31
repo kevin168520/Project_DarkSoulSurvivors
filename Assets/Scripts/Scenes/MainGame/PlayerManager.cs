@@ -28,7 +28,8 @@ public class PlayerManager : ManagerMonoBase
         spritePrefab.transform.position = Player.trans.position;
         spritePrefab.transform.parent = Player.trans;
         spritePrefab.SetActive(true);
-        
+        Player.anim = spritePrefab.GetComponent<PlayerAnimationComponent>(); // 暫時使用組合方式載入
+
         // 載入角色資料
         Player.character.maxHp = characterData.hp + storeData.iPlayerItemLevel_HP;
         Player.character.def = characterData.def + storeData.iPlayerItemLevel_DEF;

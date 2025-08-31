@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5371185967411358768}
   - component: {fileID: 2177929373070949285}
   - component: {fileID: 6598760610706135806}
+  - component: {fileID: -7648126548261370199}
   m_Layer: 0
   m_Name: Character_001
   m_TagString: Untagged
@@ -106,3 +107,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-7648126548261370199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6676319224844049280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d61ef723e41d2dc45b2269aaf6f4daf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 6598760610706135806}
+  spriteRenderer: {fileID: 2177929373070949285}
+  flickerColor: {r: 1, g: 1, b: 1, a: 1}
+  flickerStep: 0
+  flickerCount: 0
+  flickStrengthSetting: 0
