@@ -38,38 +38,43 @@ public class PlayerAnimationComponent : MonoBehaviour
                         originalScale = animator.transform.localScale;
                     if (spriteRenderer != null && spriteRenderer.material != null)
                     {
-                        materialInstance = spriteRenderer.material;
-
-                        if (materialInstance != null)
-                        {
-                            // 資料連結ShaderGraph參數
-                            flickerStrengthID = Shader.PropertyToID("_FlickerStrength");
-                            flickerColorID = Shader.PropertyToID("_FlickerColor");
-
-                            // 檢查Shader資料是否有對應到
-                            isFlicker =
-                                materialInstance.HasProperty(flickerStrengthID) &&
-                                materialInstance.HasProperty(flickerColorID);
-
-                            if (isFlicker)
-                            {
-                                materialInstance.SetFloat(flickerStrengthID, 0f);
-                                materialInstance.SetColor(flickerColorID, flickerColor);
-                            }
-                            else
-                            {
-                                Debug.LogWarning("[PlayerAnimationComponent] 材質未包含 _FlickerStrength / _FlickerColor，將跳過閃爍控制。");
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogWarning("[PlayerAnimationComponent] 材質設定失敗");
-                        }
+                        SetMaterial(spriteRenderer.material);
                     }
                     yield break;
                 }
             }
             yield return null;
+        }
+    }
+
+    public void SetMaterial(Material material)
+    {
+        materialInstance = material;
+
+        if (materialInstance != null)
+        {
+            // 資料連結ShaderGraph參數
+            flickerStrengthID = Shader.PropertyToID("_FlickerStrength");
+            flickerColorID = Shader.PropertyToID("_FlickerColor");
+
+            // 檢查Shader資料是否有對應到
+            isFlicker =
+                materialInstance.HasProperty(flickerStrengthID) &&
+                materialInstance.HasProperty(flickerColorID);
+
+            if (isFlicker)
+            {
+                materialInstance.SetFloat(flickerStrengthID, 0f);
+                materialInstance.SetColor(flickerColorID, flickerColor);
+            }
+            else
+            {
+                Debug.LogWarning("[PlayerAnimationComponent] 材質未包含 _FlickerStrength / _FlickerColor，將跳過閃爍控制。");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("[PlayerAnimationComponent] 材質設定失敗");
         }
     }
 
