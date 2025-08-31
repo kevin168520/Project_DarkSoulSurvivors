@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>,IEvent<ExpEvent> {
+public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>, IEvent<ExpEvent>
+{
     // 角色資料監聽用型態
-    public enum StatType {
+    public enum StatType
+    {
         Level, TotalExp, ExpToLevelUp, MaxHp, Def, SpeedMult, AttackMult, CurrentHp, isDead, Invincibility, Gold
     }
 
@@ -32,7 +34,7 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>,IEv
 
     void OnDisable()
     {
-        EventGlobalManager.Instance.DeregisterEvent(this);
+        EventGlobalManager.Instance?.DeregisterEvent(this);
     }
 
     void Update()
@@ -40,68 +42,75 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>,IEv
         invincibilityCounter.UpdateDelta();
     }
 
-    public void AddHp(int hp) {
+    public void AddHp(int hp)
+    {
         currentHp += hp;
 
         dataChangeListener.Invoke(StatType.CurrentHp);
     }
 
-    
+    public void LevelUp()
+    {
+        level++;
+        levelUpExp = level * 10;
 
-    public void LevelUp() {
-         level++;
-    levelUpExp = level * 10;
-
-    dataChangeListener.Invoke(StatType.Level);
-    dataChangeListener.Invoke(StatType.ExpToLevelUp);
+        dataChangeListener.Invoke(StatType.Level);
     }
 
     /// <summary> 死亡檢查 </summary>
-    public bool CheckDead() {
-        if(currentHp <= 0) {
+    public bool CheckDead()
+    {
+        if (currentHp <= 0)
+        {
             isDead = true;
             dataChangeListener.Invoke(StatType.isDead);
-        }    
+        }
         return isDead;
     }
 
     /// <summary> 無敵時間啟用 </summary>
-    public void OnHitInvincibility() {
+    public void OnHitInvincibility()
+    {
         invincibilityCounter.Reset();
 
         dataChangeListener.Invoke(StatType.Invincibility);
     }
 
     /// <summary> 傷害判斷執行 </summary>
-    public void TakeDamage(int damage) {
+    public void TakeDamage(int damage)
+    {
         // 如果已死亡 則不動作
-        if (isDead) {
-          Debug.Log($"Character isDead: {isDead}");
-          return;
+        if (isDead)
+        {
+            Debug.Log($"Character isDead: {isDead}");
+            return;
         }
 
         // 如果還在無敵時間 則不動作
-        if (invincibilityCounter.IsTiming) {
-          // Debug.Log($"Character is attackedTimerToDisable: {attackedTimer}");
-          return;
+        if (invincibilityCounter.IsTiming)
+        {
+            // Debug.Log($"Character is attackedTimerToDisable: {attackedTimer}");
+            return;
         }
 
         // 如果傷害低於防禦則不損傷
-        if (def >= damage) {
-          // Debug.Log($"Character no harm caused: {def} >= {damage}");
-          return;
+        if (def >= damage)
+        {
+            // Debug.Log($"Character no harm caused: {def} >= {damage}");
+            return;
         }
 
         // 當前血量扣損
         AddHp(-damage);
 
         // 死亡處理
-        if(!CheckDead()) { 
-        // 受攻擊時間處理
-          OnHitInvincibility();
+        if (!CheckDead())
+        {
+            // 受攻擊時間處理
+            OnHitInvincibility();
         }
 
-    Debug.Log($"Character TakeDamage: {damage} - {def}, currentHp: {currentHp}, CharacterIsDead: {isDead}");
+        Debug.Log($"Character TakeDamage: {damage} - {def}, currentHp: {currentHp}, CharacterIsDead: {isDead}");
     }
 
     public void Execute(GoldEvent parameters)
@@ -112,15 +121,15 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>,IEv
 
     public void Execute(ExpEvent parameters)
     {
-       totalExp += parameters.exp;
+        totalExp += parameters.exp;
 
-    // 檢查經驗值達到升級
-    if (totalExp >= levelUpExp) {
-        totalExp -= levelUpExp;
-        LevelUp();
-    }
+        // 檢查經驗值達到升級
+        if (totalExp >= levelUpExp)
+        {
+            totalExp -= levelUpExp;
+            LevelUp();
+        }
 
-    dataChangeListener.Invoke(StatType.TotalExp);
-    dataChangeListener.Invoke(StatType.ExpToLevelUp);
+        dataChangeListener.Invoke(StatType.TotalExp);
     }
 }
