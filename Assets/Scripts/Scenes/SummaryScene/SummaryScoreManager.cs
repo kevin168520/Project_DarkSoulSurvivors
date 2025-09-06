@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SummaryScoreManager : ManagerMonoBase
 {
@@ -10,20 +8,25 @@ public class SummaryScoreManager : ManagerMonoBase
     List<ScoreSummary> weaponSummary => DataGlobalManager._summaryWeapon; // 武器結算資料
     int goldSummary => DataGlobalManager._summaryGold; // 角色圖片
 
-    void Start() {
-
+    void Start()
+    {
         AudioGlobalManager.PlayBGM(enAudioBgmData.SummarySceneWin_BGM);
 
         // InitSummaryGoldUI()
         summaryScoreUI.GoldCount = goldSummary;
+
         // InitSummaryScoreUI()
-        if(characterImage != null){
-          summaryScoreUI.CharacterImage = characterImage;
-          summaryScoreUI.BackToMenuButtonOnClick = BackToMenuButton; 
+        if (characterImage != null)
+        {
+            summaryScoreUI.CharacterImage = characterImage;
+            summaryScoreUI.BackToMenuButtonOnClick = BackToMenuButton;
         }
+
         // InitWeaponSummary()
-        if(weaponSummary != null){
-            foreach(var item in weaponSummary) {
+        if (weaponSummary != null)
+        {
+            foreach (var item in weaponSummary)
+            {
                 summaryScoreUI.AddDetailScrollItem(
                     item.weaponIcon,
                     item.weaponName,
@@ -32,13 +35,15 @@ public class SummaryScoreManager : ManagerMonoBase
             }
         }
     }
-    
-    void BackToMenuButton() {
+
+    void BackToMenuButton()
+    {
         SceneGlobalManager.LoadStartScene();
     }
-    
+
     [System.Serializable]
-    public class ScoreSummary {
+    public class ScoreSummary
+    {
         public Sprite weaponIcon;
         public string weaponName;
         public string weaponScore;
