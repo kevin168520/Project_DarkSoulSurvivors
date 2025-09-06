@@ -116,6 +116,7 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>, IE
     public void Execute(GoldEvent parameters)
     {
         gold += parameters.gold;
+        
         dataChangeListener.Invoke(StatType.Gold);
     }
 

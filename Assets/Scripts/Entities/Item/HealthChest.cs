@@ -16,9 +16,9 @@ public class HealthChest : MonoBehaviour
 
         player.AddHp(healAmount);
 
-        // 播放既有全域音效
+        // 播放血包專用音效
         if (AudioGlobalManager.Instance != null)
-            AudioGlobalManager.Instance.PlaySFX(enAudioSfxData.ItemPickup);
+            AudioGlobalManager.Instance.PlaySFX(enAudioSfxData.HealthPickup);
 
         // 通知外部
         PickedUp?.Invoke();
@@ -26,11 +26,10 @@ public class HealthChest : MonoBehaviour
         Destroy(gameObject);
     }
 
-    
     public void onPickedUp()
     {
         if (AudioGlobalManager.Instance != null)
-            AudioGlobalManager.Instance.PlaySFX(enAudioSfxData.ItemPickup);
+            AudioGlobalManager.Instance.PlaySFX(enAudioSfxData.HealthPickup);
 
         PickedUp?.Invoke();
     }

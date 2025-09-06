@@ -6,6 +6,10 @@ public class ItemPickupableComponent : MonoBehaviour
 {
     Transform target; // 玩家目標
     bool pickupable; // 啟動是否被撿拾
+    
+    [Header("Audio Settings")]
+    [SerializeField] protected enAudioSfxData pickupSfx = enAudioSfxData.ItemPickup; // 預設撿拾音效
+    
     public void EnPickupable(Transform trans) {
       target = trans;
       pickupable = true;
@@ -31,6 +35,15 @@ public class ItemPickupableComponent : MonoBehaviour
 
     // 子類實作被撿拾後的動作
     virtual protected void OnPickup(Collider2D collision){
+        // 播放撿拾音效
+        PlaySound(pickupSfx);
         Destroy(gameObject);
     }
+    
+    // 播放撿拾音效的方法
+    public void PlaySound(enAudioSfxData enAudioSfxData)
+    {
+      AudioGlobalManager.Instance.PlaySFX(enAudioSfxData);
+    }
+
 }
