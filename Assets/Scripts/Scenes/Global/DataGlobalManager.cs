@@ -17,4 +17,5 @@ public class DataGlobalManager : GlobalMonoBase<DataGlobalManager>
     [Header("遊戲結算資料")]
     public Sprite _summaryCharacter; // 角色圖片
     public List<SummaryScoreManager.ScoreSummary> _summaryWeapon; // 武器結算資料
+    public int _summaryGold; // 金幣結算資料
 }

@@ -98,5 +98,7 @@ public class GameManager : ManagerMonoBase
             weaponSummary.Add(item);
             }
         DataGlobalManager._summaryWeapon = weaponSummary;
+        // 金幣結算
+        DataGlobalManager._summaryGold = PlayerManager.Player.character.gold;
     }
 }
