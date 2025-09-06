@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -12,6 +13,8 @@ public class SummaryScoreUI : MonoBehaviour
     public UnityAction BackToMenuButtonOnClick {set => backToMenuButton.onClick.AddListener(value);}
     [SerializeField] RectTransform detailScrollContent;
     [SerializeField] RectTransform detailScrollItem;
+    [SerializeField] TextMeshProUGUI goldText;
+    public int GoldCount {set => goldText.text = $"Gold：{value}";}
 
     public void AddDetailScrollItem(Sprite iconWeapon, string text1, string text2){
       RectTransform item = Instantiate(detailScrollItem, detailScrollContent);

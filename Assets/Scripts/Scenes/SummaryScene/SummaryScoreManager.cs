@@ -8,11 +8,14 @@ public class SummaryScoreManager : ManagerMonoBase
     [SerializeField] SummaryScoreUI summaryScoreUI;
     Sprite characterImage => DataGlobalManager._summaryCharacter; // 角色圖片
     List<ScoreSummary> weaponSummary => DataGlobalManager._summaryWeapon; // 武器結算資料
+    int goldSummary => DataGlobalManager._summaryGold; // 角色圖片
 
     void Start() {
 
         AudioGlobalManager.PlayBGM(enAudioBgmData.SummarySceneWin_BGM);
 
+        // InitSummaryGoldUI()
+        summaryScoreUI.GoldCount = goldSummary;
         // InitSummaryScoreUI()
         if(characterImage != null){
           summaryScoreUI.CharacterImage = characterImage;
