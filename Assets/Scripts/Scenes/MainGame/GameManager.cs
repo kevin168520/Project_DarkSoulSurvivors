@@ -100,5 +100,9 @@ public class GameManager : ManagerMonoBase
         DataGlobalManager._summaryWeapon = weaponSummary;
         // 金幣結算
         DataGlobalManager._summaryGold = PlayerManager.Player.character.gold;
+
+        // 玩家資料 如果戰鬥後結束要執行保存在此
+        DataGlobalManager._playerData.iPlayer_Money += PlayerManager.Player.character.gold;
+        StoreDataRepository.PlayerDataSaving(ref DataGlobalManager._playerData);
     }
 }
