@@ -106,7 +106,7 @@ public static class StoreDataRepository
 public static class PathManager
 {
     /// <summary>取得遊戲存檔資料夾路徑</summary>
-    public static string SaveFolderPath => Application.persistentDataPath.Replace("\\", "/");
+    public static string SaveFolderPath => Application.persistentDataPath;
 
     /// <summary>取得指定檔案的完整儲存路徑與檔名</summary>
     public static string GetSaveFilePath(string fileName)
@@ -115,9 +115,6 @@ public static class PathManager
         if (!Directory.Exists(SaveFolderPath))
             Directory.CreateDirectory(SaveFolderPath);
 
-        return Path.Combine(SaveFolderPath, fileName).Replace("\\", "/");
+        return Path.Combine(SaveFolderPath, fileName);
     }
-
-    /// <summary>取得 DataSaving.json 的完整路徑</summary>
-    public static string DataSavingFilePath => GetSaveFilePath("DataSaving.json");
 }
