@@ -17,7 +17,7 @@ public class LauncherManager : ManagerMonoBase
         if (_userData == null)
             _userData = new UserStoreData();
 
-        await StoreDataRepository.UserDataLoadingAsync(_userData);
+        _userData = await StorageUtility.UserStoreData().LoadAsync();
         UserEnvironmentLoad(_userData);
 
         // 判斷 Steam 登入

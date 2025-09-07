@@ -188,7 +188,7 @@ public class OptionMenuManager : ManagerMonoBase
         data.iWondowsResolution = _iWindowResolution;
         data.iLanguage = _iLanguage;
 
-        StoreDataRepository.UserDataSaving(ref data);
+        data = StorageUtility.UserStoreData().Load();
 
         // 顯示對應的 UI 面板
         _optionMenuUI.objOptionMenuShow = false;
