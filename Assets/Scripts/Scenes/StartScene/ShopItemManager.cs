@@ -79,10 +79,8 @@ public class ShopItemManager : ManagerMonoBase
     /// </summary>
     public void PlayerShopStatusSaving()
     {
-#if !UNITY_EDITOR // 編輯模式 不保存
         PlayerStoreData data = _playerData;
-        StoreDataRepository.PlayerDataSaving(ref data);
-#endif
+        StorageUtility.PlayerStoreData().Save(data);
         Debug.Log("PlayerShopStatusSaving Finish!" + iPlayer_Money);
     }
 
@@ -92,7 +90,7 @@ public class ShopItemManager : ManagerMonoBase
     public void PlayerShopStatusLoading()
     {
         PlayerStoreData data = new PlayerStoreData();
-        StoreDataRepository.PlayerDataLoading(ref data);
+        data = StorageUtility.PlayerStoreData().Load();
         _playerData = data;
 
         Debug.Log("PlayerShopStatusLoading Finish!" + iPlayer_Money);

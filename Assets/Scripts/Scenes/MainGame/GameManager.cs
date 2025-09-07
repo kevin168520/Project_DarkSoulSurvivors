@@ -115,6 +115,6 @@ public class GameManager : ManagerMonoBase
 
         // 玩家資料 如果戰鬥後結束要執行保存在此
         DataGlobalManager._playerData.iPlayer_Money += PlayerManager.Player.character.gold;
-        StoreDataRepository.PlayerDataSaving(ref DataGlobalManager._playerData);
+        StorageUtility.PlayerStoreData().Save(DataGlobalManager._playerData);
     }
 }
