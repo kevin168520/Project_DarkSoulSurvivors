@@ -53,48 +53,40 @@ public static class StoreDataRepository
     /// <summary> 玩家資料儲存的方法實作 </summary>
     public static async UniTask PlayerDataSavingAsync(PlayerStoreData data)
     {
-        string json = JsonUtility.ToJson(data);
-        using (var writer = new StreamWriter(PlayerDataPath, false))
+        await UniTask.Create(() =>
         {
-            await writer.WriteAsync(json);
-        }
+            PlayerDataSaving(ref data);
+            return UniTask.CompletedTask;
+        });
     }
 
-    public static async UniTask PlayerDataLoadingAsync(PlayerStoreData data)
+    public static async UniTask<PlayerStoreData> PlayerDataLoadingAsync()
     {
-        if (!File.Exists(PlayerDataPath))
+        return await UniTask.Create(() =>
         {
-            await PlayerDataSavingAsync(data);
-        }
-
-        using (var reader = new StreamReader(PlayerDataPath))
-        {
-            string json = await reader.ReadToEndAsync();
-            JsonUtility.FromJsonOverwrite(json, data);
-        }
+            var result = new PlayerStoreData();
+            PlayerDataLoading(ref result);
+            return UniTask.FromResult(result);
+        });
     }
 
     public static async UniTask UserDataSavingAsync(UserStoreData data)
     {
-        string json = JsonUtility.ToJson(data);
-        using (var writer = new StreamWriter(UserSettingPath, false))
+        await UniTask.Create(() =>
         {
-            await writer.WriteAsync(json);
-        }
+            UserDataSaving(ref data);
+            return UniTask.CompletedTask;
+        });
     }
 
-    public static async UniTask UserDataLoadingAsync(UserStoreData data)
+    public static async UniTask<UserStoreData> UserDataLoadingAsync()
     {
-        if (!File.Exists(UserSettingPath))
+        return await UniTask.Create(() =>
         {
-            await UserDataSavingAsync(data);
-        }
-
-        using (var reader = new StreamReader(UserSettingPath))
-        {
-            string json = await reader.ReadToEndAsync();
-            JsonUtility.FromJsonOverwrite(json, data);
-        }
+            var result = new UserStoreData();
+            UserDataLoading(ref result);
+            return UniTask.FromResult(result);
+        });
     }
 
     #endregion
