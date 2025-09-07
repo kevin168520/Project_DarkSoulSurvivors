@@ -19,16 +19,14 @@ public static class StoreDataRepository
 
     public static void PlayerDataLoading(ref PlayerStoreData data)
     {
-        if (File.Exists(PlayerDataPath))
+        if (!File.Exists(PlayerDataPath))
         {
-            string json = File.ReadAllText(PlayerDataPath);
-            data = JsonUtility.FromJson<PlayerStoreData>(json);
+            data = new PlayerStoreData();
+            return;
         }
-        else
-        {
-            if (data == null) data = new PlayerStoreData();
-            PlayerDataSaving(ref data);
-        }
+
+        string json = File.ReadAllText(PlayerDataPath);
+        data = JsonUtility.FromJson<PlayerStoreData>(json);
     }
 
     public static void UserDataSaving(ref UserStoreData data)
@@ -39,16 +37,14 @@ public static class StoreDataRepository
 
     public static void UserDataLoading(ref UserStoreData data)
     {
-        if (File.Exists(UserSettingPath))
+        if (!File.Exists(UserSettingPath))
         {
-            string json = File.ReadAllText(UserSettingPath);
-            data = JsonUtility.FromJson<UserStoreData>(json);
+            data = new UserStoreData();
+            return;
         }
-        else
-        {
-            if (data == null) data = new UserStoreData();
-            UserDataSaving(ref data);
-        }
+
+        string json = File.ReadAllText(UserSettingPath);
+        data = JsonUtility.FromJson<UserStoreData>(json);
     }
 
     #endregion
@@ -66,17 +62,15 @@ public static class StoreDataRepository
 
     public static async UniTask PlayerDataLoadingAsync(PlayerStoreData data)
     {
-        if (File.Exists(PlayerDataPath))
-        {
-            using (var reader = new StreamReader(PlayerDataPath))
-            {
-                string json = await reader.ReadToEndAsync();
-                JsonUtility.FromJsonOverwrite(json, data);
-            }
-        }
-        else
+        if (!File.Exists(PlayerDataPath))
         {
             await PlayerDataSavingAsync(data);
+        }
+
+        using (var reader = new StreamReader(PlayerDataPath))
+        {
+            string json = await reader.ReadToEndAsync();
+            JsonUtility.FromJsonOverwrite(json, data);
         }
     }
 
@@ -91,17 +85,15 @@ public static class StoreDataRepository
 
     public static async UniTask UserDataLoadingAsync(UserStoreData data)
     {
-        if (File.Exists(UserSettingPath))
-        {
-            using (var reader = new StreamReader(UserSettingPath))
-            {
-                string json = await reader.ReadToEndAsync();
-                JsonUtility.FromJsonOverwrite(json, data);
-            }
-        }
-        else
+        if (!File.Exists(UserSettingPath))
         {
             await UserDataSavingAsync(data);
+        }
+
+        using (var reader = new StreamReader(UserSettingPath))
+        {
+            string json = await reader.ReadToEndAsync();
+            JsonUtility.FromJsonOverwrite(json, data);
         }
     }
 
