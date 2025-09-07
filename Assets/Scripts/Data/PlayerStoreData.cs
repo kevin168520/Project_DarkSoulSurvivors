@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class PlayerStoreData
 {
-    public int iPlayer_Money;
+    public int iPlayer_Money = 5000;
     public int iPlayerItemLevel_HP;
     public int iPlayerItemLevel_ATK;
     public int iPlayerItemLevel_DEF;
