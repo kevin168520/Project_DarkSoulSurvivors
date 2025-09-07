@@ -6,11 +6,8 @@ using Cysharp.Threading.Tasks;  // 請先用 Package Manager 安裝 UniTask
 [Serializable]
 public static class StoreDataRepository
 {
+    #region 玩家資料
     public static string PlayerDataPath => PathManager.GetSaveFilePath("PlayerDataSaving.json");
-    public static string UserSettingPath => PathManager.GetSaveFilePath("UserSettingSaving.json");
-
-    #region 同步版本
-    /// <summary> 玩家資料儲存的方法實作 </summary>
     public static void PlayerDataSaving(ref PlayerStoreData data)
     {
         string json = JsonUtility.ToJson(data);
@@ -29,28 +26,6 @@ public static class StoreDataRepository
         data = JsonUtility.FromJson<PlayerStoreData>(json);
     }
 
-    public static void UserDataSaving(ref UserStoreData data)
-    {
-        string json = JsonUtility.ToJson(data);
-        File.WriteAllText(UserSettingPath, json);
-    }
-
-    public static void UserDataLoading(ref UserStoreData data)
-    {
-        if (!File.Exists(UserSettingPath))
-        {
-            data = new UserStoreData();
-            return;
-        }
-
-        string json = File.ReadAllText(UserSettingPath);
-        data = JsonUtility.FromJson<UserStoreData>(json);
-    }
-
-    #endregion
-
-    #region 非同步 UniTask 版本
-    /// <summary> 玩家資料儲存的方法實作 </summary>
     public static async UniTask PlayerDataSavingAsync(PlayerStoreData data)
     {
         await UniTask.Create(() =>
@@ -69,6 +44,28 @@ public static class StoreDataRepository
             return UniTask.FromResult(result);
         });
     }
+    #endregion
+
+    #region 遊戲設定
+    public static string UserSettingPath => PathManager.GetSaveFilePath("UserSettingSaving.json");
+    public static void UserDataSaving(ref UserStoreData data)
+    {
+        string json = JsonUtility.ToJson(data);
+        File.WriteAllText(UserSettingPath, json);
+    }
+
+    public static void UserDataLoading(ref UserStoreData data)
+    {
+        if (!File.Exists(UserSettingPath))
+        {
+            data = new UserStoreData();
+            return;
+        }
+
+        string json = File.ReadAllText(UserSettingPath);
+        data = JsonUtility.FromJson<UserStoreData>(json);
+    }
+
 
     public static async UniTask UserDataSavingAsync(UserStoreData data)
     {
@@ -88,7 +85,6 @@ public static class StoreDataRepository
             return UniTask.FromResult(result);
         });
     }
-
     #endregion
 }
 
