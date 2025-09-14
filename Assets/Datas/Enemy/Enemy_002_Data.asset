@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b588b6cb480085d429aaaed50ffb988b, type: 3}
   m_Name: Enemy_002_Data
   m_EditorClassIdentifier: 
-  spritePrefab: {fileID: 8951934548676239562, guid: 40826b2318648414b89eb831043a243d, type: 3}
   showName: Monkey
   hp: 120
   damage: 20
   speed: 0.6
+  sprite: {fileID: 668637113, guid: b9fcb776afd7b434ead0ba79563c4388, type: 3}
+  animator: {fileID: 9100000, guid: 4fb09a4347d90ad4d9d90faf9230765e, type: 2}
+  offset: {x: 0, y: 0}
+  size: {x: 1, y: 0.8}
+  drop:
+  - {fileID: 4645613739593393676, guid: 11256550b25a2f34da4d87ae844a2cbc, type: 3}
+  - {fileID: 1368426034065494075, guid: e01b09e1c18da684e874f297fedb4d77, type: 3}

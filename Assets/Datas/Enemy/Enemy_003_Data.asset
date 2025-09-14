@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b588b6cb480085d429aaaed50ffb988b, type: 3}
   m_Name: Enemy_003_Data
   m_EditorClassIdentifier: 
-  spritePrefab: {fileID: 8951934548676239562, guid: ec45c3b7cd13fd04db67814a0f69ca84, type: 3}
-  showName: Monkey
-  hp: 120
-  damage: 20
-  speed: 0.6
+  showName: Eye Demon
+  hp: 50
+  damage: 30
+  speed: 1.2
+  sprite: {fileID: -724075832, guid: 72a5fa8ddeb9a464b867675c41e84021, type: 3}
+  animator: {fileID: 9100000, guid: 949024b33a3b0784387771c75ef352f2, type: 2}
+  offset: {x: 0, y: 0.1}
+  size: {x: 0.8, y: 0.8}
+  drop:
+  - {fileID: 4645613739593393676, guid: 11256550b25a2f34da4d87ae844a2cbc, type: 3}
+  - {fileID: 1368426034065494075, guid: e01b09e1c18da684e874f297fedb4d77, type: 3}

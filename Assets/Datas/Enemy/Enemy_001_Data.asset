@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b588b6cb480085d429aaaed50ffb988b, type: 3}
   m_Name: Enemy_001_Data
   m_EditorClassIdentifier: 
-  spritePrefab: {fileID: 8951934548676239562, guid: e2447b715cdb24843986a3cea82bd8a0, type: 3}
   showName: Green Slime
   hp: 100
   damage: 10
   speed: 1
+  sprite: {fileID: -1448362433, guid: 3ed50d3aeb2d06d4a852d16c1441f5ed, type: 3}
+  animator: {fileID: 9100000, guid: 0751f15c337974447b9de19532c10824, type: 2}
+  offset: {x: 0, y: -0.25}
+  size: {x: 0.6, y: 0.6}
+  drop:
+  - {fileID: 1368426034065494075, guid: e01b09e1c18da684e874f297fedb4d77, type: 3}
+  - {fileID: 4645613739593393676, guid: 11256550b25a2f34da4d87ae844a2cbc, type: 3}
