@@ -8,6 +8,8 @@ public class EnemyManager : ManagerMonoBase
     // 內部物件
     [SerializeField] Vector2 spawnArea; // 生成範圍 通常螢幕範圍
 
+    [SerializeField] GameObject enemyPrefab; // 怪物模板
+
     List<StageEvent> enemyWaves = new List<StageEvent>(); // 待生成敵人柱列
 
     void Start()
@@ -43,14 +45,29 @@ public class EnemyManager : ManagerMonoBase
     // 執行生成敵人
     void SpawnEnemy(EnemyScriptable enemyData = null)
     {
-        GameObject newEnemy = Instantiate(enemyData.spritePrefab);
+        if (enemyData == null) return;
+
+        GameObject newEnemy = Instantiate(enemyPrefab);
         newEnemy.transform.position = GenerateRandomPosition(); // 設置座標座標
         newEnemy.transform.parent = transform; // 除錯用 保持場景層級
 
         EnemyScript newEnemyScript = newEnemy.GetComponent<EnemyScript>();
         newEnemyScript.SetTarget(player.transform); // 設置移動目標
         newEnemyScript.SetTargetDamageable(player.character); // 設置傷害目標
-        if (enemyData) newEnemyScript.SetEnemyData(enemyData); // 設置敵人數據
+        newEnemyScript.SetEnemyData(enemyData); // 設置敵人數據
+
+        SpriteRenderer newEnemySprite = newEnemy.GetComponent<SpriteRenderer>();
+        newEnemySprite.sprite = enemyData.sprite; // 設置敵人圖片
+
+        Animator newEnemyAnimator = newEnemy.GetComponent<Animator>();
+        newEnemyAnimator.runtimeAnimatorController = enemyData.animator; // 設置敵人動畫
+
+        BoxCollider2D newEnemyCollider = newEnemy.GetComponent<BoxCollider2D>();
+        newEnemyCollider.offset = enemyData.offset; // 設置敵人碰撞偏移
+        newEnemyCollider.size = enemyData.size; // 設置敵人碰撞大小
+
+        ItemDropComponent newEnemyDrop = newEnemy.GetComponent<ItemDropComponent>();
+        newEnemyDrop.dropItemPrefab = enemyData.drop; // 設置敵人掉落物
     }
 
     // 計算隨機生成位置
