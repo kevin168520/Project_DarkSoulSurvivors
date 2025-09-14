@@ -19,7 +19,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
     private int damage = 10; // 攻擊力
     [SerializeField, Range(0, 10)] private float speed; // 移速
 
-    void Awake()
+    void Start()
     {
         hp = data.hp;
         damage = data.damage;
