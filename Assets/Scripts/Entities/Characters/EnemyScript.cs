@@ -1,13 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour, IDamageable
 {
     public IDamageable player;
     public void SetTargetDamageable(IDamageable gb) => player = gb;
-  
+
     [SerializeField] private Transform target; // 移動目標
     public void SetTarget(Transform gb) => target = gb;
     [SerializeField] private string targetAttack; // 攻擊目標
@@ -29,18 +26,18 @@ public class EnemyScript : MonoBehaviour, IDamageable
         speed = data.speed;
         dropItem = GetComponent<ItemDropComponent>();
     }
-    
+
     void FixedUpdate()
     {
-        if(target == null) return; // 不存在目標時
-        
+        if (target == null) return; // 不存在目標時
+
         Vector3 direction = (target.transform.position - transform.position).normalized;
         rgdbd.velocity = direction * speed;
     }
 
     void OnCollisionStay2D(Collision2D collision)
-    {      
-        if(collision.gameObject.CompareTag("Player"))
+    {
+        if (collision.gameObject.CompareTag("Player"))
             Attack(player);
     }
 
@@ -56,12 +53,13 @@ public class EnemyScript : MonoBehaviour, IDamageable
     {
         hp -= damage;
         Debug.Log($"Enemy TakeDamage: {damage}, HP: {hp}");
-        
+
         // 血量歸零 死亡處理
-        if(hp < 1) {
-          Destroy(gameObject);
-          dropItem.HandleDropItem();
-          Debug.Log($"Enemy is Dead!!!");
+        if (hp < 1)
+        {
+            Destroy(gameObject);
+            dropItem.HandleDropItem();
+            Debug.Log($"Enemy is Dead!!!");
         }
     }
 }
