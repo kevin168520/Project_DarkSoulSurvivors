@@ -1,13 +1,22 @@
 using UnityEngine;
 
-public class StageManager : ManagerMonoBase
+public class StageManager : ManagerMonoBase, IEvent<LevelTimerEvent>
 {
     [SerializeField] StageEventScriptable stageEvent; // 關卡敵人群
 
-    void Start()
+    void OnEnable()
     {
-        // 註冊 關卡時間 監聽
-        LevelTimerManager.AddListener(OnLevelTimer);
+        EventGlobalManager.Instance.RegisterEvent(this);
+    }
+
+    void OnDisable()
+    {
+        EventGlobalManager.Instance?.DeregisterEvent(this);
+    }
+
+    public void Execute(LevelTimerEvent parameters)
+    {
+        OnLevelTimer(parameters.time);
     }
 
     // 關卡時間
