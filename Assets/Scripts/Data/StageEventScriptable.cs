@@ -17,7 +17,7 @@ public class StageEventScriptable : ScriptableObject, IEnumerable<StageEvent>
     [NonSerialized] private int index = 0;
 
     /// <summary> 判定事件結束 </summary>
-    public bool IsEnd => index > table.Count;
+    public bool IsEnd => index >= table.Count;
 
     /// <summary> 事件索引 </summary>
     public int Index => index;
@@ -26,7 +26,7 @@ public class StageEventScriptable : ScriptableObject, IEnumerable<StageEvent>
     public bool Check(float time)
     {
         if (IsEnd) return false;
-        return table[index].time > time;
+        return time >= table[index].time;
     }
 
     /// <summary> 進下一個 </summary>

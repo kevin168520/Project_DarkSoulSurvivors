@@ -23,7 +23,7 @@ public class StageManager : ManagerMonoBase, IEvent<LevelTimerEvent>
     void OnLevelTimer(int time)
     {
         // 判定事件觸發
-        if (stageEvent.Check(time)) return;
+        if (!stageEvent.Check(time)) return;
 
         // 取得事件
         StageEvent e = stageEvent.Current();
