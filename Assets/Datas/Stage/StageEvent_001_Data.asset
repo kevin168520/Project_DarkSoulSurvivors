@@ -13,43 +13,69 @@ MonoBehaviour:
   m_Name: StageEvent_001_Data
   m_EditorClassIdentifier: 
   table:
-  - type: 0
-    time: 3
-    message: 
-    enemy: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
-    enemyCount: 20
-  - type: 0
-    time: 10
-    message: 
-    enemy: {fileID: 11400000, guid: 221c9aab8b0c2af41a94dffbffe195d4, type: 2}
-    enemyCount: 20
-  - type: 0
-    time: 20
-    message: 
-    enemy: {fileID: 11400000, guid: 728b2fc85c2c050418864e9359ba8c26, type: 2}
-    enemyCount: 20
-  - type: 0
-    time: 30
-    message: 
-    enemy: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
-    enemyCount: 20
-  - type: 0
-    time: 35
-    message: 
-    enemy: {fileID: 11400000, guid: 221c9aab8b0c2af41a94dffbffe195d4, type: 2}
-    enemyCount: 15
-  - type: 0
-    time: 40
-    message: 
-    enemy: {fileID: 11400000, guid: 728b2fc85c2c050418864e9359ba8c26, type: 2}
-    enemyCount: 15
-  - type: 0
-    time: 45
-    message: 
-    enemy: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
-    enemyCount: 15
-  - type: 1
-    time: 60
-    message: Stage Clear
-    enemy: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
-    enemyCount: 20
+  - time: 5
+    command:
+      rid: 7899475831229775889
+  - time: 10
+    command:
+      rid: 7899475831229775890
+  - time: 15
+    command:
+      rid: 7899475831229775881
+  - time: 20
+    command:
+      rid: 7899475831229775891
+  - time: 30
+    command:
+      rid: 7899475831229775883
+  - time: 40
+    command:
+      rid: 7899475831229775884
+  - time: 50
+    command:
+      rid: 7899475831229775885
+  - time: 60
+    command:
+      rid: 7899475831229775888
+  references:
+    version: 2
+    RefIds:
+    - rid: 7899475831229775881
+      type: {class: SpawnEnemyCommand, ns: , asm: Assembly-CSharp}
+      data:
+        enemyCount: 10
+        enemy: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
+    - rid: 7899475831229775883
+      type: {class: SpawnEnemyCommand, ns: , asm: Assembly-CSharp}
+      data:
+        enemyCount: 10
+        enemy: {fileID: 11400000, guid: 221c9aab8b0c2af41a94dffbffe195d4, type: 2}
+    - rid: 7899475831229775884
+      type: {class: SpawnEnemyCommand, ns: , asm: Assembly-CSharp}
+      data:
+        enemyCount: 10
+        enemy: {fileID: 11400000, guid: 221c9aab8b0c2af41a94dffbffe195d4, type: 2}
+    - rid: 7899475831229775885
+      type: {class: SpawnEnemyCommand, ns: , asm: Assembly-CSharp}
+      data:
+        enemyCount: 10
+        enemy: {fileID: 11400000, guid: 728b2fc85c2c050418864e9359ba8c26, type: 2}
+    - rid: 7899475831229775888
+      type: {class: WinStageCommand, ns: , asm: Assembly-CSharp}
+      data:
+        message: WinStageCommand
+    - rid: 7899475831229775889
+      type: {class: SpawnEnemyCommand, ns: , asm: Assembly-CSharp}
+      data:
+        enemyCount: 10
+        enemy: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
+    - rid: 7899475831229775890
+      type: {class: SpawnEnemyCommand, ns: , asm: Assembly-CSharp}
+      data:
+        enemyCount: 10
+        enemy: {fileID: 11400000, guid: ac13ec04c67dbd94baff018f7f48be2a, type: 2}
+    - rid: 7899475831229775891
+      type: {class: SpawnEnemyCommand, ns: , asm: Assembly-CSharp}
+      data:
+        enemyCount: 10
+        enemy: {fileID: 11400000, guid: 221c9aab8b0c2af41a94dffbffe195d4, type: 2}

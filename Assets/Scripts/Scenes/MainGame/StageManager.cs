@@ -38,27 +38,28 @@ public class StageManager : ManagerMonoBase, IEvent<LevelTimerEvent>
     // 關卡事件
     void OnLevelEvent(StageEvent stageEvent)
     {
-        switch (stageEvent.type)
+        switch (stageEvent.command)
         {
-            case StageEventType.SpawnEnemy:
-                SpawnEnemy(stageEvent);
+            case SpawnEnemyCommand spawnEnemyCommand:
+                SpawnEnemy(spawnEnemyCommand);
                 break;
-            case StageEventType.WinStage:
-                WinStage();
+            case WinStageCommand winStage:
+                WinStage(winStage);
                 break;
         }
     }
 
     // 生成怪物群
-    void SpawnEnemy(StageEvent stageEvent)
+    void SpawnEnemy(SpawnEnemyCommand enemyWave)
     {
-        EnemyManager.AddEnemyWave(stageEvent); // 關卡生成敵人群添加到敵人管理者
-        if (stageEvent.message.Length != 0) Debug.Log(stageEvent.message);
+        EnemyManager.AddEnemyWave(enemyWave.enemy, enemyWave.enemyCount); // 關卡生成敵人群添加到敵人管理者
+        enemyWave.Execute();
     }
 
     // 關卡通關
-    void WinStage()
+    void WinStage(WinStageCommand winStage)
     {
         GameManager.GameComplete();
+        winStage.Execute();
     }
 }

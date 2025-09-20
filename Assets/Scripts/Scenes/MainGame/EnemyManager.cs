@@ -10,7 +10,7 @@ public class EnemyManager : ManagerMonoBase
 
     [SerializeField] GameObject enemyPrefab; // 怪物模板
 
-    List<StageEvent> enemyWaves = new List<StageEvent>(); // 待生成敵人柱列
+    List<(EnemyScriptable enemy, int enemyCount)> enemyWaves = new(); // 待生成敵人柱列
 
     Queue<GameObject> enemyPool = new Queue<GameObject>(); // 敵人池
 
@@ -27,9 +27,9 @@ public class EnemyManager : ManagerMonoBase
     }
 
     // 添加敵人群
-    public void AddEnemyWave(StageEvent enemyWave)
+    public void AddEnemyWave(EnemyScriptable enemy, int enemyCount)
     {
-        enemyWaves.Add(enemyWave.Clone()); // 複製避免更動到資源檔
+        enemyWaves.Add((enemy, enemyCount)); // 複製避免更動到資源檔
     }
 
     // 判定待生成敵人
@@ -38,7 +38,7 @@ public class EnemyManager : ManagerMonoBase
         if (enemyWaves.Count == 0) return; // 沒有待生成
 
         SpawnEnemy(enemyWaves[0].enemy);
-        enemyWaves[0].enemyCount -= 1;
+        enemyWaves[0] = (enemyWaves[0].enemy, enemyWaves[0].enemyCount - 1);
 
         if (enemyWaves[0].enemyCount <= 0) // 該敵人群已沒有待生成則移除
             enemyWaves.RemoveAt(0);

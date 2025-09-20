@@ -1,19 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
-
-public enum StageEventType
-{
-    SpawnEnemy,
-    WinStage,
-    StartStage
-}
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/StageEvent", order = 1)]
 public class StageEventScriptable : ScriptableObject, IEnumerable<StageEvent>
 {
-    [SerializeField] private List<StageEvent> table; // 敵人波
+    [Title("[時間] [指令]")]
+    [SerializeField]
+    [ListDrawerSettings(NumberOfItemsPerPage = 10)]
+    private List<StageEvent> table; // 敵人波
     [NonSerialized] private int index = 0;
 
     /// <summary> 判定事件結束 </summary>
@@ -38,24 +35,4 @@ public class StageEventScriptable : ScriptableObject, IEnumerable<StageEvent>
     // 用於 foreach 循序
     public IEnumerator<StageEvent> GetEnumerator() => table.GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => table.GetEnumerator();
-}
-
-[Serializable]
-public class StageEvent
-{
-    public StageEventType type = StageEventType.SpawnEnemy;
-    [Range(0, 1800)] public float time;     // 出現時間
-    public string message;                  // 後台訊息
-    public EnemyScriptable enemy;           // 敵人數據
-    [Range(0, 200)] public int enemyCount;  // 敵人數量
-
-    public StageEvent Clone()
-    {
-        StageEvent c = new StageEvent();
-        c.time = this.time;
-        c.message = this.message;
-        c.enemy = this.enemy;
-        c.enemyCount = this.enemyCount;
-        return c;
-    }
 }
