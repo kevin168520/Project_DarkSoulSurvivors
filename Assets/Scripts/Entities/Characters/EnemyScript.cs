@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour, IDamageable
 {
     public IDamageable player;
     public void SetTargetDamageable(IDamageable gb) => player = gb;
+    [NonSerialized] public Action<GameObject> OnDeath;
 
     [SerializeField] private Transform target; // 移動目標
     public void SetTarget(Transform gb) => target = gb;
@@ -57,7 +59,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
         // 血量歸零 死亡處理
         if (hp < 1)
         {
-            Destroy(gameObject);
+            OnDeath?.Invoke(gameObject);
             dropItem.HandleDropItem();
             Debug.Log($"Enemy is Dead!!!");
         }

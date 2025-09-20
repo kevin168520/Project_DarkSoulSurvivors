@@ -12,6 +12,8 @@ public class EnemyManager : ManagerMonoBase
 
     List<StageEvent> enemyWaves = new List<StageEvent>(); // 待生成敵人柱列
 
+    Queue<GameObject> enemyPool = new Queue<GameObject>(); // 敵人池
+
     void Start()
     {
         Camera cam = Camera.main;
@@ -47,9 +49,8 @@ public class EnemyManager : ManagerMonoBase
     {
         if (enemyData == null) return;
 
-        GameObject newEnemy = Instantiate(enemyPrefab);
+        GameObject newEnemy = AcquireEnemy();
         newEnemy.transform.position = GenerateRandomPosition(); // 設置座標座標
-        newEnemy.transform.parent = transform; // 除錯用 保持場景層級
 
         EnemyScript newEnemyScript = newEnemy.GetComponent<EnemyScript>();
         newEnemyScript.SetTarget(player.transform); // 設置移動目標
@@ -68,6 +69,31 @@ public class EnemyManager : ManagerMonoBase
 
         ItemDropComponent newEnemyDrop = newEnemy.GetComponent<ItemDropComponent>();
         newEnemyDrop.dropItemPrefab = enemyData.drop; // 設置敵人掉落物
+    }
+
+    // 從敵人池取出
+    GameObject AcquireEnemy()
+    {
+        GameObject enemy;
+        if (enemyPool.Count > 0)
+        {
+            enemy = enemyPool.Dequeue(); // 從池子取出敵人
+            enemy.SetActive(true);
+        }
+        else
+        {
+            enemy = Instantiate(enemyPrefab); // 生成敵人
+            enemy.transform.parent = transform; // 除錯用 保持場景層級
+            enemy.GetComponent<EnemyScript>().OnDeath = RecycleEnemy; // 回收對象
+        }
+        return enemy;
+    }
+
+    // 回收到敵人池
+    void RecycleEnemy(GameObject enemy)
+    {
+        enemy.SetActive(false);
+        enemyPool.Enqueue(enemy);
     }
 
     // 計算隨機生成位置
