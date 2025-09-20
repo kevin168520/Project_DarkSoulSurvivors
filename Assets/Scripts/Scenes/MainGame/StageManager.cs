@@ -38,13 +38,13 @@ public class StageManager : ManagerMonoBase, IEvent<LevelTimerEvent>
     // 關卡事件
     void OnLevelEvent(StageEvent stageEvent)
     {
-        switch (stageEvent.type)
+        switch (stageEvent.command)
         {
-            case StageEventType.SpawnEnemy:
-                if(stageEvent.command is SpawnEnemyCommand enemyWave)SpawnEnemy(enemyWave);
+            case SpawnEnemyCommand spawnEnemyCommand:
+                SpawnEnemy(spawnEnemyCommand);
                 break;
-            case StageEventType.WinStage:
-                if(stageEvent.command is WinStageCommand winStage)WinStage(winStage);
+            case WinStageCommand winStage:
+                WinStage(winStage);
                 break;
         }
     }
