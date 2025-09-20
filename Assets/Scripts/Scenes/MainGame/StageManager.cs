@@ -44,7 +44,7 @@ public class StageManager : ManagerMonoBase, IEvent<LevelTimerEvent>
                 if(stageEvent.command is SpawnEnemyCommand enemyWave)SpawnEnemy(enemyWave);
                 break;
             case StageEventType.WinStage:
-                WinStage();
+                if(stageEvent.command is WinStageCommand winStage)WinStage(winStage);
                 break;
         }
     }
@@ -57,8 +57,9 @@ public class StageManager : ManagerMonoBase, IEvent<LevelTimerEvent>
     }
 
     // 關卡通關
-    void WinStage()
+    void WinStage(WinStageCommand winStage)
     {
         GameManager.GameComplete();
+        winStage.Execute();
     }
 }
