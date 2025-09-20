@@ -15,7 +15,7 @@ MonoBehaviour:
   source:
     Name: PhysicalWeaponWhip
     Clip:
-    - {fileID: 8300000, guid: 7947e24229c8a33419e1bd3fddb1aed2, type: 3}
+    - {fileID: 8300000, guid: 66cee993e85f9804b83b7cf25c5da9e0, type: 3}
     Loop: 0
     ResetTime: 1
     Volume:
