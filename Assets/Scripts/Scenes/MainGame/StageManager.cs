@@ -41,7 +41,7 @@ public class StageManager : ManagerMonoBase, IEvent<LevelTimerEvent>
         switch (stageEvent.type)
         {
             case StageEventType.SpawnEnemy:
-                SpawnEnemy(stageEvent);
+                if(stageEvent.command is SpawnEnemyCommand enemyWave)SpawnEnemy(enemyWave);
                 break;
             case StageEventType.WinStage:
                 WinStage();
@@ -50,10 +50,10 @@ public class StageManager : ManagerMonoBase, IEvent<LevelTimerEvent>
     }
 
     // 生成怪物群
-    void SpawnEnemy(StageEvent stageEvent)
+    void SpawnEnemy(SpawnEnemyCommand enemyWave)
     {
-        EnemyManager.AddEnemyWave(stageEvent); // 關卡生成敵人群添加到敵人管理者
-        if (stageEvent.message.Length != 0) Debug.Log(stageEvent.message);
+        EnemyManager.AddEnemyWave(enemyWave.enemy, enemyWave.enemyCount); // 關卡生成敵人群添加到敵人管理者
+        enemyWave.Execute();
     }
 
     // 關卡通關
