@@ -12,7 +12,7 @@ public class ThrowWeaponBehaviourScript : WeaponBehaviourBase
     // 開啟攻擊
     protected override void OnAttackStart()
     {
-        PlaySound(enAudioSfxData.PhysicalWeaponArrow);
+        PlaySound(enAudioSfxData.PhysicalWeaponWhip);
         velocity = new Vector3(0, verticalSpeed, 0);
     }
     
