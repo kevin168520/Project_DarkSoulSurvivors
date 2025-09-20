@@ -1,12 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/StageEvent", order = 1)]
 public class StageEventScriptable : ScriptableObject, IEnumerable<StageEvent>
 {
-    [SerializeField] private List<StageEvent> table; // 敵人波
+    [Title("[時間] [指令]")]
+    [SerializeField]
+    [ListDrawerSettings(NumberOfItemsPerPage = 10)]
+    private List<StageEvent> table; // 敵人波
     [NonSerialized] private int index = 0;
 
     /// <summary> 判定事件結束 </summary>

@@ -1,11 +1,22 @@
 using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 [Serializable]
 public class StageEvent
 {
-    [SerializeReference] public StageCommandBase command;
-    [Range(0, 1800)] public float time;     // 出現時間
+    /// <summary> 關卡時間 </summary>
+    [HorizontalGroup(Width = 45)]
+    [HideLabel]
+    public int time;
+
+    /// <summary> 關卡指令 </summary>
+    [SerializeReference]
+    [HorizontalGroup]
+    [HideLabel]
+    [InlineProperty]
+    [HideReferenceObjectPicker]
+    public StageCommandBase command;
 
     public StageEvent Clone()
     {
