@@ -13,6 +13,7 @@ public class EnemyScriptable : ScriptableObject
     public float speed;
 
     [Title("參考資源")]
+    [PreviewField(Alignment = ObjectFieldAlignment.Left)]
     public Sprite sprite;
     public RuntimeAnimatorController animator;
     public Vector2 offset;
