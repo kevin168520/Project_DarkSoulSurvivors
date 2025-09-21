@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b588b6cb480085d429aaaed50ffb988b, type: 3}
   m_Name: Enemy_003_Data
   m_EditorClassIdentifier: 
-  showName: Eye Demon
+  showName: Big Forest Elves
   hp: 50
-  damage: 30
+  damage: 50
   speed: 1.2
-  sprite: {fileID: -724075832, guid: 72a5fa8ddeb9a464b867675c41e84021, type: 3}
+  sprite: {fileID: -1153954872, guid: f75393edeb196844e974e4be531aab06, type: 3}
   animator: {fileID: 9100000, guid: 949024b33a3b0784387771c75ef352f2, type: 2}
-  offset: {x: 0, y: 0.1}
-  size: {x: 0.8, y: 0.8}
+  offset: {x: 0, y: -0.15}
+  size: {x: 0.75, y: 0.7}
   drop:
   - {fileID: 4645613739593393676, guid: 11256550b25a2f34da4d87ae844a2cbc, type: 3}
   - {fileID: 1368426034065494075, guid: e01b09e1c18da684e874f297fedb4d77, type: 3}

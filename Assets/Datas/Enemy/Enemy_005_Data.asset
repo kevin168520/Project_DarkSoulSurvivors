@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b588b6cb480085d429aaaed50ffb988b, type: 3}
-  m_Name: Enemy_002_Data
+  m_Name: Enemy_005_Data
   m_EditorClassIdentifier: 
-  showName: Forest Elves
-  hp: 30
-  damage: 50
-  speed: 1.5
-  sprite: {fileID: 10545783, guid: 1b94d75b36802b249bbe0c74e0d347d0, type: 3}
-  animator: {fileID: 9100000, guid: 423ab589504e03842aea9285540c31a9, type: 2}
-  offset: {x: 0, y: -0.3}
-  size: {x: 0.45, y: 0.45}
+  showName: Poisonous Mushrooms
+  hp: 120
+  damage: 20
+  speed: 0.3
+  sprite: {fileID: -830581204, guid: 6f97747b5d222614f9a59453f04a131a, type: 3}
+  animator: {fileID: 9100000, guid: 4fb09a4347d90ad4d9d90faf9230765e, type: 2}
+  offset: {x: 0, y: -0.1}
+  size: {x: 0.8, y: 0.8}
   drop:
   - {fileID: 4645613739593393676, guid: 11256550b25a2f34da4d87ae844a2cbc, type: 3}
   - {fileID: 1368426034065494075, guid: e01b09e1c18da684e874f297fedb4d77, type: 3}
