@@ -16,17 +16,17 @@ public class EnemyScript : MonoBehaviour, IDamageable
     [SerializeField] private Rigidbody2D rgdbd; // 剛體
     [SerializeField] private EnemyScriptable data; // 數據
     public void SetEnemyData(EnemyScriptable enemyData) => data = enemyData;
+    [SerializeField] private BoxCollider2D boxCollider; // 碰撞體
+    [SerializeField] private SpriteRenderer sprite; // 圖片
+    [SerializeField] private Animator animator; // 動畫
 
     private int hp = 100; //血量
     private int damage = 10; // 攻擊力
     [SerializeField, Range(0, 10)] private float speed; // 移速
 
-    void Start()
+    void Awake()
     {
-        hp = data.hp;
-        damage = data.damage;
-        speed = data.speed;
-        dropItem = GetComponent<ItemDropComponent>();
+        if (data) LoadEnemyData();
     }
 
     void FixedUpdate()
@@ -63,5 +63,25 @@ public class EnemyScript : MonoBehaviour, IDamageable
             dropItem.HandleDropItem();
             Debug.Log($"Enemy is Dead!!!");
         }
+    }
+
+    public void LoadEnemyData()
+    {
+        SpriteRenderer newEnemySprite = sprite;
+        newEnemySprite.sprite = data.sprite; // 設置敵人圖片
+
+        Animator newEnemyAnimator = animator;
+        newEnemyAnimator.runtimeAnimatorController = data.animator; // 設置敵人動畫
+
+        BoxCollider2D newEnemyCollider = boxCollider;
+        newEnemyCollider.offset = data.offset; // 設置敵人碰撞偏移
+        newEnemyCollider.size = data.size; // 設置敵人碰撞大小
+
+        ItemDropComponent newEnemyDrop = dropItem;
+        newEnemyDrop.dropItemPrefab = data.drop; // 設置敵人掉落物
+
+        hp = data.hp;
+        damage = data.damage;
+        speed = data.speed;
     }
 }

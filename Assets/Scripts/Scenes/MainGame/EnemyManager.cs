@@ -56,19 +56,7 @@ public class EnemyManager : ManagerMonoBase
         newEnemyScript.SetTarget(player.transform); // 設置移動目標
         newEnemyScript.SetTargetDamageable(player.character); // 設置傷害目標
         newEnemyScript.SetEnemyData(enemyData); // 設置敵人數據
-
-        SpriteRenderer newEnemySprite = newEnemy.GetComponent<SpriteRenderer>();
-        newEnemySprite.sprite = enemyData.sprite; // 設置敵人圖片
-
-        Animator newEnemyAnimator = newEnemy.GetComponent<Animator>();
-        newEnemyAnimator.runtimeAnimatorController = enemyData.animator; // 設置敵人動畫
-
-        BoxCollider2D newEnemyCollider = newEnemy.GetComponent<BoxCollider2D>();
-        newEnemyCollider.offset = enemyData.offset; // 設置敵人碰撞偏移
-        newEnemyCollider.size = enemyData.size; // 設置敵人碰撞大小
-
-        ItemDropComponent newEnemyDrop = newEnemy.GetComponent<ItemDropComponent>();
-        newEnemyDrop.dropItemPrefab = enemyData.drop; // 設置敵人掉落物
+        newEnemyScript.LoadEnemyData(); // 載入敵人資料
     }
 
     // 從敵人池取出
