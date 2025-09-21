@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 9153263275936529978}
   - component: {fileID: 2385243878837099067}
   - component: {fileID: -7762495527468864855}
-  - component: {fileID: -5866906260013599935}
   - component: {fileID: -4580078985228008793}
+  - component: {fileID: -5866906260013599935}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -182,6 +182,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 0.4}
   m_EdgeRadius: 0
+--- !u!114 &-4580078985228008793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8951934548676239562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ace38481ecd108749bb0eba6629f287a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropItemPrefab: []
+  chance: 1
+  range: 0.5
 --- !u!114 &-5866906260013599935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,25 +210,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  targetAttack: 
-  dropItem: {fileID: 0}
   rgdbd: {fileID: 2385243878837099067}
+  boxCollider: {fileID: -7762495527468864855}
+  sprite: {fileID: 2505908331185178120}
+  animator: {fileID: 9153263275936529978}
+  dropItem: {fileID: -4580078985228008793}
   data: {fileID: 0}
+  hp: 100
+  damage: 10
   speed: 0
---- !u!114 &-4580078985228008793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8951934548676239562}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ace38481ecd108749bb0eba6629f287a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dropItemPrefab:
-  - {fileID: 4645613739593393676, guid: 11256550b25a2f34da4d87ae844a2cbc, type: 3}
-  - {fileID: 1368426034065494075, guid: e01b09e1c18da684e874f297fedb4d77, type: 3}
-  chance: 1
-  range: 0.5

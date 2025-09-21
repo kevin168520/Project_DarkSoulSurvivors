@@ -1,32 +1,33 @@
 using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour, IDamageable
 {
-    public IDamageable player;
-    public void SetTargetDamageable(IDamageable gb) => player = gb;
+    [NonSerialized] private IDamageable player;
     [NonSerialized] public Action<GameObject> OnDeath;
 
-    [SerializeField] private Transform target; // 移動目標
-    public void SetTarget(Transform gb) => target = gb;
-    [SerializeField] private string targetAttack; // 攻擊目標
-    [SerializeField] private ItemDropComponent dropItem; // 掉落物
-
     // 內部物件
-    [SerializeField] private Rigidbody2D rgdbd; // 剛體
-    [SerializeField] private EnemyScriptable data; // 數據
-    public void SetEnemyData(EnemyScriptable enemyData) => data = enemyData;
-    [SerializeField] private BoxCollider2D boxCollider; // 碰撞體
     [SerializeField] private SpriteRenderer sprite; // 圖片
     [SerializeField] private Animator animator; // 動畫
+    [SerializeField] private Rigidbody2D rgdbd; // 剛體
+    [SerializeField] private BoxCollider2D boxCollider; // 碰撞體
+    [SerializeField] private ItemDropComponent dropItem; // 掉落物
 
-    private int hp = 100; //血量
-    private int damage = 10; // 攻擊力
-    [SerializeField, Range(0, 10)] private float speed; // 移速
+    [Title("敵人數據")]
+    [SerializeField] private EnemyScriptable data; // 數據
+    [SerializeField] private int hp = 100; //血量
+    [SerializeField] private int damage = 10; // 攻擊力
+    [SerializeField] private float speed; // 移速
+    [SerializeField] private Transform target; // 移動目標
+
+    public void SetTargetDamageable(IDamageable gb) => player = gb;
+    public void SetTarget(Transform gb) => target = gb;
+    public void SetEnemyData(EnemyScriptable enemyData) => data = enemyData;
 
     void Awake()
     {
-        if (data) LoadEnemyData();
+        if (data) LoadEnemyData(); // 提供測試用
     }
 
     void FixedUpdate()
@@ -44,7 +45,6 @@ public class EnemyScript : MonoBehaviour, IDamageable
     }
 
     // 攻擊動作
-    void Attack(GameObject traget) => Attack(target.GetComponent<IDamageable>());
     void Attack(IDamageable targetDamageable)
     {
         targetDamageable?.TakeDamage(damage);
@@ -65,21 +65,19 @@ public class EnemyScript : MonoBehaviour, IDamageable
         }
     }
 
+    // 載入敵人資料
     public void LoadEnemyData()
     {
-        SpriteRenderer newEnemySprite = sprite;
-        newEnemySprite.sprite = data.sprite; // 設置敵人圖片
-
-        Animator newEnemyAnimator = animator;
-        newEnemyAnimator.runtimeAnimatorController = data.animator; // 設置敵人動畫
-
-        BoxCollider2D newEnemyCollider = boxCollider;
-        newEnemyCollider.offset = data.offset; // 設置敵人碰撞偏移
-        newEnemyCollider.size = data.size; // 設置敵人碰撞大小
-
-        ItemDropComponent newEnemyDrop = dropItem;
-        newEnemyDrop.dropItemPrefab = data.drop; // 設置敵人掉落物
-
+        // 圖片
+        sprite.sprite = data.sprite;
+        // 動畫
+        animator.runtimeAnimatorController = data.animator;
+        // 碰撞
+        boxCollider.offset = data.offset;
+        boxCollider.size = data.size;
+        // 掉落
+        dropItem.dropItemPrefab = data.drop;
+        // 數值
         hp = data.hp;
         damage = data.damage;
         speed = data.speed;
