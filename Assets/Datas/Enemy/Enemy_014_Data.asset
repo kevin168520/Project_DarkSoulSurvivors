@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b588b6cb480085d429aaaed50ffb988b, type: 3}
+  m_Name: Enemy_014_Data
+  m_EditorClassIdentifier: 
+  showName: Pillar Man
+  hp: 160
+  damage: 15
+  speed: 0.9
+  sprite: {fileID: -1580212323, guid: 16378349bb42c88468be48ded75989d9, type: 3}
+  animator: {fileID: 9100000, guid: 59e0d90a5c7bf57429b91ffce20339be, type: 2}
+  offset: {x: 0, y: 0}
+  size: {x: 0.5, y: 1}
+  drop:
+  - {fileID: 4645613739593393676, guid: 11256550b25a2f34da4d87ae844a2cbc, type: 3}
+  - {fileID: 1368426034065494075, guid: e01b09e1c18da684e874f297fedb4d77, type: 3}

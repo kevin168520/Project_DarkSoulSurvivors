@@ -66,6 +66,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
     }
 
     // 載入敵人資料
+    [Button("載入 Scriptable 資料")]
     public void LoadEnemyData()
     {
         // 圖片
@@ -82,4 +83,26 @@ public class EnemyScript : MonoBehaviour, IDamageable
         damage = data.damage;
         speed = data.speed;
     }
+
+#if UNITY_EDITOR
+    [Button("保存 Scriptable 資料")]
+    private void SaveData()
+    {
+        if (data == null) return;
+
+        data.hp = hp;
+        data.damage = damage;
+        data.speed = speed;
+        data.sprite = sprite.sprite;
+        data.animator = animator.runtimeAnimatorController;
+        data.offset = boxCollider.offset;
+        data.size = boxCollider.size;
+        data.drop = dropItem.dropItemPrefab;
+
+        UnityEditor.EditorUtility.SetDirty(data);
+        UnityEditor.AssetDatabase.SaveAssets();
+        UnityEditor.AssetDatabase.Refresh();
+        Debug.Log($"已保存 {data.name} 到資產區");
+    }
+#endif
 }
