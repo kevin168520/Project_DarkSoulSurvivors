@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b588b6cb480085d429aaaed50ffb988b, type: 3}
+  m_Name: Enemy_009_Data
+  m_EditorClassIdentifier: 
+  showName: Ant Man
+  hp: 120
+  damage: 20
+  speed: 1.1
+  sprite: {fileID: 506282661, guid: 96da79fabf8087549aff6f5a039a17de, type: 3}
+  animator: {fileID: 9100000, guid: 6d2e1685016265f43b536083b6a1a01a, type: 2}
+  offset: {x: 0, y: -0.2}
+  size: {x: 0.5, y: 0.6}
+  drop:
+  - {fileID: 4645613739593393676, guid: 11256550b25a2f34da4d87ae844a2cbc, type: 3}
+  - {fileID: 1368426034065494075, guid: e01b09e1c18da684e874f297fedb4d77, type: 3}
