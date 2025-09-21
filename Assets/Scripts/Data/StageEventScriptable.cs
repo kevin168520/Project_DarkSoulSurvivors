@@ -9,7 +9,7 @@ public class StageEventScriptable : ScriptableObject, IEnumerable<StageEvent>
 {
     [Title("[時間] [指令]")]
     [SerializeField]
-    [ListDrawerSettings(NumberOfItemsPerPage = 10)]
+    [ListDrawerSettings(NumberOfItemsPerPage = 10, AddCopiesLastElement = true)]
     private List<StageEvent> table; // 敵人波
     [NonSerialized] private int index = 0;
 
@@ -35,4 +35,13 @@ public class StageEventScriptable : ScriptableObject, IEnumerable<StageEvent>
     // 用於 foreach 循序
     public IEnumerator<StageEvent> GetEnumerator() => table.GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => table.GetEnumerator();
+
+#if UNITY_EDITOR
+    [Button("依時間排序")]
+    [PropertyOrder(-10)]
+    private void SortByTime()
+    {
+        table.Sort((a, b) => a.time.CompareTo(b.time));
+    }
+#endif
 }
