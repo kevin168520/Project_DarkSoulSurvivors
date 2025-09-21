@@ -190,8 +190,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1408185300}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &808714688
@@ -223,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b1b3e2574e0c7d46abcd40c412387ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageEvent: {fileID: 11400000, guid: bc83c468b2ad71940be6e4454221f4b7, type: 2}
+  stageEvent: {fileID: 11400000, guid: f0e52472b8defab459d8e38f5d18871e, type: 2}
 --- !u!4 &808714690
 Transform:
   m_ObjectHideFlags: 0
@@ -356,17 +355,18 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1408185298}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 347408429}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1408185300}
   - {fileID: 347408429}
   - {fileID: 808714690}
   - {fileID: 1270169961}
