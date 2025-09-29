@@ -21,7 +21,12 @@ public class LauncherManager : ManagerMonoBase
         UserEnvironmentLoad(_userData);
 
         // 判斷 Steam 登入
-        await TrySteamLoginAsync();
+        if (!await TrySteamLoginAsync())
+        {
+            MessageBoxShow("Steam 初始化失敗，請透過 Steam 啟動遊戲", "錯誤");
+            Application.Quit();
+            return;
+        }
 
         // 初始化 Steam 成就系統
         AchievementGlobalManager.StartAchevement();
@@ -31,18 +36,15 @@ public class LauncherManager : ManagerMonoBase
     }
 
     /// <summary> Steam 登入處理 </summary>
-    private async UniTask TrySteamLoginAsync()
+    private async UniTask<bool> TrySteamLoginAsync()
     {
         await UniTask.Yield(); // 確保進入非同步流程（可擴充等待初始化）
 
-        if (!SteamManager.Initialized)
-        {
-            Debug.LogError("Error:Steam 初始化失敗，請透過 Steam 啟動遊戲");
-            return;
-        }
+        if (!SteamManager.Initialized) return false;
 
         CSteamID steamID = SteamUser.GetSteamID();  // 此處可加入後端帳號綁定、資料下載等流程（也是用 await）
         Debug.Log("Steam ID: " + steamID);
+        return true;
     }
 
     /// <summary> 使用者環境設定帶入後進入主場景 </summary>
@@ -64,4 +66,10 @@ public class LauncherManager : ManagerMonoBase
         AudioGlobalManager.BGMReset(fBGM);
         AudioGlobalManager.SFXReset(fSFX);
     }
+
+    [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Unicode)]
+    private static extern int MessageBox(IntPtr hWnd, string text, string caption, uint type);
+
+    public static void MessageBoxShow(string text, string caption) => MessageBox(IntPtr.Zero, text, caption, 0);
+
 }
