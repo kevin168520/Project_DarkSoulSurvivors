@@ -13,13 +13,6 @@ public class LauncherManager : ManagerMonoBase
 
     private async void Start()
     {
-        // 載入資料並套用環境設定
-        if (_userData == null)
-            _userData = new UserStoreData();
-
-        _userData = await StorageUtility.UserStoreData().LoadAsync();
-        UserEnvironmentLoad(_userData);
-
         // 判斷 Steam 登入
         if (!await TrySteamLoginAsync())
         {
@@ -35,6 +28,13 @@ public class LauncherManager : ManagerMonoBase
             Application.Quit();
             return;
         }
+
+        // 載入資料並套用環境設定
+        if (_userData == null)
+            _userData = new UserStoreData();
+
+        _userData = await StorageUtility.UserStoreData().LoadAsync();
+        UserEnvironmentLoad(_userData);
 
         // 載入下一個場景
         SceneGlobalManager.LauncherLoadStartScene();
