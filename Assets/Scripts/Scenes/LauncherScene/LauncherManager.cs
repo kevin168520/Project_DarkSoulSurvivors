@@ -16,16 +16,26 @@ public class LauncherManager : ManagerMonoBase
         // 判斷 Steam 登入
         if (!await TrySteamLoginAsync())
         {
+#if UNITY_EDITOR
+            Debug.LogWarning("Steam 初始化失敗，請透過 Steam 啟動遊戲");
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
             MessageBoxShow("Steam 初始化失敗，請透過 Steam 啟動遊戲", "錯誤");
             Application.Quit();
+#endif
             return;
         }
 
         // 判斷 Steam 初始化
         if (!await InitSteam())
         {
+#if UNITY_EDITOR
+            Debug.LogWarning("Steam 資料載入失敗");
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
             MessageBoxShow("Steam 資料載入失敗", "錯誤");
             Application.Quit();
+#endif
             return;
         }
 
