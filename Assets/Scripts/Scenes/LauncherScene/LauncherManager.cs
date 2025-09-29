@@ -28,8 +28,13 @@ public class LauncherManager : ManagerMonoBase
             return;
         }
 
-        // 初始化 Steam 成就系統
-        AchievementGlobalManager.StartAchevement();
+        // 判斷 Steam 初始化
+        if (!await InitSteam())
+        {
+            MessageBoxShow("Steam 資料載入失敗", "錯誤");
+            Application.Quit();
+            return;
+        }
 
         // 載入下一個場景
         SceneGlobalManager.LauncherLoadStartScene();
@@ -41,9 +46,25 @@ public class LauncherManager : ManagerMonoBase
         await UniTask.Yield(); // 確保進入非同步流程（可擴充等待初始化）
 
         if (!SteamManager.Initialized) return false;
+        return true;
+    }
 
-        CSteamID steamID = SteamUser.GetSteamID();  // 此處可加入後端帳號綁定、資料下載等流程（也是用 await）
-        Debug.Log("Steam ID: " + steamID);
+    /// <summary> Steam 初始化 </summary>
+    private async UniTask<bool> InitSteam()
+    {
+        try
+        {
+            // 初始化 Steam 成就系統
+            AchievementGlobalManager.StartAchevement();
+
+            // 此處可加入後端帳號綁定、資料下載等流程（也是用 await
+            CSteamID steamID = SteamUser.GetSteamID();
+        }
+        catch(Exception e)
+        {
+            Debug.LogError(e.Message);
+            return false;
+        }
         return true;
     }
 
