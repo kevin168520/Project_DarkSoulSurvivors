@@ -60,7 +60,7 @@ public class LauncherManager : ManagerMonoBase
             // 此處可加入後端帳號綁定、資料下載等流程（也是用 await
             CSteamID steamID = SteamUser.GetSteamID();
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Debug.LogError(e.Message);
             return false;
@@ -71,7 +71,7 @@ public class LauncherManager : ManagerMonoBase
     /// <summary> 使用者環境設定帶入後進入主場景 </summary>
     private void UserEnvironmentLoad(UserStoreData userdata)
     {
-        var mode = userdata.bFullScreen ? FullScreenMode.MaximizedWindow: FullScreenMode.Windowed;
+        var mode = userdata.bFullScreen ? FullScreenMode.MaximizedWindow : FullScreenMode.Windowed;
 
         // 解析度依照使用者設定(UserStoreData)調整
         switch (userdata.iWondowsResolution)
