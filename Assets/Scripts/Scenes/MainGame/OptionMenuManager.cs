@@ -21,15 +21,18 @@ public class OptionMenuManager : ManagerMonoBase
     private int iResolutionDropdownValue;
     private int iLanguageDropdownValue;
 
-    private void OnEnable()
-    {
-        OptionMenuInformationRenew();
-        OnUIPanelRenew(enSettingPanelState.Volume); // 設定預設畫面在Volume
-    }
-
-    // Start is called before the first frame update
     void Start()
     {
+        // 將數值從UserStoreData讀出
+        data = DataGlobalManager._userData;
+        if (data == null)
+        {
+            data = StorageUtility.UserStoreData().Load();
+            DataGlobalManager._userData = data;
+        }
+        OptionMenuInformationRenew();
+        OnUIPanelRenew(enSettingPanelState.Volume); // 設定預設畫面在Volume
+
         CtrlOptionMenu();
         OnSetupSlider();
     }
@@ -58,9 +61,6 @@ public class OptionMenuManager : ManagerMonoBase
     /// <summary> Option介面資訊更新 - 載入UserStoreData 與 起始畫面初始化 </summary>
     private void OptionMenuInformationRenew()
     {
-        // 將數值從UserStoreData讀出
-        data = DataGlobalManager._userData;
-
         _volumeALL = data.iVolumeALL;
         _volumeBGM = data.iVolumeBGM;
         _volumeSFX = data.iVolumeSFX;
