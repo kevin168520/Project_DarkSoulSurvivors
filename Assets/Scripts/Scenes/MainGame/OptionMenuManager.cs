@@ -6,7 +6,11 @@ public class OptionMenuManager : ManagerMonoBase
 {
     enum enSettingPanelState { Volume, WindowResolution, Language }
     public OptionMenuUI _optionMenuUI;
-    private UserStoreData data;
+    private UserStoreData data
+    {
+        get => DataGlobalManager._userData;
+        set => DataGlobalManager._userData = value;
+    }
 
     // OptioMenu用的參數
     private int _volumeALL;
@@ -23,13 +27,8 @@ public class OptionMenuManager : ManagerMonoBase
 
     void Start()
     {
-        // 將數值從UserStoreData讀出
-        data = DataGlobalManager._userData;
-        if (data == null)
-        {
-            data = StorageUtility.UserStoreData().Load();
-            DataGlobalManager._userData = data;
-        }
+        LoadSettings();
+
         OptionMenuInformationRenew();
         OnUIPanelRenew(enSettingPanelState.Volume); // 設定預設畫面在Volume
 
@@ -88,6 +87,20 @@ public class OptionMenuManager : ManagerMonoBase
         AddValumeSliderListener(_optionMenuUI.sliVolumeBGM, "BGM");
         AddValumeSliderListener(_optionMenuUI.sliVolumeSFX, "SFX");
     }
+
+    #region Load/Save 檔案
+    /// <summary> 設定頁資料保存檔案  </summary>
+    public void LoadSettings()
+    {
+        data = StorageUtility.UserStoreData().Load();
+    }
+
+    /// <summary> 設定頁資料保存檔案 </summary>
+    public void SaveSettings()
+    {
+        StorageUtility.UserStoreData().Save(data);
+    }
+    #endregion
 
     #region AudioVloume設定
     private void AddValumeSliderListener(Slider slider, string key)
@@ -190,7 +203,7 @@ public class OptionMenuManager : ManagerMonoBase
         data.iWondowsResolution = _iWindowResolution;
         data.iLanguage = _iLanguage;
 
-        data = StorageUtility.UserStoreData().Load();
+        SaveSettings();
 
         // 顯示對應的 UI 面板
         _optionMenuUI.objOptionMenuShow = false;
