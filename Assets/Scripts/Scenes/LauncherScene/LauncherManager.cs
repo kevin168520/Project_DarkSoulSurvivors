@@ -36,7 +36,8 @@ public class LauncherManager : ManagerMonoBase
             _userData = new UserStoreData();
 
         _userData = await StorageUtility.UserStoreData().LoadAsync();
-        UserEnvironmentLoad(_userData);
+        SetupResolution(_userData.bFullScreen, _userData.iWondowsResolution);
+        SetupAudio(_userData.iVolumeBGM, _userData.iVolumeSFX, _userData.iVolumeALL);
 
         // 載入下一個場景
         SceneGlobalManager.LauncherLoadStartScene();
@@ -76,24 +77,23 @@ public class LauncherManager : ManagerMonoBase
         return true;
     }
 
-    /// <summary> 使用者環境設定帶入後進入主場景 </summary>
-    private void UserEnvironmentLoad(UserStoreData userdata)
+    /// <summary> 解析度依照使用者設定(UserStoreData)調整</summary>
+    private void SetupResolution(bool full, int resolution)
     {
-        var mode = userdata.bFullScreen ? FullScreenMode.MaximizedWindow : FullScreenMode.Windowed;
-
-        // 解析度依照使用者設定(UserStoreData)調整
-        switch (userdata.iWondowsResolution)
+        var screenMode = full ? FullScreenMode.MaximizedWindow : FullScreenMode.Windowed;
+        switch (resolution)
         {
-            case 0: Screen.SetResolution(1920, 1080, mode); break;
-            case 1: Screen.SetResolution(2560, 1440, mode); break;
-            default: Screen.SetResolution(1920, 1080, mode); break;
+            case 0: Screen.SetResolution(1920, 1080, screenMode); break;
+            case 1: Screen.SetResolution(2560, 1440, screenMode); break;
+            default: Screen.SetResolution(1920, 1080, screenMode); break;
         }
+    }
 
-        // 音量大小依照使用者設定(UserStoreData)調整
-        float fBGM = (userdata.iVolumeALL * userdata.iVolumeBGM) / 10000f;
-        float fSFX = (userdata.iVolumeALL * userdata.iVolumeSFX) / 10000f;
-        AudioGlobalManager.BGMReset(fBGM);
-        AudioGlobalManager.SFXReset(fSFX);
+    /// <summary> 音量大小依照使用者設定(UserStoreData)調整 </summary>
+    private void SetupAudio(int bgm, int sfx, int ratio)
+    {
+        AudioGlobalManager.BGMReset(ratio * bgm / 10000f);
+        AudioGlobalManager.SFXReset(ratio * sfx / 10000f);
     }
 
     [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Unicode)]
