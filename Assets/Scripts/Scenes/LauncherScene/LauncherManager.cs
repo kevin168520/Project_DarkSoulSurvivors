@@ -20,26 +20,14 @@ public class LauncherManager : ManagerMonoBase
         // 判斷 Steam 登入
         if (!await TrySteamLoginAsync())
         {
-#if UNITY_EDITOR
-            Debug.LogWarning("Steam 初始化失敗，請透過 Steam 啟動遊戲");
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            MessageBoxShow("Steam 初始化失敗，請透過 Steam 啟動遊戲", "錯誤");
-            Application.Quit();
-#endif
+            AppQuit("Steam 初始化失敗，請透過 Steam 啟動遊戲");
             return;
         }
 
         // 判斷 Steam 初始化
         if (!await InitSteam())
         {
-#if UNITY_EDITOR
-            Debug.LogWarning("Steam 資料載入失敗");
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            MessageBoxShow("Steam 資料載入失敗", "錯誤");
-            Application.Quit();
-#endif
+            AppQuit("Steam 初始化失敗，請透過 Steam 啟動遊戲");
             return;
         }
 
@@ -113,4 +101,14 @@ public class LauncherManager : ManagerMonoBase
 
     public static void MessageBoxShow(string text, string caption) => MessageBox(IntPtr.Zero, text, caption, 0);
 
+    private void AppQuit(string msg)
+    {
+#if UNITY_EDITOR
+        Debug.LogWarning(msg);
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        MessageBoxShow(msg, "錯誤");
+        Application.Quit();
+#endif
+    }
 }
