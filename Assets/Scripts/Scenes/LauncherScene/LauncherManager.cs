@@ -41,10 +41,8 @@ public class LauncherManager : ManagerMonoBase
 #if UNITY_EDITOR
         if (skipSteam) return true;
 #endif
-        await UniTask.Yield(); // 確保進入非同步流程（可擴充等待初始化）
-
-        if (!SteamManager.Initialized) return false;
-        return true;
+        await UniTask.CompletedTask;
+        return SteamManager.Initialized;
     }
 
     /// <summary> Steam 初始化 </summary>
@@ -66,6 +64,7 @@ public class LauncherManager : ManagerMonoBase
             Debug.LogError(e.Message);
             return false;
         }
+        await UniTask.CompletedTask;
         return true;
     }
 
@@ -88,11 +87,14 @@ public class LauncherManager : ManagerMonoBase
         AudioGlobalManager.SFXReset(ratio * sfx / 10000f);
     }
 
+    /// <summary> 呼叫 Windos 系統的對話框 </summary>
     [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Unicode)]
     private static extern int MessageBox(IntPtr hWnd, string text, string caption, uint type);
 
-    public static void MessageBoxShow(string text, string caption) => MessageBox(IntPtr.Zero, text, caption, 0);
+    /// <summary> 開啟對話框 </summary>
+    private static void MessageBoxShow(string text, string caption) => MessageBox(IntPtr.Zero, text, caption, 0);
 
+    /// <summary> 關閉 APP </summary>
     private void AppQuit(string msg)
     {
 #if UNITY_EDITOR
