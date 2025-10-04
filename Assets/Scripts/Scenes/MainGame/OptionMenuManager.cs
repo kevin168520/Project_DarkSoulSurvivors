@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class OptionMenuManager : ManagerMonoBase
 {
-    enum enSettingPanelState {Volume, WindowResolution, Language}
+    enum enSettingPanelState { Volume, WindowResolution, Language }
     public OptionMenuUI _optionMenuUI;
     private UserStoreData data;
 
@@ -97,15 +95,17 @@ public class OptionMenuManager : ManagerMonoBase
         // 取得或添加 EventTrigger 元件
         EventTrigger trigger = slider.GetComponent<EventTrigger>();
         if (trigger == null)
-            trigger = slider.gameObject.AddComponent<EventTrigger>();        
+            trigger = slider.gameObject.AddComponent<EventTrigger>();
 
         // 建立滑竿放開事件
-        EventTrigger.Entry entry = new EventTrigger.Entry {
+        EventTrigger.Entry entry = new EventTrigger.Entry
+        {
             eventID = EventTriggerType.PointerUp
         };
 
         // 當放開滑桿時觸發
-        entry.callback.AddListener((eventData) => {
+        entry.callback.AddListener((eventData) =>
+        {
             int value = Mathf.RoundToInt(slider.value);
             VolumeSetting(key, value);
         });
@@ -115,7 +115,8 @@ public class OptionMenuManager : ManagerMonoBase
 
     private void VolumeSetting(string key, int value)
     {
-        switch (key) {
+        switch (key)
+        {
             case "ALL":
                 _volumeALL = value;
                 break;
@@ -163,7 +164,8 @@ public class OptionMenuManager : ManagerMonoBase
     #region Language設定
     private void OnLanguageSetting(int IndexLanguage)
     {
-        switch (IndexLanguage) {
+        switch (IndexLanguage)
+        {
             case 0:
                 //Language English
                 break;
