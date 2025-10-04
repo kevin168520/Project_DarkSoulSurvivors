@@ -5,12 +5,6 @@ using System;
 
 public class LauncherManager : ManagerMonoBase
 {
-    UserStoreData _userData
-    {
-        get => DataGlobalManager._userData;
-        set => DataGlobalManager._userData = value;
-    }
-
 #if UNITY_EDITOR
     [SerializeField] bool skipSteam;
 #endif
@@ -32,12 +26,10 @@ public class LauncherManager : ManagerMonoBase
         }
 
         // 載入資料並套用環境設定
-        if (_userData == null)
-            _userData = new UserStoreData();
-
-        _userData = await StorageUtility.UserStoreData().LoadAsync();
-        SetupResolution(_userData.bFullScreen, _userData.iWondowsResolution);
-        SetupAudio(_userData.iVolumeBGM, _userData.iVolumeSFX, _userData.iVolumeALL);
+        var userData = await StorageUtility.UserStoreData().LoadAsync();
+        SetupResolution(userData.bFullScreen, userData.iWondowsResolution);
+        SetupAudio(userData.iVolumeBGM, userData.iVolumeSFX, userData.iVolumeALL);
+        DataGlobalManager._userData = userData;
 
         // 載入下一個場景
         SceneGlobalManager.LauncherLoadStartScene();
