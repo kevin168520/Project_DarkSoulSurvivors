@@ -1,14 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class OptionMenuManager : ManagerMonoBase
 {
-    enum enSettingPanelState {Volume, WindowResolution, Language}
+    enum enSettingPanelState { Volume, WindowResolution, Language }
     public OptionMenuUI _optionMenuUI;
-    private UserStoreData data;
+    private UserStoreData data
+    {
+        get => DataGlobalManager._userData;
+        set => DataGlobalManager._userData = value;
+    }
 
     // OptioMenu用的參數
     private int _volumeALL;
@@ -23,15 +25,13 @@ public class OptionMenuManager : ManagerMonoBase
     private int iResolutionDropdownValue;
     private int iLanguageDropdownValue;
 
-    private void OnEnable()
-    {
-        OptionMenuInformationRenew();
-        OnUIPanelRenew(enSettingPanelState.Volume); // 設定預設畫面在Volume
-    }
-
-    // Start is called before the first frame update
     void Start()
     {
+        LoadSettings();
+
+        OptionMenuInformationRenew();
+        OnUIPanelRenew(enSettingPanelState.Volume); // 設定預設畫面在Volume
+
         CtrlOptionMenu();
         OnSetupSlider();
     }
@@ -60,9 +60,6 @@ public class OptionMenuManager : ManagerMonoBase
     /// <summary> Option介面資訊更新 - 載入UserStoreData 與 起始畫面初始化 </summary>
     private void OptionMenuInformationRenew()
     {
-        // 將數值從UserStoreData讀出
-        data = DataGlobalManager._userData;
-
         _volumeALL = data.iVolumeALL;
         _volumeBGM = data.iVolumeBGM;
         _volumeSFX = data.iVolumeSFX;
@@ -91,21 +88,37 @@ public class OptionMenuManager : ManagerMonoBase
         AddValumeSliderListener(_optionMenuUI.sliVolumeSFX, "SFX");
     }
 
+    #region Load/Save 檔案
+    /// <summary> 設定頁資料保存檔案  </summary>
+    public void LoadSettings()
+    {
+        data = StorageUtility.UserStoreData().Load();
+    }
+
+    /// <summary> 設定頁資料保存檔案 </summary>
+    public void SaveSettings()
+    {
+        StorageUtility.UserStoreData().Save(data);
+    }
+    #endregion
+
     #region AudioVloume設定
     private void AddValumeSliderListener(Slider slider, string key)
     {
         // 取得或添加 EventTrigger 元件
         EventTrigger trigger = slider.GetComponent<EventTrigger>();
         if (trigger == null)
-            trigger = slider.gameObject.AddComponent<EventTrigger>();        
+            trigger = slider.gameObject.AddComponent<EventTrigger>();
 
         // 建立滑竿放開事件
-        EventTrigger.Entry entry = new EventTrigger.Entry {
+        EventTrigger.Entry entry = new EventTrigger.Entry
+        {
             eventID = EventTriggerType.PointerUp
         };
 
         // 當放開滑桿時觸發
-        entry.callback.AddListener((eventData) => {
+        entry.callback.AddListener((eventData) =>
+        {
             int value = Mathf.RoundToInt(slider.value);
             VolumeSetting(key, value);
         });
@@ -115,7 +128,8 @@ public class OptionMenuManager : ManagerMonoBase
 
     private void VolumeSetting(string key, int value)
     {
-        switch (key) {
+        switch (key)
+        {
             case "ALL":
                 _volumeALL = value;
                 break;
@@ -163,7 +177,8 @@ public class OptionMenuManager : ManagerMonoBase
     #region Language設定
     private void OnLanguageSetting(int IndexLanguage)
     {
-        switch (IndexLanguage) {
+        switch (IndexLanguage)
+        {
             case 0:
                 //Language English
                 break;
@@ -188,7 +203,7 @@ public class OptionMenuManager : ManagerMonoBase
         data.iWondowsResolution = _iWindowResolution;
         data.iLanguage = _iLanguage;
 
-        data = StorageUtility.UserStoreData().Load();
+        SaveSettings();
 
         // 顯示對應的 UI 面板
         _optionMenuUI.objOptionMenuShow = false;
