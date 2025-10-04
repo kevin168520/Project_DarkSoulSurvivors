@@ -11,6 +11,10 @@ public class LauncherManager : ManagerMonoBase
         set => DataGlobalManager._userData = value;
     }
 
+#if UNITY_EDITOR
+    [SerializeField] bool skipSteam;
+#endif
+
     private async void Start()
     {
         // 判斷 Steam 登入
@@ -53,6 +57,9 @@ public class LauncherManager : ManagerMonoBase
     /// <summary> Steam 登入處理 </summary>
     private async UniTask<bool> TrySteamLoginAsync()
     {
+#if UNITY_EDITOR
+        if (skipSteam) return true;
+#endif
         await UniTask.Yield(); // 確保進入非同步流程（可擴充等待初始化）
 
         if (!SteamManager.Initialized) return false;
@@ -62,6 +69,9 @@ public class LauncherManager : ManagerMonoBase
     /// <summary> Steam 初始化 </summary>
     private async UniTask<bool> InitSteam()
     {
+#if UNITY_EDITOR
+        if (skipSteam) return true;
+#endif
         try
         {
             // 初始化 Steam 成就系統
