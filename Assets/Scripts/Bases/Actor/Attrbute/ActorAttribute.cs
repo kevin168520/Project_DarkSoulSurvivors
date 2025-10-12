@@ -14,7 +14,8 @@ public abstract class ActorAttribute<T> : IActorAttribute
     }
 
     protected abstract int Id { get; }
-    public float OrigValue { get; private set; }
+    public abstract float OrigValue { get; protected set; }
+    float IActorAttribute.OrigValue => OrigValue;
     public float Value { get; set; }
 
     // 效能問題，子類別請勿建立建構式
