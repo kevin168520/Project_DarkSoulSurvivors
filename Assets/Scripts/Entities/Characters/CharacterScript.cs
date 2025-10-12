@@ -15,15 +15,17 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>, IE
     public UnityEvent<StatType> dataChangeListener = new UnityEvent<StatType>();
 
     // 角色資料
-    [SerializeField] public int level = 1; // 等級
-    [SerializeField] public int levelUpExp = 10; // 升級所需經驗值
-    [SerializeField] public int totalExp = 0; // 累積經驗值
-    [SerializeField] public int maxHp = 100; // 最大血量
-    [SerializeField] public int def = 0; // 防禦
-    [SerializeField] public float speedMult = 1; // 速度倍率
-    [SerializeField] public float attackMult = 1; // 攻擊倍率
-    [SerializeField] public int currentHp = 100; // 當前血量
-    [SerializeField] public int gold = 0; // 當前金幣
+    [SerializeField] public Actor actor = new();
+    [SerializeField] public int level => (int)actor.Get(LevelAttribute.ID).Value; // 等級
+    [SerializeField] public float levelUpExp => actor.Get(ExpAttribute.ID).OrigValue; // 升級所需經驗值
+    [SerializeField] public float totalExp => actor.Get(ExpAttribute.ID).Value; // 累積經驗值
+    [SerializeField] public float maxHp => actor.Get(HpAttribute.ID).OrigValue; // 當前血量
+    [SerializeField] public float def => actor.Get(DefAttribute.ID).Value; // 防禦
+    [SerializeField] public float moveMult => actor.Get(MoveAttribute.ID).Value; // 移動速度倍率
+    [SerializeField] public float speedMult => actor.Get(SpeedAttribute.ID).Value; // 攻擊速度倍率
+    [SerializeField] public float attackMult => actor.Get(AttAttribute.ID).Value; // 攻擊倍率
+    [SerializeField] public float currentHp => actor.Get(HpAttribute.ID).Value; // 當前血量
+    [SerializeField] public int gold => (int)actor.Get(GoldAttribute.ID).Value;  // 當前金幣
     bool isDead = false; // 死亡判定
     [SerializeField] TimeCounter invincibilityCounter = new TimeCounter(1f); // 無敵時間
 
@@ -42,17 +44,34 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>, IE
         invincibilityCounter.UpdateDelta();
     }
 
+    public Actor CreateActor()
+    {
+        actor = new();
+        actor.Add(LevelAttribute.Create());
+        actor.Add(ExpAttribute.Create());
+        actor.Add(HpAttribute.Create());
+        actor.Add(DefAttribute.Create());
+        actor.Add(MoveAttribute.Create());
+        actor.Add(SpeedAttribute.Create());
+        actor.Add(AttAttribute.Create());
+        actor.Add(GoldAttribute.Create());
+        return actor;
+    }
+
+
     public void AddHp(int hp)
     {
-        currentHp += hp;
+        actor[HpAttribute.ID] += hp;
 
         dataChangeListener.Invoke(StatType.CurrentHp);
     }
 
     public void LevelUp()
     {
-        level++;
-        levelUpExp = level * 10;
+        actor[LevelAttribute.ID]++;
+        float exp = actor[ExpAttribute.ID];
+        actor.Set(ExpAttribute.Create(actor[LevelAttribute.ID] * 10));
+        actor[ExpAttribute.ID] = exp;
 
         dataChangeListener.Invoke(StatType.Level);
     }
@@ -60,7 +79,7 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>, IE
     /// <summary> 死亡檢查 </summary>
     public bool CheckDead()
     {
-        if (currentHp <= 0)
+        if (actor[HpAttribute.ID] <= 0)
         {
             isDead = true;
             dataChangeListener.Invoke(StatType.isDead);
@@ -94,7 +113,7 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>, IE
         }
 
         // 如果傷害低於防禦則不損傷
-        if (def >= damage)
+        if (actor[DefAttribute.ID] >= damage)
         {
             // Debug.Log($"Character no harm caused: {def} >= {damage}");
             return;
@@ -110,24 +129,25 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>, IE
             OnHitInvincibility();
         }
 
-        Debug.Log($"Character TakeDamage: {damage} - {def}, currentHp: {currentHp}, CharacterIsDead: {isDead}");
+        Debug.Log($"Character TakeDamage: {damage} - {actor[DefAttribute.ID]}, currentHp: {actor[HpAttribute.ID]}, CharacterIsDead: {isDead}");
     }
 
     public void Execute(GoldEvent parameters)
     {
-        gold += parameters.gold;
-        
+        actor[GoldAttribute.ID] += parameters.gold;
+
         dataChangeListener.Invoke(StatType.Gold);
     }
 
     public void Execute(ExpEvent parameters)
     {
-        totalExp += parameters.exp;
+        var exp = actor.Get<ExpAttribute>();
+        exp.Value += parameters.exp;
 
         // 檢查經驗值達到升級
-        if (totalExp >= levelUpExp)
+        if (exp.Value >= exp.OrigValue)
         {
-            totalExp -= levelUpExp;
+            exp.Value -= exp.OrigValue;
             LevelUp();
         }
 
