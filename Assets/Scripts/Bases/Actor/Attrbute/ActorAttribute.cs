@@ -6,6 +6,7 @@ public abstract class ActorAttribute<T> : IActorAttribute
     where T : ActorAttribute<T>, new()
 {
     public static readonly int ID = new T().Id;
+    public static T Create() => new();
     public static T Create(float value)
     {
         var t = new T();

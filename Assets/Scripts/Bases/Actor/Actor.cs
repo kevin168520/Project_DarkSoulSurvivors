@@ -21,7 +21,7 @@ public class Actor
             attr = (T)temp;
             return true;
         }
-        attr = null;
+        attr = ActorAttribute<T>.Create();
         return false;
     }
 
