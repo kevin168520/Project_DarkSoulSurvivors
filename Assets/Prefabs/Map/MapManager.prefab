@@ -44,10 +44,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29a367b3ec4598340b9b9a610892dcbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnMode: 0
   itemPrefabs:
   - {fileID: 3830086398344983685, guid: 0ac8fa34c2097374bbd61bd7f460a72f, type: 3}
-  spawnProbability: 0.225
+  spawnProbability: 0.4
   spawnAreaSize: {x: 10, y: 10}
+  player: {fileID: 0}
+  maxActiveChests: 5
+  chestSpawnRadius: 8
+  minSpawnDistance: 3
+  spawnOnlyHealthChest: 1
+  boundaryTop: {fileID: 0}
+  boundaryDown: {fileID: 0}
+  boundaryLeft: {fileID: 0}
+  boundaryRight: {fileID: 0}
+  boundaryPadding: 0.5
+  autoFindBoundariesByName: 1
+  nameTop: Boundary_TOP
+  nameDown: Boundary_Down
+  nameLeft: Boundary_Left
+  nameRight: Boundary_Right
+  avoidCameraView: 1
+  targetCamera: {fileID: 0}
+  cameraPadding: 0.5
 --- !u!1 &5881809085053652455
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +76,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9056051601947134505}
-  - component: {fileID: 2542791980279011502}
   m_Layer: 0
   m_Name: MapObjController
   m_TagString: Untagged
@@ -80,18 +98,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8499489574460285511}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2542791980279011502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5881809085053652455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19ae4901b6a45ae4db8ee42c6ceab091, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8802307451288949488
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,4 +164,9 @@ MonoBehaviour:
   tileWidth: 22
   tileHeight: 10
   preloadRange: 2
+  updateInterval: 0.2
   itemManager: {fileID: 9147829798138833151}
+  levelType: 0
+  enableInfiniteMap: 1
+  maxActiveTiles: 100
+  useRandomGeneration: 1

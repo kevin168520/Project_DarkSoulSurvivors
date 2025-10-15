@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class HealthChest : MonoBehaviour
 {
-    public int healAmount = 20;
+    
 
     // 新增事件
     public event Action PickedUp;
@@ -14,7 +14,12 @@ public class HealthChest : MonoBehaviour
         var player = other.GetComponent<CharacterScript>();
         if (player == null) return;
 
-        player.AddHp(healAmount);
+        // 改為回滿HP
+         int hpToRestore = player.maxHp - player.currentHp;
+        if (hpToRestore > 0)
+        {
+            player.AddHp(hpToRestore);
+        }
 
         // 播放血包專用音效
         if (AudioGlobalManager.Instance != null)

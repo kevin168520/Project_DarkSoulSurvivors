@@ -180,7 +180,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.4}
+  m_Size: {x: 0.2, y: 0.2}
   m_EdgeRadius: 0
 --- !u!114 &-4580078985228008793
 MonoBehaviour:
@@ -209,13 +209,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc73e5fec8ff008478596488fd4df6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  rgdbd: {fileID: 2385243878837099067}
-  boxCollider: {fileID: -7762495527468864855}
   sprite: {fileID: 2505908331185178120}
   animator: {fileID: 9153263275936529978}
+  rgdbd: {fileID: 2385243878837099067}
+  boxCollider: {fileID: -7762495527468864855}
   dropItem: {fileID: -4580078985228008793}
   data: {fileID: 0}
   hp: 100
   damage: 10
   speed: 0
+  target: {fileID: 0}

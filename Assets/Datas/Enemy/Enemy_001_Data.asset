@@ -19,7 +19,7 @@ MonoBehaviour:
   sprite: {fileID: -1448362433, guid: 3ed50d3aeb2d06d4a852d16c1441f5ed, type: 3}
   animator: {fileID: 9100000, guid: 0751f15c337974447b9de19532c10824, type: 2}
   offset: {x: 0, y: -0.3}
-  size: {x: 0.5, y: 0.5}
+  size: {x: 0.2, y: 0.2}
   drop:
   - {fileID: 1368426034065494075, guid: e01b09e1c18da684e874f297fedb4d77, type: 3}
   - {fileID: 4645613739593393676, guid: 11256550b25a2f34da4d87ae844a2cbc, type: 3}

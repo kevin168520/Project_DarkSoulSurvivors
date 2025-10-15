@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showName: Forest Elves
   hp: 30
-  damage: 50
+  damage: 10
   speed: 1.5
   sprite: {fileID: 10545783, guid: 1b94d75b36802b249bbe0c74e0d347d0, type: 3}
   animator: {fileID: 9100000, guid: 423ab589504e03842aea9285540c31a9, type: 2}
   offset: {x: 0, y: -0.3}
-  size: {x: 0.45, y: 0.45}
+  size: {x: 0.2, y: 0.2}
   drop:
   - {fileID: 4645613739593393676, guid: 11256550b25a2f34da4d87ae844a2cbc, type: 3}
   - {fileID: 1368426034065494075, guid: e01b09e1c18da684e874f297fedb4d77, type: 3}

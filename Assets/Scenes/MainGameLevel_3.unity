@@ -327,8 +327,8 @@ MonoBehaviour:
   spawnMode: 0
   itemPrefabs:
   - {fileID: 3830086398344983685, guid: 0ac8fa34c2097374bbd61bd7f460a72f, type: 3}
-  spawnProbability: 0.225
-  spawnAreaSize: {x: 10, y: 10}
+  spawnProbability: 0.7
+  spawnAreaSize: {x: 20, y: 20}
   player: {fileID: 0}
   maxActiveChests: 5
   chestSpawnRadius: 8
