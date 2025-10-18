@@ -36,38 +36,29 @@ public class PlayerManager : ManagerMonoBase
         actor.Set(AttAttribute.Create(characterData.attackMult));
 
         // 註冊角色監聽
-        Player.character.dataChangeListener.AddListener(OnCharacterdataChange);
+        Player.character.onActorEvent.AddListener(OnActorEvent);
+        Player.character.onInvincibleEvent.AddListener(Player.anim.PlayHitFlicker);
+        Player.character.onDeadEvent.AddListener(GameManager.GameOver);
     }
 
-    public void OnCharacterdataChange(CharacterScript.StatType type)
+    public void OnActorEvent(Actor actor, IActorAttribute attr)
     {
-        switch (type)
+        switch (attr)
         {
-            case CharacterScript.StatType.Level:
-                _playerStatUI.ExpLevel = Player.character.level;
+            case LevelAttribute lv:
+                _playerStatUI.ExpLevel = (int)lv.Value;
                 WeaponUpgrade();
                 break;
-            case CharacterScript.StatType.TotalExp:
-                _playerStatUI.ExpBar = (float)Player.character.totalExp / Player.character.levelUpExp;
+            case ExpAttribute exp:
+                _playerStatUI.ExpBar = exp.Value / exp.OrigValue;
                 break;
-            case CharacterScript.StatType.Def:
+            case HpAttribute hp:
+                _playerStatUI.HpBar = hp.Value / hp.OrigValue;
                 break;
-            case CharacterScript.StatType.SpeedMult:
+            case GoldAttribute gold:
+                _playerStatUI.GoldCount = (int)gold.Value;
                 break;
-            case CharacterScript.StatType.AttackMult:
-                break;
-            case CharacterScript.StatType.MaxHp:
-            case CharacterScript.StatType.CurrentHp:
-                _playerStatUI.HpBar = (float)Player.character.currentHp / Player.character.maxHp;
-                break;
-            case CharacterScript.StatType.isDead:
-                GameManager.GameOver();
-                break;
-            case CharacterScript.StatType.Invincibility:
-                Player.anim.PlayHitFlicker();
-                break;
-            case CharacterScript.StatType.Gold:
-                _playerStatUI.GoldCount = Player.character.gold;
+            default:
                 break;
         }
     }
