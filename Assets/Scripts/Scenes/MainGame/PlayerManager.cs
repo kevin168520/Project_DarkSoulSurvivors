@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -39,37 +37,38 @@ public class PlayerManager : ManagerMonoBase
 
         // 註冊角色監聽
         Player.character.dataChangeListener.AddListener(OnCharacterdataChange);
-    } 
+    }
 
-    public void OnCharacterdataChange(CharacterScript.StatType type){
-      switch (type)
-      {
-        case CharacterScript.StatType.Level:
-          _playerStatUI.ExpLevel = Player.character.level;
-          WeaponUpgrade();
-          break;
-        case CharacterScript.StatType.TotalExp:
-          _playerStatUI.ExpBar = (float)Player.character.totalExp / Player.character.levelUpExp;
-          break;
-        case CharacterScript.StatType.Def:
-          break;
-        case CharacterScript.StatType.SpeedMult:
-          break;
-        case CharacterScript.StatType.AttackMult:
-          break;
-        case CharacterScript.StatType.MaxHp:
-        case CharacterScript.StatType.CurrentHp:
-          _playerStatUI.HpBar = (float)Player.character.currentHp / Player.character.maxHp;
-          break;
-        case CharacterScript.StatType.isDead:
-          GameManager.GameOver();
-          break;
-        case CharacterScript.StatType.Invincibility:
-          Player.anim.PlayHitFlicker();
-          break;
-        case CharacterScript.StatType.Gold:
-          _playerStatUI.GoldCount = Player.character.gold;
-          break;
-      }
+    public void OnCharacterdataChange(CharacterScript.StatType type)
+    {
+        switch (type)
+        {
+            case CharacterScript.StatType.Level:
+                _playerStatUI.ExpLevel = Player.character.level;
+                WeaponUpgrade();
+                break;
+            case CharacterScript.StatType.TotalExp:
+                _playerStatUI.ExpBar = (float)Player.character.totalExp / Player.character.levelUpExp;
+                break;
+            case CharacterScript.StatType.Def:
+                break;
+            case CharacterScript.StatType.SpeedMult:
+                break;
+            case CharacterScript.StatType.AttackMult:
+                break;
+            case CharacterScript.StatType.MaxHp:
+            case CharacterScript.StatType.CurrentHp:
+                _playerStatUI.HpBar = (float)Player.character.currentHp / Player.character.maxHp;
+                break;
+            case CharacterScript.StatType.isDead:
+                GameManager.GameOver();
+                break;
+            case CharacterScript.StatType.Invincibility:
+                Player.anim.PlayHitFlicker();
+                break;
+            case CharacterScript.StatType.Gold:
+                _playerStatUI.GoldCount = Player.character.gold;
+                break;
+        }
     }
 }
