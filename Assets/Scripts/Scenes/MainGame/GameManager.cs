@@ -111,10 +111,11 @@ public class GameManager : ManagerMonoBase
         DataGlobalManager._summaryWeapon = weaponSummary;
 
         // 金幣結算
-        DataGlobalManager._summaryGold = PlayerManager.Player.character.gold;
+        int gold = (int)PlayerManager.Player.character.actor[GoldAttribute.ID];
+        DataGlobalManager._summaryGold = gold;
 
         // 玩家資料 如果戰鬥後結束要執行保存在此
-        DataGlobalManager._playerData.iPlayer_Money += PlayerManager.Player.character.gold;
+        DataGlobalManager._playerData.iPlayer_Money += gold;
         StorageUtility.PlayerStoreData().Save(DataGlobalManager._playerData);
     }
 }
