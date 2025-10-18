@@ -1,16 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>, IEvent<ExpEvent>
 {
-    // 角色資料監聽用型態
-    public enum StatType
-    {
-        Level, TotalExp, ExpToLevelUp, MaxHp, Def, SpeedMult, AttackMult, CurrentHp, isDead, Invincibility, Gold
-    }
-
     // 資料變更監聽者
     public UnityEvent<Actor, IActorAttribute> onActorEvent = new();
     public UnityEvent onInvincibleEvent = new();
@@ -18,16 +10,6 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>, IE
 
     // 角色資料
     [SerializeField] public Actor actor = new();
-    [SerializeField] public int level => (int)actor.Get(LevelAttribute.ID).Value; // 等級
-    [SerializeField] public float levelUpExp => actor.Get(ExpAttribute.ID).OrigValue; // 升級所需經驗值
-    [SerializeField] public float totalExp => actor.Get(ExpAttribute.ID).Value; // 累積經驗值
-    [SerializeField] public float maxHp => actor.Get(HpAttribute.ID).OrigValue; // 當前血量
-    [SerializeField] public float def => actor.Get(DefAttribute.ID).Value; // 防禦
-    [SerializeField] public float moveMult => actor.Get(MoveAttribute.ID).Value; // 移動速度倍率
-    [SerializeField] public float speedMult => actor.Get(SpeedAttribute.ID).Value; // 攻擊速度倍率
-    [SerializeField] public float attackMult => actor.Get(AttAttribute.ID).Value; // 攻擊倍率
-    [SerializeField] public float currentHp => actor.Get(HpAttribute.ID).Value; // 當前血量
-    [SerializeField] public int gold => (int)actor.Get(GoldAttribute.ID).Value;  // 當前金幣
     bool isDead = false; // 死亡判定
     [SerializeField] TimeCounter invincibilityCounter = new TimeCounter(1f); // 無敵時間
 
