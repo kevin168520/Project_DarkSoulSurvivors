@@ -15,7 +15,8 @@ public class HealthChest : MonoBehaviour
         if (player == null) return;
 
         // 改為回滿HP
-         int hpToRestore = player.maxHp - player.currentHp;
+        HpAttribute hp = player.actor.Get<HpAttribute>();
+        int hpToRestore = (int)(hp.OrigValue - hp.Value);
         if (hpToRestore > 0)
         {
             player.AddHp(hpToRestore);
