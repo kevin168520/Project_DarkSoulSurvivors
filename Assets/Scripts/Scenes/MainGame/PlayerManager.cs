@@ -28,12 +28,12 @@ public class PlayerManager : ManagerMonoBase
         spritePrefab.SetActive(true);
         Player.anim = spritePrefab.GetComponent<PlayerAnimationComponent>(); // 暫時使用組合方式載入
 
-        // 載入角色資料
-        Player.character.maxHp = characterData.hp + storeData.iPlayerItemLevel_HP;
-        Player.character.def = characterData.def + storeData.iPlayerItemLevel_DEF;
-        Player.character.speedMult = characterData.speedMult + storeData.iPlayerItemLevel_moveSpeed;
-        Player.character.attackMult = characterData.attackMult;
-        Player.character.currentHp = Player.character.maxHp;
+        // 載入角色單位
+        var actor = Player.character.CreateActor();
+        actor.Set(HpAttribute.Create(characterData.hp + (storeData.iPlayerItemLevel_HP * 10)));
+        actor.Set(DefAttribute.Create(characterData.def + (storeData.iPlayerItemLevel_DEF * 2)));
+        actor.Set(MoveAttribute.Create(characterData.speedMult + (storeData.iPlayerItemLevel_moveSpeed * 2)));
+        actor.Set(AttAttribute.Create(characterData.attackMult));
 
         // 註冊角色監聽
         Player.character.dataChangeListener.AddListener(OnCharacterdataChange);
