@@ -12,7 +12,9 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>, IE
     }
 
     // 資料變更監聽者
-    public UnityEvent<StatType> dataChangeListener = new UnityEvent<StatType>();
+    public UnityEvent<Actor, IActorAttribute> onActorEvent = new();
+    public UnityEvent onInvincibleEvent = new();
+    public UnityEvent onDeadEvent = new();
 
     // 角色資料
     [SerializeField] public Actor actor = new();
@@ -63,7 +65,7 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>, IE
     {
         actor[HpAttribute.ID] += hp;
 
-        dataChangeListener.Invoke(StatType.CurrentHp);
+        onActorEvent.Invoke(actor, actor.Get<HpAttribute>());
     }
 
     public void LevelUp()
@@ -73,7 +75,7 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>, IE
         actor.Set(ExpAttribute.Create(actor[LevelAttribute.ID] * 10));
         actor[ExpAttribute.ID] = exp;
 
-        dataChangeListener.Invoke(StatType.Level);
+        onActorEvent.Invoke(actor, actor.Get<LevelAttribute>());
     }
 
     /// <summary> 死亡檢查 </summary>
@@ -82,7 +84,7 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>, IE
         if (actor[HpAttribute.ID] <= 0)
         {
             isDead = true;
-            dataChangeListener.Invoke(StatType.isDead);
+            onDeadEvent.Invoke();
         }
         return isDead;
     }
@@ -92,7 +94,7 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>, IE
     {
         invincibilityCounter.Reset();
 
-        dataChangeListener.Invoke(StatType.Invincibility);
+        onInvincibleEvent.Invoke();
     }
 
     /// <summary> 傷害判斷執行 </summary>
@@ -136,7 +138,7 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>, IE
     {
         actor[GoldAttribute.ID] += parameters.gold;
 
-        dataChangeListener.Invoke(StatType.Gold);
+        onActorEvent.Invoke(actor, actor.Get<GoldAttribute>());
     }
 
     public void Execute(ExpEvent parameters)
@@ -151,6 +153,6 @@ public class CharacterScript : MonoBehaviour, IDamageable, IEvent<GoldEvent>, IE
             LevelUp();
         }
 
-        dataChangeListener.Invoke(StatType.TotalExp);
+        onActorEvent.Invoke(actor, actor.Get<ExpAttribute>());
     }
 }
