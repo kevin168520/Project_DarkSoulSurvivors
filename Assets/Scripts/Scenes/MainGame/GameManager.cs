@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary> 負責遊戲流程管控 暫停 勝利 失敗 跳轉其他場景 </summary>
 public class GameManager : ManagerMonoBase
@@ -13,7 +14,7 @@ public class GameManager : ManagerMonoBase
 
     void Start()
     {
-        var level = (ScenesBuildData)UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+        var level = (ScenesBuildData)SceneManager.GetActiveScene().buildIndex;
         switch (level)
         {
             case ScenesBuildData.MainGameLevel_1:
