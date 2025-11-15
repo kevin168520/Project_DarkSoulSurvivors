@@ -14,14 +14,14 @@ public class LauncherManager : ManagerMonoBase
         // 判斷 Steam 登入
         if (!await TrySteamLoginAsync())
         {
-            AppQuit("Steam 初始化失敗，請透過 Steam 啟動遊戲");
+            AppQuit("Steam 登入失敗，請透過 Steam 啟動遊戲");
             return;
         }
 
         // 判斷 Steam 初始化
         if (!await InitSteam())
         {
-            AppQuit("Steam 初始化失敗，請透過 Steam 啟動遊戲");
+            AppQuit("Steam 初始化失敗，請確認 Steam 伺服器正常運作");
             return;
         }
 
@@ -42,7 +42,14 @@ public class LauncherManager : ManagerMonoBase
         if (skipSteam) return true;
 #endif
         await UniTask.CompletedTask;
-        return SteamManager.Initialized;
+        if(SteamManager.Initialized)
+        {
+            CSteamID steamID = SteamUser.GetSteamID();
+            string personaName = SteamFriends.GetPersonaName();
+            Debug.Log($"steam 登入成功: {personaName} ({steamID})");
+            return true;
+        }
+        return false;
     }
 
     /// <summary> Steam 初始化 </summary>
@@ -54,10 +61,7 @@ public class LauncherManager : ManagerMonoBase
         try
         {
             // 初始化 Steam 成就系統
-            AchievementGlobalManager.StartAchevement();
-
-            // 此處可加入後端帳號綁定、資料下載等流程（也是用 await
-            CSteamID steamID = SteamUser.GetSteamID();
+            await AchievementGlobalManager.Initialize();
         }
         catch (Exception e)
         {

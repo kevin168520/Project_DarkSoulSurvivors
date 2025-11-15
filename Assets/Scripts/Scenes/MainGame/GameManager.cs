@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Steamworks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary> 負責遊戲流程管控 暫停 勝利 失敗 跳轉其他場景 </summary>
 public class GameManager : ManagerMonoBase
@@ -10,10 +10,11 @@ public class GameManager : ManagerMonoBase
     public GameObject gameCompletePanel; // 遊戲通關UI
     bool bGameOver; // 遊戲結束判定
     public bool IsGameOver => bGameOver; // 遊戲結束判定
+    bool IsGameComplete; // 遊戲通關判定
 
     void Start()
     {
-        var level = (ScenesBuildData)UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+        var level = (ScenesBuildData)SceneManager.GetActiveScene().buildIndex;
         switch (level)
         {
             case ScenesBuildData.MainGameLevel_1:
@@ -33,25 +34,6 @@ public class GameManager : ManagerMonoBase
         if (bGameOver && Input.GetKeyDown(KeyCode.Return))
         {
             GameEnd();
-        }
-
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            Debug.Log("SteamAchievementId CharaA_Stage1 Success - Start to Unlock Achievement");
-            AchievementGlobalManager.SteamAchievementUnlock(eSteamAchievementApi.CharaA_Stage1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            Debug.Log("SteamAchievementId CharaA_Stage2 Success - Start to Unlock Achievement");
-            AchievementGlobalManager.SteamAchievementUnlock(eSteamAchievementApi.CharaA_Stage2);
-        }
-
-        if (Input.GetKeyDown(KeyCode.F10))
-        {
-            bool achieved;
-            SteamUserStats.GetAchievement(eSteamAchievementApi.CharaA_Stage1.ToString(), out achieved);
-            Debug.Log($"Achievement already unlocked? {achieved}");
         }
     }
 
@@ -74,6 +56,7 @@ public class GameManager : ManagerMonoBase
         PauseGame();
         gameOverPanel.SetActive(true);
         bGameOver = true;
+        IsGameComplete = false;
     }
 
     // 遊戲結算
@@ -90,6 +73,7 @@ public class GameManager : ManagerMonoBase
         PauseGame();
         gameCompletePanel.SetActive(true);
         bGameOver = true;
+        IsGameComplete = true;
     }
 
     // 結算成績
@@ -117,5 +101,12 @@ public class GameManager : ManagerMonoBase
         // 玩家資料 如果戰鬥後結束要執行保存在此
         DataGlobalManager._playerData.iPlayer_Money += gold;
         StorageUtility.PlayerStoreData().Save(DataGlobalManager._playerData);
+
+        if (!IsGameComplete) return;
+        // 以下成功通關的處理
+
+        AchievementGlobalManager.RequestCharacterAchievement(PlayerManager.Player.characterData.showNumber);
+        AchievementGlobalManager.RequestStageAchievement((ScenesBuildData)SceneManager.GetActiveScene().buildIndex);
+        AchievementGlobalManager.RefreshAchievement();
     }
 }
