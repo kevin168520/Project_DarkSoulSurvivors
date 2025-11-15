@@ -40,13 +40,13 @@ public class AchievementGlobalManager : GlobalMonoBase<AchievementGlobalManager>
     {
         switch (number)
         {
-            case 0:
+            case 1:
                 UnlockAchievement(SteamAchievementApi.Complete_Character1);
                 break;
-            case 1:
+            case 2:
                 UnlockAchievement(SteamAchievementApi.Complete_Character2);
                 break;
-            case 2:
+            case 3:
                 UnlockAchievement(SteamAchievementApi.Complete_Character3);
                 break;
         }
