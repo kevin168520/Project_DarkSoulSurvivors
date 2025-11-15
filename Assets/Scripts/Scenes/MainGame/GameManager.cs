@@ -104,5 +104,9 @@ public class GameManager : ManagerMonoBase
 
         if (!IsGameComplete) return;
         // 以下成功通關的處理
+
+        AchievementGlobalManager.RequestCharacterAchievement(PlayerManager.Player.characterData.showNumber);
+        AchievementGlobalManager.RequestStageAchievement((ScenesBuildData)SceneManager.GetActiveScene().buildIndex);
+        AchievementGlobalManager.RefreshAchievement();
     }
 }
