@@ -14,6 +14,8 @@ public class EnemyManager : ManagerMonoBase
 
     Queue<GameObject> enemyPool = new Queue<GameObject>(); // 敵人池
 
+    public int enemyKilledCount; // 臨時殺敵計數
+
     void Start()
     {
         Camera cam = Camera.main;
@@ -80,6 +82,7 @@ public class EnemyManager : ManagerMonoBase
     // 回收到敵人池
     void RecycleEnemy(GameObject enemy)
     {
+        enemyKilledCount++;
         enemy.SetActive(false);
         enemyPool.Enqueue(enemy);
     }
