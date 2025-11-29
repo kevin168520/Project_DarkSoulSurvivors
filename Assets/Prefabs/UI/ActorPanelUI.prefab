@@ -84,6 +84,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2666621364186797349}
+  - component: {fileID: 705643749166832249}
   m_Layer: 5
   m_Name: Padding
   m_TagString: Untagged
@@ -110,8 +111,16 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -70, y: -120}
+  m_SizeDelta: {x: -80, y: -120}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &705643749166832249
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107244899377160135}
+  m_CullTransparentMesh: 1
 --- !u!1 &1786364404844141658
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +324,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 1
+  m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 80, y: 80}
@@ -1106,8 +1115,9 @@ GameObject:
   - component: {fileID: 7033121118021374287}
   - component: {fileID: 6348734891006547599}
   - component: {fileID: 925675438103394614}
+  - component: {fileID: -1389651115319225390}
   m_Layer: 5
-  m_Name: AbilityAndWeaponUI
+  m_Name: ActorPanelUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1171,6 +1181,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-1389651115319225390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7113462025269337975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce8d5f0e386d67b478b15a25bbaa3c35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <hpText>k__BackingField: {fileID: 256126954781432068}
+  <defText>k__BackingField: {fileID: 1460101856990033350}
+  <atkText>k__BackingField: {fileID: 4859799330296463869}
+  <gridLayout>k__BackingField: {fileID: 1775849375914124563}
+  <gridItems>k__BackingField:
+  - {fileID: 6816399898120604045}
+  - {fileID: 2515670817591333988}
+  - {fileID: 2096245121912583215}
+  - {fileID: 5889268493864636581}
+  - {fileID: 1282660648666883537}
+  - {fileID: 7252421313590792972}
+  - {fileID: 3440690453388490261}
+  - {fileID: 282991758753132393}
+  - {fileID: 1728591760813924609}
+  - {fileID: 5645021950521757818}
+  - {fileID: 2481367553253626824}
+  - {fileID: 1938094385687789725}
+  - {fileID: 5106523566466679367}
+  - {fileID: 4019479171718454329}
 --- !u!1 &7320331391618794205
 GameObject:
   m_ObjectHideFlags: 0
