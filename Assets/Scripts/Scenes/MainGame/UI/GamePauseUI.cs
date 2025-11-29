@@ -21,15 +21,4 @@ public class GamePauseUI : MonoBehaviour
     public UnityAction btnSettingOnClick {set => btnSetting.onClick.AddListener(value);}
     [SerializeField]  Button btnBackToMenu; // 回到LoginScene
     public UnityAction btnBackToMenuOnClick {set => btnBackToMenu.onClick.AddListener(value);}
-    
-    public void SetWeaponIcons(params Sprite[] weaponIcons) {
-        for(int i = 0; i<imgWeaponsIcons.Count; i++) {
-          if(i < weaponIcons.Length){
-            imgWeaponsIcons[i].sprite = weaponIcons[i];
-            imgWeaponsIcons[i].gameObject.SetActive(true);
-          } else {
-            imgWeaponsIcons[i].gameObject.SetActive(false);
-          }
-        }
-    }
 }
