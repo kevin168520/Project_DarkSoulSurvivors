@@ -31,9 +31,9 @@ public class PlayerManager : ManagerMonoBase
         // 載入角色單位
         var actor = Player.character.CreateActor();
         actor.Set(HpAttribute.Create(characterData.hp + (storeData.iPlayerItemLevel_HP * 10)));
-        actor.Set(DefAttribute.Create(characterData.def + (storeData.iPlayerItemLevel_DEF * 2)));
-        actor.Set(MoveAttribute.Create(characterData.speedMult + (storeData.iPlayerItemLevel_moveSpeed * 2)));
-        actor.Set(AttAttribute.Create(characterData.attackMult));
+        actor.Set(DefAttribute.Create(characterData.def + (storeData.iPlayerItemLevel_DEF * 1)));
+        actor.Set(MoveAttribute.Create(characterData.speedMult + (storeData.iPlayerItemLevel_moveSpeed * 1)));
+        actor.Set(AttAttribute.Create(characterData.attackMult + (storeData.iPlayerItemLevel_ATK * 1)));
 
         // 註冊角色監聽
         Player.character.onActorEvent.AddListener(OnActorEvent);

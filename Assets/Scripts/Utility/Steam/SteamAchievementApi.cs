@@ -47,7 +47,7 @@ public static class SteamAchievementApiExtensions
     {
         return achievement switch
         {
-            SteamAchievementApi.ACH_MONSTER_HUNTER => 100,
+            SteamAchievementApi.ACH_MONSTER_HUNTER => 1000,
             _ => throw new NotImplementedException(),
         };
     }

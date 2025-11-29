@@ -107,6 +107,7 @@ public class GameManager : ManagerMonoBase
 
         AchievementGlobalManager.RequestCharacterAchievement(PlayerManager.Player.characterData.showNumber);
         AchievementGlobalManager.RequestStageAchievement((ScenesBuildData)SceneManager.GetActiveScene().buildIndex);
+        AchievementGlobalManager.UnlockAchievementProgress(SteamAchievementApi.ACH_MONSTER_HUNTER, EnemyManager.enemyKilledCount);
         AchievementGlobalManager.RefreshAchievement();
     }
 }

@@ -37,21 +37,9 @@ public class PauseMenuManager : ManagerMonoBase
       } else {
         GameManager.PauseGame();
         ShowPanelUI(true);
-        InitPanelUI();
+        ActorPanelManager.UpdateUI();
       }
     }
-  }
-
-  /// <summary> 初始化 UI面板 每次開啟時 </summary>
-  void InitPanelUI()
-  {
-    var playerWeapons = WeaponManager.GetWeapons();
-    Sprite[] weaponIcon = new Sprite[playerWeapons.Count];
-    for (int i = 0; i < weaponIcon.Length; i++)
-    {
-      weaponIcon[i] = playerWeapons[i].weaponIcon;
-    }
-    _gamePauseUI.SetWeaponIcons(weaponIcon);
   }
 
   /// <summary> 顯示 UI面板</summary>
