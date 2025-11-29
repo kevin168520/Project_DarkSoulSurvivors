@@ -21,6 +21,9 @@ public abstract class ManagerMonoBase : InstanceMonoBase
   LauncherManager _LauncherManager;
   protected LauncherManager LauncherManager => _LauncherManager ??= InstanceGlobalManager.Get<LauncherManager>();
 
+  ActorPanelManager _ActorPanelManager;
+  protected ActorPanelManager ActorPanelManager => _ActorPanelManager ??= InstanceGlobalManager.Get<ActorPanelManager>();
+
 
   // 全球管理者成員
   protected DataGlobalManager DataGlobalManager => DataGlobalManager.Instance;
