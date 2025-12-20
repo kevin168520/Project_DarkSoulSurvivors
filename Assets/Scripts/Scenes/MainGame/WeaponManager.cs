@@ -22,11 +22,20 @@ public class WeaponManager : ManagerMonoBase
         AddWeapon(characterData.startingWeapon);
     }
 
+    public void UpdateWeaponActor(Actor actor)
+    {
+        foreach (WeaponHandlerBase weapon in equipWeapon)
+        {
+            weapon.LoadActor(actor);
+        }
+    }
+
     // 添加武器物件 透過武器資料
     public void AddWeapon(WeaponScriptable weaponData)
     {
         WeaponHandlerBase weapon = Instantiate(weaponData.weaponPrefab).GetComponent<WeaponHandlerBase>();
         weapon.LoadWeaponData(weaponData);
+        weapon.LoadActor(PlayerManager.Player.character.actor);
         AddWeapon(weapon);
     }
 
@@ -119,6 +128,7 @@ public class WeaponManager : ManagerMonoBase
                 {
                     Debug.Log($"{weaponData.weaponName} Upgrade To ({weaponData.weaponLevel} Level)");
                     weapon.LoadWeaponData(weaponData);
+                    weapon.LoadActor(PlayerManager.Player.character.actor);
                     weaponUpgradeUI.Active = false;
                     GameManager.UnPauseGame();
                     return;
