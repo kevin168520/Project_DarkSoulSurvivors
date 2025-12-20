@@ -24,6 +24,9 @@ public abstract class ManagerMonoBase : InstanceMonoBase
   ActorPanelManager _ActorPanelManager;
   protected ActorPanelManager ActorPanelManager => _ActorPanelManager ??= InstanceGlobalManager.Get<ActorPanelManager>();
 
+  DamageEffectsManager _DamageTextManager;
+  protected DamageEffectsManager DamageTextManager => _DamageTextManager ??= InstanceGlobalManager.Get<DamageEffectsManager>();
+
 
   // 全球管理者成員
   protected DataGlobalManager DataGlobalManager => DataGlobalManager.Instance;

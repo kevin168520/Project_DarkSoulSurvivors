@@ -54,6 +54,7 @@ public class EnemyScript : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         hp -= damage;
+        EventGlobalManager.Instance.InvokeEvent(new DamageEvent() { damage = damage, worldPos = transform.position });
         Debug.Log($"Enemy TakeDamage: {damage}, HP: {hp}");
 
         // 血量歸零 死亡處理
