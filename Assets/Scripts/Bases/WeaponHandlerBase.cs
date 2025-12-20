@@ -15,6 +15,7 @@ public abstract class WeaponHandlerBase : MonoBehaviour
     public int weaponLevel; // 武器等級
     public int weaponLevelMax; // 武器最高等級
     public int attack; // 攻擊值
+    public float attackMult; // 攻擊倍率
     public float attackInterval
     { // 攻擊間格
         get => attackCounter.GetTimeInterval();
@@ -23,6 +24,13 @@ public abstract class WeaponHandlerBase : MonoBehaviour
     [SerializeField] TimeCounter attackCounter = new TimeCounter(1f, true); // 攻擊間格 計時用
     public float activeInterval; // 攻擊持續
     public float flightSpeed; // 飛行攻擊速度
+
+    // 設置角色資料
+    public void LoadActor(Actor actor)
+    {
+        if(actor.TryGet<AttAttribute>(out var attr))
+            attackMult = 1f + attr.Value * 0.1f;
+    }
 
     // 設置武器資料
     public void LoadWeaponData(WeaponScriptable weaponData)
@@ -71,9 +79,9 @@ public abstract class WeaponHandlerBase : MonoBehaviour
         // 判定可受傷
         if (collision.GetComponent<IDamageable>() is IDamageable e)
         {
-            e.TakeDamage(attack); // 申請對象傷害
+            e.TakeDamage(Mathf.RoundToInt(attack * attackMult)); // 申請對象傷害
 
-            totalDamage += attack;
+            totalDamage += Mathf.RoundToInt(attack * attackMult);
             return true;
         }
         return false;
