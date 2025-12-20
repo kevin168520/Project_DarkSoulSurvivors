@@ -9,22 +9,32 @@ public abstract class WeaponHandlerBase : MonoBehaviour
     public string weaponName; // 武器名稱
     public Sprite weaponIcon; // 武器圖片
     public int totalDamage; // 總傷害
-    
+
     // 武器素質
     public int weaponNumber; // 武器編號
     public int weaponLevel; // 武器等級
     public int weaponLevelMax; // 武器最高等級
     public int attack; // 攻擊值
-    public float attackInterval{ // 攻擊間格
-      get => attackCounter.GetTimeInterval(); 
-      set => attackCounter.SetTimeInterval(value);
+    public float attackMult; // 攻擊倍率
+    public float attackInterval
+    { // 攻擊間格
+        get => attackCounter.GetTimeInterval();
+        set => attackCounter.SetTimeInterval(value);
     }
-    [SerializeField] TimeCounter attackCounter  = new TimeCounter(1f, true); // 攻擊間格 計時用
+    [SerializeField] TimeCounter attackCounter = new TimeCounter(1f, true); // 攻擊間格 計時用
     public float activeInterval; // 攻擊持續
     public float flightSpeed; // 飛行攻擊速度
 
+    // 設置角色資料
+    public void LoadActor(Actor actor)
+    {
+        if(actor.TryGet<AttAttribute>(out var attr))
+            attackMult = 1f + attr.Value * 0.1f;
+    }
+
     // 設置武器資料
-    public void LoadWeaponData(WeaponScriptable weaponData) {
+    public void LoadWeaponData(WeaponScriptable weaponData)
+    {
         weaponIcon = weaponData.weaponIcon;
         weaponName = weaponData.weaponName;
         weaponNumber = weaponData.weaponNumber;
@@ -35,20 +45,23 @@ public abstract class WeaponHandlerBase : MonoBehaviour
         activeInterval = weaponData.activeInterval;
         flightSpeed = weaponData.flightSpeed;
     }
-    
+
     // 判定武器可升級
-    public bool IsWeaponUpgradeable() {
-        return weaponLevelMax > (weaponLevel+1);
+    public bool IsWeaponUpgradeable()
+    {
+        return weaponLevelMax > (weaponLevel + 1);
     }
 
     // 判定同一把武器
-    public bool IsSameWeapon(WeaponScriptable weaponData) {
+    public bool IsSameWeapon(WeaponScriptable weaponData)
+    {
         return weaponData.weaponNumber == weaponNumber;
     }
-    
+
     // 計時攻擊頻率
-    void Update(){
-        if(attackCounter.UpdateDelta())
+    void Update()
+    {
+        if (attackCounter.UpdateDelta())
         {
             HandleAttack();
         }
@@ -56,19 +69,20 @@ public abstract class WeaponHandlerBase : MonoBehaviour
 
     // 子類實作攻擊
     abstract protected void HandleAttack();
-    
+
     // 執行攻擊
     virtual protected bool ApplyDamage(Collider2D collision)
     {
         // 檢查對象
-        if(!collision.CompareTag("Enemy")) return false;
+        if (!collision.CompareTag("Enemy")) return false;
 
         // 判定可受傷
-        if(collision.GetComponent<IDamageable>() is IDamageable e){
-          e.TakeDamage(attack); // 申請對象傷害
+        if (collision.GetComponent<IDamageable>() is IDamageable e)
+        {
+            e.TakeDamage(Mathf.RoundToInt(attack * attackMult)); // 申請對象傷害
 
-          totalDamage += attack;
-          return true;
+            totalDamage += Mathf.RoundToInt(attack * attackMult);
+            return true;
         }
         return false;
     }

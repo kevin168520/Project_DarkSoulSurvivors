@@ -21,46 +21,63 @@ public class WeaponManager : ManagerMonoBase
         CharacterScriptable characterData = DataGlobalManager._characterData;
         AddWeapon(characterData.startingWeapon);
     }
-    
+
+    public void UpdateWeaponActor(Actor actor)
+    {
+        foreach (WeaponHandlerBase weapon in equipWeapon)
+        {
+            weapon.LoadActor(actor);
+        }
+    }
+
     // 添加武器物件 透過武器資料
-    public void AddWeapon(WeaponScriptable weaponData){
+    public void AddWeapon(WeaponScriptable weaponData)
+    {
         WeaponHandlerBase weapon = Instantiate(weaponData.weaponPrefab).GetComponent<WeaponHandlerBase>();
         weapon.LoadWeaponData(weaponData);
+        weapon.LoadActor(PlayerManager.Player.character.actor);
         AddWeapon(weapon);
     }
-    
+
     // 添加武器物件
-    public void AddWeapon(WeaponHandlerBase weapon){
+    public void AddWeapon(WeaponHandlerBase weapon)
+    {
         equipWeapon.Add(weapon);
 
         // 移動武器放置座標
         weapon.transform.parent = weaponTransform;
-        weapon.transform.localPosition  = Vector3.zero;
+        weapon.transform.localPosition = Vector3.zero;
         weapon.gameObject.SetActive(true);
     }
 
     public List<WeaponHandlerBase> GetWeapons() => equipWeapon;
-    
+
     // 初始化武器升級介面
-    public void InitWeaponUpgradeUI(){      
+    public void InitWeaponUpgradeUI()
+    {
         // 篩選武器內容
         List<WeaponScriptable> upgradeWeapon = new List<WeaponScriptable>();
         List<WeaponScriptable> nonupgradeWeapon = new List<WeaponScriptable>();
 
-        foreach(WeaponHandlerBase weapon in equipWeapon){
+        foreach (WeaponHandlerBase weapon in equipWeapon)
+        {
             WeaponScriptable weaponData = Instantiate(weaponDatabase.Search(weapon.weaponNumber));
-            if(weapon.IsWeaponUpgradeable()) {
+            if (weapon.IsWeaponUpgradeable())
+            {
                 weaponData.weaponLevel++;
                 upgradeWeapon.Add(weaponData);
-            } else {
+            }
+            else
+            {
                 nonupgradeWeapon.Add(weaponData);
             }
         }
 
         // 如果還有剩餘位置 從武器資料庫中塞選
-        if(upgradeWeapon.Count < weaponUpgradeUI.options.Count){
+        if (upgradeWeapon.Count < weaponUpgradeUI.options.Count)
+        {
             weaponDatabase.Shuffle();
-        
+
             foreach (WeaponScriptable weaponDataPre in weaponDatabase)
             {
                 if (upgradeWeapon.Count >= weaponUpgradeUI.options.Count) break;
@@ -72,9 +89,11 @@ public class WeaponManager : ManagerMonoBase
         }
 
         // 設置選項內容
-        for(int i = 0; i < weaponUpgradeUI.options.Count; i++){
+        for (int i = 0; i < weaponUpgradeUI.options.Count; i++)
+        {
             UpgradeOptions op = weaponUpgradeUI.options[i];
-            if(i < upgradeWeapon.Count) {
+            if (i < upgradeWeapon.Count)
+            {
                 WeaponScriptable weaponData = upgradeWeapon[i];
                 op.IconImage = weaponData.weaponIcon;
                 op.TitleText = weaponData.weaponName;
@@ -82,26 +101,34 @@ public class WeaponManager : ManagerMonoBase
                 op.Active = true;
                 op.Listener = OnUpgradeWeapons;
                 op.ReturnValue = weaponData;
-            } else {
+            }
+            else
+            {
                 op.Active = false;
             }
         }
 
         // 開啟武器生級選單
-        if(upgradeWeapon.Count > 0) {
+        if (upgradeWeapon.Count > 0)
+        {
             weaponUpgradeUI.Active = true;
             GameManager.PauseGame();
         }
     }
-    
+
     // 升級武器選項的監聽
-    public void OnUpgradeWeapons(Object obj){
-        if(obj is WeaponScriptable weaponData){
+    public void OnUpgradeWeapons(Object obj)
+    {
+        if (obj is WeaponScriptable weaponData)
+        {
             // 升級武器是當前裝備 更新武器資料
-            foreach(WeaponHandlerBase weapon in equipWeapon){
-                if(weapon.IsSameWeapon(weaponData)) {
+            foreach (WeaponHandlerBase weapon in equipWeapon)
+            {
+                if (weapon.IsSameWeapon(weaponData))
+                {
                     Debug.Log($"{weaponData.weaponName} Upgrade To ({weaponData.weaponLevel} Level)");
                     weapon.LoadWeaponData(weaponData);
+                    weapon.LoadActor(PlayerManager.Player.character.actor);
                     weaponUpgradeUI.Active = false;
                     GameManager.UnPauseGame();
                     return;

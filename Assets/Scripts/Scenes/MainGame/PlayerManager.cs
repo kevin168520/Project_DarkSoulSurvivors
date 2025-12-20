@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public class PlayerManager : ManagerMonoBase
 {
     UnityAction WeaponUpgrade => WeaponManager.InitWeaponUpgradeUI;
+    UnityAction<Actor> UpdateWeaponActor => WeaponManager.UpdateWeaponActor;
     [Header("玩家物件")]
     [SerializeField] private PlayerScript _player;
     public PlayerScript Player => _player;
@@ -34,6 +35,7 @@ public class PlayerManager : ManagerMonoBase
         actor.Set(DefAttribute.Create(characterData.def + (storeData.iPlayerItemLevel_DEF * 1)));
         actor.Set(MoveAttribute.Create(characterData.speedMult + (storeData.iPlayerItemLevel_moveSpeed * 1)));
         actor.Set(AttAttribute.Create(characterData.attackMult + (storeData.iPlayerItemLevel_ATK * 1)));
+        UpdateWeaponActor(actor);
 
         // 註冊角色監聽
         Player.character.onActorEvent.AddListener(OnActorEvent);
@@ -57,6 +59,9 @@ public class PlayerManager : ManagerMonoBase
                 break;
             case GoldAttribute gold:
                 _playerStatUI.GoldCount = (int)gold.Value;
+                break;
+            case AttAttribute att:
+                UpdateWeaponActor(actor);
                 break;
             default:
                 break;
